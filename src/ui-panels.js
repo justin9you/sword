@@ -423,7 +423,7 @@
     if (q) {
       var giver = ZX.NPCS.byKey(q.giver);
       var turn = ZX.NPCS.byKey(q.turnIn);
-      var done = ZX.Quest.complete(p);
+      var done = ZX.Quest.goalMet(p);
       html += '<div class="quest-card' + (done ? ' done' : '') + '">' +
         '<div class="q-name">' + esc(q.name) + '</div>' +
         '<div class="q-brief">' + esc(q.brief) + '</div>' +
@@ -433,7 +433,8 @@
         '交付：' + esc(turn ? turn.name : '—') +
         '（' + esc(turn ? ZX.MAPS.byKey(turn.map).name : '') + '）</div>';
       if (p.level < q.lv) {
-        html += '<div class="q-lock">建议 ' + q.lv + ' 级再来。低于此等级照样能打、也照样计数，只是会吃力些。</div>';
+        html += '<div class="q-lock">需 ' + q.lv + ' 级方可复命（你现在 ' + p.level + ' 级）。' +
+          '等级不影响打怪——杀多少算多少，进度不会清零，练上去回来直接交。</div>';
       }
       html += '<div class="q-reward">酬劳：' + U.big(q.reward.exp) + ' 经验　' +
         U.big(q.reward.gold) + ' 灵石' + rewardItems(q) + '</div></div>';
@@ -614,11 +615,20 @@
     var q = ZX.Quest.current(p);
     var canTurn = ZX.Quest.canTurnInAt(p, npc.key);
     var isGiver = ZX.Quest.isGiver(p, npc.key);
+    var waiting = ZX.Quest.waitingForLevel(p, npc.key);
 
     var body = '';
     var line = U.pick(npc.lines);
 
-    if (canTurn) {
+    if (waiting) {
+      // 打够了但修为不够。不说清楚的话，玩家跑过来只收到一句闲聊，
+      // 会以为是自己没杀够，回去又刷一遍——进度其实早就满了
+      body += '<div class="d-say">' + esc(line) + '</div>' +
+        '<div class="d-quest"><b>' + esc(q.name) + '</b>　目标已达成' +
+        '<div class="d-brief">' + esc(ZX.QUESTS.goalText(q, p.quest.progress)) + '</div>' +
+        '<div class="d-goal">还差修为：需 ' + q.lv + ' 级，你现在 ' + p.level + ' 级。' +
+        '去练一练再来——杀过的数目不会清零。</div></div>';
+    } else if (canTurn) {
       body += '<div class="d-say">' + esc(q.done) + '</div>' +
         '<div class="d-quest"><b>' + esc(q.name) + '</b> 完成' +
         '<div class="d-reward">' + U.big(q.reward.exp) + ' 经验　' +

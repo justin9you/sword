@@ -482,7 +482,7 @@ group('任务链', () => {
   low.level = 1;
   ZX.Quest.onKill(low, ZX.MONSTERS.byId('xuanshe_wang'));
   eq(low.quest.progress, 1, '低于建议等级也照常计数');
-  ok(ZX.Quest.belowSuggested(low), '但界面上会提示等级偏低');
+  ok(ZX.Quest.levelShort(low), '但会提示修为不够、还不能复命');
 
   // 整条链能走到底
   const runner = ZX.Player.create('通关', 'qingyun');
@@ -920,11 +920,24 @@ group('全链路指引', () => {
       ok(counted, tag + '：第 ' + (i + 1) + ' 只计数了');
       ZX.Player.gainExp(p, def.exp);
     }
-    ok(Q.complete(p), tag + '：打够了算完成');
+    ok(Q.goalMet(p), tag + '：打够了算达成');
+    eq(Q.targetMonsterId(p), null, tag + '：达成后不再高亮目标怪');
 
-    // 完成后指引要翻面，指向复命的地方
+    // 达成后指引就翻面指向复命地点，哪怕等级还差着
     const turn = ZX.NPCS.byKey(cur.turnIn);
-    eq(Q.targetMaps(p)[turn.map], 'turnin', tag + '：完成后指向复命地点');
+    eq(Q.targetMaps(p)[turn.map], 'turnin', tag + '：达成后指向复命地点');
+
+    // 修为不够就接着刷同一只怪练级。关键：进度一路都得保住，不能被清掉
+    const kept = p.quest.progress;
+    let grind = 0;
+    while (Q.levelShort(p) && grind++ < 2000) {
+      Q.onKill(p, def);
+      ZX.Player.gainExp(p, def.exp);
+    }
+    ok(grind < 2000, tag + '：练得到复命所需的等级');
+    eq(p.quest.progress, kept, tag + '：练级期间进度没有被清零');
+    ok(Q.goalMet(p), tag + '：练完级目标仍然是达成的');
+    ok(Q.complete(p), tag + '：等级够了就能复命');
 
     ok(!!Q.turnIn(p, cur.turnIn), tag + '：交得掉');
     steps++;
@@ -933,6 +946,56 @@ group('全链路指引', () => {
   eq(steps, ZX.QUESTS.chain.length, '整条主线全程引导不断线');
   eq(p.quest.current, null, '走到了尽头');
   ok(p.level >= 40, '光做主线也能练到相当的等级', '实得 ' + p.level + ' 级');
+});
+
+// ── 杀够了但等级不够 ────────────────────────────────────────
+/*
+ * 规则：杀怪计数不卡等级，复命卡等级，而且等级补上之后进度必须还在。
+ * 最要命的坏行为是"练到级之后得把怪重杀一遍"——进度白打了。
+ */
+group('杀够了但等级不够', () => {
+  const Q = ZX.Quest;
+  const p = ZX.Player.create('早熟', 'qingyun');
+  p.quest.current = 'q2';        // 击杀山贼 ×5，需 3 级复命
+  p.quest.progress = 0;
+  p.level = 1;
+  ZX.Player.recompute(p);
+
+  const q = Q.current(p);
+  const def = ZX.MONSTERS.byId(q.goal.monster);
+
+  // 1 级就去打，每一只都要计数
+  for (let i = 0; i < q.goal.count; i++) {
+    ok(Q.onKill(p, def), '第 ' + (i + 1) + ' 只计数了（当时才 1 级）');
+  }
+  eq(p.quest.progress, q.goal.count, '杀够了');
+
+  // 达成但不能交
+  ok(Q.goalMet(p), '目标达成');
+  ok(Q.levelShort(p), '修为不够');
+  ok(!Q.complete(p), '还不能复命');
+  ok(!Q.canTurnInAt(p, q.turnIn), '找到人也交不了');
+  ok(Q.waitingForLevel(p, q.turnIn), '会被明确告知"就差等级"');
+  eq(Q.turnIn(p, q.turnIn), null, '硬交不会生效');
+
+  // 达成之后不该再高亮目标怪——否则玩家以为没杀够，回去接着刷
+  eq(Q.targetMonsterId(p), null, '达成后不再高亮目标怪');
+  const turn = ZX.NPCS.byKey(q.turnIn);
+  eq(Q.targetMaps(p)[turn.map], 'turnin', '指路已翻面指向复命地点');
+
+  // 练到等级——进度必须原样保住
+  p.level = q.lv;
+  ZX.Player.recompute(p);
+  eq(p.quest.progress, q.goal.count, '升级没有清掉进度');
+  ok(!Q.levelShort(p), '修为够了');
+  ok(Q.complete(p), '现在可以复命');
+  ok(!Q.waitingForLevel(p, q.turnIn), '不再是"等等级"状态');
+
+  const res = Q.turnIn(p, q.turnIn);
+  ok(!!res, '一次交掉，不用重杀');
+  eq(res.quest.key, 'q2', '交的是这一条');
+  eq(p.quest.current, 'q3', '推进到下一条');
+  eq(p.quest.progress, 0, '新任务从零开始');
 });
 
 // ── 汇总 ──────────────────────────────────────────────────────

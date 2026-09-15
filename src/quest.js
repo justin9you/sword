@@ -16,15 +16,26 @@
   }
 
   /**
-  * 等级低于建议值。只用来在界面上提个醒，不阻断任何事——
-  * 任务链是线性的、玩家没得选，再拿等级卡住就只剩"打了不算数"这一种体验。
-  */
-  function belowSuggested(p) {
+   * 修为够不够复命。
+   *
+   * 等级只卡这一道关——不卡杀怪计数。打怪的进度永远算数、永远不会丢，
+   * 练到等级回来直接交，不用重打一遍。
+   */
+  function levelShort(p) {
     var q = current(p);
     return !!q && p.level < q.lv;
   }
 
-  function complete(p) {
+  /**
+   * 目标本身达没达成（杀够了 / 首领打了 / 人见着了），不看等级。
+   *
+   * 和 complete() 分开是有意的：
+   *   goalMet  决定"还用不用继续打"——达成了就不再高亮目标怪
+   *   complete 决定"能不能交差"——还要再过一道等级关
+   * 混成一个的话，等级不够时 goalMet 会一直是 false，
+   * 目标怪就一直高亮着，玩家会以为是没杀够，回去接着刷。
+   */
+  function goalMet(p) {
     var q = current(p);
     if (!q) return false;
     var g = q.goal;
@@ -33,6 +44,11 @@
     if (g.type === 'level') return p.level >= g.count;
     if (g.type === 'talk') return p.quest.progress > 0;
     return false;
+  }
+
+  /** 能不能复命：目标达成，且修为够 */
+  function complete(p) {
+    return goalMet(p) && !levelShort(p);
   }
 
   /**
@@ -115,7 +131,19 @@
   /** 这个 NPC 是不是当前任务的发布人（对话框里要显示任务简介） */
   function isGiver(p, npcKey) {
     var q = current(p);
-    return !!q && q.giver === npcKey && !complete(p);
+    // 用 goalMet 而不是 complete：已经打够了就别再把任务简介念一遍，
+    // 哪怕等级还差着——那时该说的是"去练级"，不是"去打怪"
+    return !!q && q.giver === npcKey && !goalMet(p);
+  }
+
+  /**
+   * 站在复命 NPC 面前，目标也达成了，就差等级。
+   * 这种情况必须单独说一句——否则玩家跑过来只收到一句闲聊，
+   * 完全不知道自己卡在哪儿。
+   */
+  function waitingForLevel(p, npcKey) {
+    var q = current(p);
+    return !!q && q.turnIn === npcKey && goalMet(p) && levelShort(p);
   }
 
   /**
@@ -126,7 +154,7 @@
    */
   function targetMonsterId(p) {
     var q = current(p);
-    if (!q || complete(p)) return null;
+    if (!q || goalMet(p)) return null;
     if (q.goal.type === 'kill') return q.goal.monster;
     if (q.goal.type === 'boss') return q.goal.id;
     return null;
@@ -143,7 +171,9 @@
     var q = current(p);
     if (!q) return out;
 
-    if (complete(p)) {
+    // 打够了就指向复命地点——哪怕等级还差着。
+    // 去的路上顺手就练上去了，总比让人对着已经杀够的怪继续刷强
+    if (goalMet(p)) {
       var npc = ZX.NPCS.byKey(q.turnIn);
       if (npc) out[npc.map] = 'turnin';
       return out;
@@ -179,13 +209,15 @@
   ZX.Quest = {
     current: current,
     targetMaps: targetMaps,
-    belowSuggested: belowSuggested,
+    levelShort: levelShort,
+    goalMet: goalMet,
     complete: complete,
     onKill: onKill,
     onTalk: onTalk,
     canTurnInAt: canTurnInAt,
     turnIn: turnIn,
     isGiver: isGiver,
+    waitingForLevel: waitingForLevel,
     targetMonsterId: targetMonsterId,
   };
 })(window);

@@ -277,12 +277,19 @@
         '<div class="qt-goal">主线已尽。天地间只剩你一个人在走。</div>';
       return;
     }
-    var lockedNote = p.level < q.lv ? '（建议 ' + q.lv + ' 级）' : '';
-    var doneCls = ZX.Quest.complete(p) ? ' done' : '';
+    var met = ZX.Quest.goalMet(p);
+    var short = ZX.Quest.levelShort(p);
+
+    // 三种状态说三句话：还在打 / 打够了但差等级 / 可以复命了
+    var note = short ? '（需 ' + q.lv + ' 级复命）' : '';
+    var tail = '';
+    if (met && short) tail = '　→ 练到 ' + q.lv + ' 级再去复命';
+    else if (met) tail = '　→ 回去复命';
+
     this.el.questTrack.innerHTML =
-      '<div class="qt-name">' + esc(q.name) + esc(lockedNote) + '</div>' +
-      '<div class="qt-goal' + doneCls + '">' + esc(ZX.QUESTS.goalText(q, p.quest.progress)) +
-      (ZX.Quest.complete(p) ? '　→ 回去复命' : '') + '</div>';
+      '<div class="qt-name">' + esc(q.name) + esc(note) + '</div>' +
+      '<div class="qt-goal' + (met ? ' done' : '') + '">' +
+      esc(ZX.QUESTS.goalText(q, p.quest.progress)) + esc(tail) + '</div>';
   };
 
   UI.prototype.updateBossBar = function () {
