@@ -6,7 +6,7 @@
  * 不要手改。改完代码跑 npm run stamp（npm test 会校验它有没有过期）。
  */
 const PREFIX = 'zx-';
-const VERSION = PREFIX + 'v8e7643adbc';
+const VERSION = PREFIX + 'v40b2f0e9cf';
 
 /** 少一个都跑不起来的：必须全部缓存成功，否则整次安装作废 */
 const CORE = [
@@ -71,6 +71,19 @@ self.addEventListener('activate', (event) => {
       ))
       .then(() => self.clients.claim())
   );
+});
+
+/**
+ * 页面问「你是哪一版」时如实回答。
+ *
+ * 缓存出问题时，最难受的是分不清「代码没发上去」还是「本地缓存没换」——
+ * 两者现象一模一样。让当前真正在控制页面的这个 SW 自报版本，就能一眼分辨。
+ */
+self.addEventListener('message', (event) => {
+  if (event.data !== 'version') return;
+  const reply = { type: 'version', version: VERSION };
+  if (event.ports && event.ports[0]) event.ports[0].postMessage(reply);
+  else if (event.source) event.source.postMessage(reply);
 });
 
 self.addEventListener('fetch', (event) => {

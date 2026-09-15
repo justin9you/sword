@@ -869,6 +869,12 @@ group('样式契约', () => {
   const iTouch = html.indexOf('class="touch-btns"');
   ok(iTouch > iSkill, '圆钮在 .hud-bottom 之外');
 
+  // 「攻」键已移除：怪进近身范围会自动普攻，按它是多余动作
+  const touchBlock = html.slice(iTouch, iTouch + 400);
+  ok(touchBlock.indexOf('data-action="attack"') < 0, '触屏没有多余的攻击键');
+  ok(touchBlock.indexOf('data-action="interact"') >= 0, '触屏保留交互键');
+  ok(touchBlock.indexOf('data-action="potion"') >= 0, '触屏保留吃药键');
+
   // 任务追踪和增益条要待在各自的列里自然堆叠，不能回到绝对定位。
   // 先确认规则还在——否则选择器一改名，下面两条会因为拿到空串而空转通过
   ok(rule('.quest-track').length > 0, '找得到 .quest-track 规则');

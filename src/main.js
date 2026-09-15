@@ -378,10 +378,15 @@
       'E/右键 交互　R 快速吃药　B 背包　C 角色　K 技能　L 任务　M 山河图　Esc 菜单</div>' +
       '<button class="btn" id="mn-sound">音效：' + (game.audio.enabled ? '开' : '关') + '</button>' +
       '<button class="btn" id="mn-save">立即存档</button>' +
+      '<button class="btn" id="mn-update">检查更新</button>' +
+      '<div class="hint" id="mn-ver">版本查询中……</div>' +
       '<button class="btn danger" id="mn-wipe">重新开始（清空存档）</button>' +
       '<div class="hint">进度自动保存在这台设备的浏览器里。清空浏览器数据会一并清掉。</div>' +
       '</div>';
     game.ui.show('menu', '菜单', html);
+
+    showVersion();
+    document.getElementById('mn-update').addEventListener('click', forceUpdate);
 
     document.getElementById('mn-sound').addEventListener('click', function () {
       game.audio.enabled = !game.audio.enabled;
@@ -398,6 +403,67 @@
       ZX.Save.wipe();
       global.location.reload();
     });
+  }
+
+  // ── 版本与更新 ──────────────────────────────────────────
+  /** 问当前控制页面的 Service Worker 要版本号，填进菜单 */
+  function showVersion() {
+    var el = document.getElementById('mn-ver');
+    if (!el) return;
+
+    if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
+      el.textContent = '当前：在线模式（未启用离线缓存）';
+      return;
+    }
+
+    var done = false;
+    var chan = new MessageChannel();
+    chan.port1.onmessage = function (e) {
+      done = true;
+      if (!el.isConnected) return;
+      el.textContent = '当前版本：' + (e.data && e.data.version ? e.data.version : '未知');
+    };
+    try {
+      navigator.serviceWorker.controller.postMessage('version', [chan.port2]);
+    } catch (err) {
+      el.textContent = '版本查询失败';
+      return;
+    }
+    // 旧版本的 SW 不认识这条消息，不会回话——超时就说明它是旧的
+    setTimeout(function () {
+      if (!done && el.isConnected) el.textContent = '当前版本：旧版（请点「检查更新」）';
+    }, 1200);
+  }
+
+  /**
+   * 手动检查更新。
+   * 正常情况下不需要它——新版本会自动接管并刷新。
+   * 但缓存这东西在手机浏览器上时灵时不灵，留个手动的出口总比让人删应用强。
+   */
+  function forceUpdate() {
+    var el = document.getElementById('mn-ver');
+    if (!('serviceWorker' in navigator)) {
+      if (el) el.textContent = '此浏览器不支持离线缓存';
+      return;
+    }
+    if (el) el.textContent = '正在检查……';
+
+    navigator.serviceWorker.getRegistration()
+      .then(function (reg) {
+        if (!reg) {
+          if (el) el.textContent = '没有已注册的缓存，直接刷新即可';
+          return;
+        }
+        return reg.update().then(function () {
+          // 装好的新版本会自己接管并触发刷新；这里只负责告诉用户结果
+          if (!el) return;
+          if (reg.installing || reg.waiting) el.textContent = '发现新版本，正在装……装好会自动刷新';
+          else el.textContent = '已是最新版本';
+        });
+      })
+      .catch(function () {
+        if (el) el.textContent = '检查失败，请检查网络';
+      });
   }
 
   // ── 主循环 ──────────────────────────────────────────────

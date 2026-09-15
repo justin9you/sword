@@ -191,7 +191,7 @@ function el(id) {
 }
 
 // data-action 按钮：ui.js 启动时会遍历它们绑事件
-const actionButtons = ['bag', 'char', 'skills', 'quest', 'map', 'menu', 'attack', 'interact', 'potion']
+const actionButtons = ['bag', 'char', 'skills', 'quest', 'map', 'menu', 'interact', 'potion']
   .map((a) => {
     const b = makeEl('', 'button');
     b._attrs['data-action'] = a;
