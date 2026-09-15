@@ -33,10 +33,13 @@
   --q-epic: #b483f5;
   --q-legend: #f0a34a;
 
-  /* 底部 UI 簇（经验条 + 技能栏，触屏下还要加一排圆钮）的总高度。
-     左下的日志、NPC 对话框都要避开它——集中定义一次，
-     以后调条高或格子大小只改这里，不用去三个地方各改一个魔法数字 */
-  --hud-bottom-h: 77px;
+  /* 底部两个高度，分开定义——它们避让的对象不一样：
+     --hud-bar-h    经验条 + 技能栏。触屏圆钮要贴在它正上方
+     --hud-bottom-h 整个底部簇（触屏下还要算上那排圆钮）。
+                    左下日志、NPC 对话框要避开的是这个
+     桌面端没有圆钮，两者相等 */
+  --hud-bar-h: 77px;
+  --hud-bottom-h: var(--hud-bar-h);
 
   --radius: 10px;
   --radius-sm: 6px;
@@ -719,15 +722,16 @@ body {
   pointer-events: none;
 }
 
-/* 贴在整条底栏的正上方。用 bottom: 100% 而不是写死的像素值——
-   经验条或技能格高度一变，它自己跟着让位，不会压到条上 */
+/* 单手握持时拇指够得到的地方，所以直接钉在屏幕右下角，
+   而不是跟着居中的底栏走——底栏是居中的，会把按钮带离边缘。
+   纵向贴在技能栏正上方，条高一变自己跟着让位。 */
 .touch-btns {
   display: none;
-  position: absolute;
-  right: -4px;
-  bottom: 100%;
-  margin-bottom: 10px;
+  position: fixed;
+  right: max(8px, env(safe-area-inset-right));
+  bottom: calc(max(10px, env(safe-area-inset-bottom)) + var(--hud-bar-h) + 8px);
   gap: 8px;
+  pointer-events: auto;
 }
 
 /* ══ 面板 ══════════════════════════════════════════════ */
@@ -1412,8 +1416,10 @@ body {
   }
 
   :root {
-    /* 技能格从 54 缩到 46，但上面多了一排 46px 的触屏圆钮 */
-    --hud-bottom-h: 125px;
+    /* 技能格从 54 缩到 46，所以条矮了；
+       但上面多出一排 46px 的触屏圆钮（含 8px 间距），整体反而更高 */
+    --hud-bar-h: 69px;
+    --hud-bottom-h: calc(var(--hud-bar-h) + 54px);
   }
 
   .log {
@@ -1448,10 +1454,6 @@ body {
 
   .hud-bottom {
     width: calc(100vw - 20px);
-  }
-
-  .touch-btns {
-    right: 0;
   }
 
   .btn.round {
