@@ -43,7 +43,8 @@
       minimap: $('minimap'),
       questTrack: $('quest-track'),
       buffs: $('buffs'),
-      bossbar: $('bossbar'), bossName: $('boss-name'), bossFill: $('boss-fill'),
+      bossbar: $('bossbar'), bossName: $('boss-name'),
+      bossFill: $('boss-fill'), bossText: $('boss-text'),
     };
     this.minimapCtx = this.el.minimap ? this.el.minimap.getContext('2d') : null;
     this.openPanel = null;
@@ -296,11 +297,19 @@
     }
     if (!boss) {
       this.el.bossbar.classList.add('hidden');
+      // 收起时把左右两栏放回原位
+      this.el.hud.classList.remove('boss-on');
       return;
     }
     this.el.bossbar.classList.remove('hidden');
-    this.el.bossName.textContent = '◆ ' + boss.def.name + (boss.def.title ? '　' + boss.def.title : '');
+    // 顶部通栏会占掉一段高度，让左右两栏整体下移，免得压住玩家血条
+    this.el.hud.classList.add('boss-on');
+
+    this.el.bossName.textContent = '◆ ' + boss.def.name +
+      (boss.def.title ? '　' + boss.def.title : '') + '　Lv.' + boss.def.lv;
     setBar(this.el.bossFill, boss.hp / boss.maxHp);
+    this.el.bossText.textContent = U.big(Math.ceil(boss.hp)) + ' / ' + U.big(boss.maxHp) +
+      '（' + Math.round((boss.hp / boss.maxHp) * 100) + '%）';
   };
 
   /** 小地图：地图轮廓 + 障碍 + 怪物红点 + 传送门 + 自己 */

@@ -363,8 +363,9 @@ body {
 
 .hud-left {
   position: absolute;
-  top: max(10px, env(safe-area-inset-top));
+  top: calc(max(10px, env(safe-area-inset-top)) + var(--boss-offset, 0px));
   left: max(10px, env(safe-area-inset-left));
+  transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   gap: 10px;
   align-items: flex-start;
@@ -506,8 +507,9 @@ body {
    用 flex + gap，谁的高度变了下面的自己跟着让位 */
 .hud-right {
   position: absolute;
-  top: max(10px, env(safe-area-inset-top));
+  top: calc(max(10px, env(safe-area-inset-top)) + var(--boss-offset, 0px));
   right: max(10px, env(safe-area-inset-right));
+  transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   width: 186px;
   display: flex;
   flex-direction: column;
@@ -561,22 +563,32 @@ body {
   font-size: 13px;
 }
 
+/* 顶部通栏。以前是 60vw 居中，手机上左边身份栏和右边小地图各占一头，
+   中间根本不够站，Boss 条直接压在玩家血条上，名字也被盖掉了。 */
 .bossbar {
   position: absolute;
-  top: max(14px, env(safe-area-inset-top));
+  top: max(10px, env(safe-area-inset-top));
   left: 50%;
   transform: translateX(-50%);
-  width: min(420px, 60vw);
+  width: min(560px, calc(100% - 20px));
   text-align: center;
+}
+
+/* Boss 出场时，左右两栏一起让出这段高度 */
+#hud.boss-on {
+  --boss-offset: 52px;
 }
 
 #boss-name {
   font-family: var(--serif);
-  font-size: 15px;
-  letter-spacing: 0.16em;
-  color: #ffc8d0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  color: #ffd0d8;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 18px rgba(224, 86, 110, 0.5);
   margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .quest-track {

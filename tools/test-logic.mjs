@@ -830,6 +830,58 @@ group('任务目标标记', () => {
   eq(Q.targetMonsterId(done), null, '没有在做的任务时不标记');
 });
 
+// ── 样式契约 ────────────────────────────────────────────────
+/*
+ * 这几条是布局能成立的前提，且一旦被切断不会有任何报错——
+ * 只会在某台手机上表现为"两块东西叠在一起"，而写代码的人看不到。
+ * 所以用测试把它们钉住。
+ */
+group('样式契约', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
+  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+
+  // Boss 条占顶部通栏，靠 --boss-offset 把左右两栏挤下去。
+  // 少了任何一头，Boss 条就会压回玩家血条上。
+  /** 取某条规则的声明块（第一处匹配），拿不到就返回空串 */
+  const rule = (selector) => {
+    const i = css.indexOf(selector + ' {');
+    if (i < 0) return '';
+    const j = css.indexOf('}', i);
+    return j < 0 ? '' : css.slice(i, j);
+  };
+
+  // Boss 条占顶部通栏，靠 --boss-offset 把左右两栏挤下去。
+  // 少了任何一头，Boss 条就会压回玩家血条上。
+  ok(rule('#hud.boss-on').indexOf('--boss-offset') >= 0, 'boss-on 定义了 --boss-offset');
+  ok(rule('.hud-left').indexOf('var(--boss-offset') >= 0, '左栏消费了 --boss-offset');
+  ok(rule('.hud-right').indexOf('var(--boss-offset') >= 0, '右栏消费了 --boss-offset');
+  ok(html.indexOf('id="boss-name"') >= 0, 'Boss 条有名字元素');
+  ok(html.indexOf('id="boss-text"') >= 0, 'Boss 条有血量文字元素');
+
+  // 经验条必须装得下 10px 的字，否则文字上下被切
+  const expH = Number((rule('.bar.exp').match(/height:\s*(\d+)px/) || [])[1]);
+  ok(expH >= 14, '经验条高度够放下文字', '实得 ' + expH + 'px');
+
+  // 触屏圆钮钉在视口右下角。它必须待在 .hud-bottom 外面——
+  // 那个容器带 transform，会变成 fixed 定位的包含块，按钮就贴不到屏幕角上
+  ok(rule('.touch-btns').indexOf('position: fixed') >= 0, '圆钮用 fixed 定位');
+  const iSkill = html.indexOf('id="skillbar"');
+  const iTouch = html.indexOf('class="touch-btns"');
+  ok(iTouch > iSkill, '圆钮在 .hud-bottom 之外');
+
+  // 任务追踪和增益条要待在各自的列里自然堆叠，不能回到绝对定位。
+  // 先确认规则还在——否则选择器一改名，下面两条会因为拿到空串而空转通过
+  ok(rule('.quest-track').length > 0, '找得到 .quest-track 规则');
+  ok(rule('.buffs').length > 0, '找得到 .buffs 规则');
+  ok(rule('.quest-track').indexOf('position: absolute') < 0, '任务追踪没有绝对定位');
+  ok(rule('.buffs').indexOf('position: absolute') < 0, '增益条没有绝对定位');
+
+  // 物品详情是独立弹窗，层级要高于面板
+  const panelZ = Number((rule('.panel').match(/z-index:\s*(\d+)/) || [])[1]);
+  const popZ = Number((rule('.itempop').match(/z-index:\s*(\d+)/) || [])[1]);
+  ok(popZ > panelZ, '物品弹窗层级高于面板', 'panel=' + panelZ + ' itempop=' + popZ);
+});
+
 // ── 汇总 ──────────────────────────────────────────────────────
 console.log('\n' + '─'.repeat(52));
 if (failures.length) {
