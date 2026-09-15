@@ -33,6 +33,11 @@
   --q-epic: #b483f5;
   --q-legend: #f0a34a;
 
+  /* 底部 UI 簇（经验条 + 技能栏，触屏下还要加一排圆钮）的总高度。
+     左下的日志、NPC 对话框都要避开它——集中定义一次，
+     以后调条高或格子大小只改这里，不用去三个地方各改一个魔法数字 */
+  --hud-bottom-h: 77px;
+
   --radius: 10px;
   --radius-sm: 6px;
   --shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
@@ -425,6 +430,8 @@ body {
   place-items: center;
   font-style: normal;
   font-size: 10px;
+  line-height: 1;
+  white-space: nowrap;
   letter-spacing: 0.04em;
   text-shadow: 0 1px 2px #000;
   color: #eaf0f8;
@@ -438,8 +445,10 @@ body {
   background: linear-gradient(180deg, #6aa8ef, #2f4fa8);
 }
 
+/* 经验条里要塞得下一行 10px 的文字。
+   以前是 9px 高，比字还矮，"64 / 154（41.6%）"上下都被切掉 */
 .bar.exp {
-  height: 9px;
+  height: 16px;
 }
 
 .bar.exp .fill {
@@ -454,14 +463,14 @@ body {
   background: linear-gradient(180deg, #ff6a7e, #8a1f35);
 }
 
+/* 跟在血蓝条下面自然排。以前用 top: 计算值 定位，
+   血条高度一变就得回来改这个数，迟早对不上 */
 .buffs {
-  position: absolute;
-  top: calc(max(10px, env(safe-area-inset-top)) + 62px);
-  left: max(10px, env(safe-area-inset-left));
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-  max-width: 260px;
+  margin-top: 3px;
+  max-width: 100%;
 }
 
 .buff {
@@ -490,16 +499,21 @@ body {
 .buff.b-burn { border-color: rgba(240, 138, 74, 0.5); color: #f8d6bf; }
 .buff.b-poison { border-color: rgba(143, 196, 74, 0.5); color: #e0f8bf; }
 
+/* 地图名 → 小地图 → 按钮 → 灵石 → 任务追踪，一列从上往下排。
+   用 flex + gap，谁的高度变了下面的自己跟着让位 */
 .hud-right {
   position: absolute;
   top: max(10px, env(safe-area-inset-top));
   right: max(10px, env(safe-area-inset-right));
   width: 186px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
   text-align: right;
 }
 
 .map-head {
-  margin-bottom: 5px;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
@@ -531,11 +545,9 @@ body {
   flex-wrap: wrap;
   gap: 4px;
   justify-content: flex-end;
-  margin-top: 6px;
 }
 
 .gold-row {
-  margin-top: 5px;
   font-size: 11.5px;
   color: var(--fg-faint);
   text-shadow: 0 1px 3px #000;
@@ -565,10 +577,6 @@ body {
 }
 
 .quest-track {
-  position: absolute;
-  top: calc(max(10px, env(safe-area-inset-top)) + 196px);
-  right: max(10px, env(safe-area-inset-right));
-  width: 186px;
   text-align: right;
   background: linear-gradient(90deg, transparent, rgba(10, 14, 22, 0.75));
   border-right: 2px solid rgba(232, 191, 106, 0.45);
@@ -595,7 +603,7 @@ body {
 .log {
   position: absolute;
   left: max(10px, env(safe-area-inset-left));
-  bottom: calc(max(10px, env(safe-area-inset-bottom)) + 104px);
+  bottom: calc(max(10px, env(safe-area-inset-bottom)) + var(--hud-bottom-h) + 16px);
   width: min(360px, 52vw);
   max-height: 172px;
   overflow: hidden;
@@ -670,12 +678,14 @@ body {
   opacity: 0.45;
 }
 
+/* 底部留出 11px 给快捷键，否则"太极玄清道"这种五字技能名换行后会压在上面 */
 .slot-name {
   position: absolute;
-  inset: 8px 3px auto;
+  inset: 5px 3px 11px;
+  overflow: hidden;
   font-family: var(--serif);
   font-size: 12px;
-  line-height: 1.35;
+  line-height: 1.25;
   letter-spacing: 0.02em;
   color: #e4ecf6;
   text-shadow: 0 1px 3px #000;
@@ -709,11 +719,14 @@ body {
   pointer-events: none;
 }
 
+/* 贴在整条底栏的正上方。用 bottom: 100% 而不是写死的像素值——
+   经验条或技能格高度一变，它自己跟着让位，不会压到条上 */
 .touch-btns {
   display: none;
   position: absolute;
   right: -4px;
-  bottom: 74px;
+  bottom: 100%;
+  margin-bottom: 10px;
   gap: 8px;
 }
 
@@ -1284,7 +1297,7 @@ body {
   position: fixed;
   z-index: 35;
   left: 50%;
-  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 96px);
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + var(--hud-bottom-h) + 12px);
   transform: translateX(-50%);
   width: min(560px, 92vw);
 }
@@ -1398,10 +1411,14 @@ body {
     display: flex;
   }
 
+  :root {
+    /* 技能格从 54 缩到 46，但上面多了一排 46px 的触屏圆钮 */
+    --hud-bottom-h: 125px;
+  }
+
   .log {
     width: min(240px, 46vw);
     max-height: 104px;
-    bottom: calc(max(10px, env(safe-area-inset-bottom)) + 150px);
     font-size: 11px;
   }
 
@@ -1412,11 +1429,6 @@ body {
   #minimap {
     width: 128px;
     height: 100px;
-  }
-
-  .quest-track {
-    top: calc(max(10px, env(safe-area-inset-top)) + 156px);
-    width: 132px;
   }
 
   .hud-btns .btn {
@@ -1431,7 +1443,7 @@ body {
 
   .slot-name {
     font-size: 10.5px;
-    inset: 5px 2px auto;
+    inset: 4px 2px 10px;
   }
 
   .hud-bottom {
@@ -1440,7 +1452,6 @@ body {
 
   .touch-btns {
     right: 0;
-    bottom: 62px;
   }
 
   .btn.round {

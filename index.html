@@ -56,10 +56,9 @@
       <div class="who"><b id="pname">无名</b><i id="psect">青云门</i></div>
       <div class="bar hp"><span id="hp-fill" class="fill"></span><em id="hp-text"></em></div>
       <div class="bar mp"><span id="mp-fill" class="fill"></span><em id="mp-text"></em></div>
+      <div id="buffs" class="buffs"></div>
     </div>
   </div>
-
-  <div id="buffs" class="buffs"></div>
 
   <!-- 右上：地图名、小地图、按钮 -->
   <div class="hud-right">
@@ -77,6 +76,10 @@
       <button class="btn tiny" data-action="menu">菜单</button>
     </div>
     <div class="gold-row">灵石 <b id="gold">0</b></div>
+
+    <!-- 任务追踪跟在小地图这一列里，让它随上面的内容自然下移，
+         不要用写死的 top 偏移——按钮一换行就会压到一起 -->
+    <div id="quest-track" class="quest-track"></div>
   </div>
 
   <!-- Boss 血条 -->
@@ -84,9 +87,6 @@
     <div id="boss-name"></div>
     <div class="bar boss"><span id="boss-fill" class="fill"></span></div>
   </div>
-
-  <!-- 任务追踪 -->
-  <div id="quest-track" class="quest-track"></div>
 
   <!-- 左下：日志 -->
   <div id="log" class="log"></div>
