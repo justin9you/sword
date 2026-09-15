@@ -1208,6 +1208,40 @@ body {
   background: rgba(95, 212, 180, 0.08);
 }
 
+/* 当前任务该去的地方。左边一道金边 + 底色，扫一眼就能找到 */
+.map-row.quest {
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(90deg, rgba(232, 191, 106, 0.12), rgba(8, 11, 18, 0.55));
+}
+
+.map-row.quest.locked {
+  /* 没去过但是任务目标：别整行压暗到看不见，这正是要指路的那一行 */
+  opacity: 0.72;
+}
+
+.mk-hunt,
+.mk-turnin {
+  font-style: normal;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.mk-hunt {
+  color: #2a2109;
+  background: var(--gold);
+}
+
+.mk-turnin {
+  color: #05231a;
+  background: var(--jade);
+}
+
+.hint b.mk-hunt {
+  font-weight: 400;
+}
+
 .m-name {
   font-family: var(--serif);
   font-size: 15px;

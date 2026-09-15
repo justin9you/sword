@@ -468,18 +468,31 @@
   // ── 传送 ────────────────────────────────────────────────
   Panels.prototype.map = function () {
     var p = this.game.player;
-    var html = '<div class="hint">脱离战斗后可御剑往返去过的地方。未去过的须从相邻地图走过去。</div>' +
+    // 当前任务该去哪张图。没这个标记的话，目标怪不在本图时玩家只能一张张翻
+    var marks = ZX.Quest.targetMaps(p);
+
+    var html = '<div class="hint">脱离战斗后可御剑往返去过的地方。未去过的须从相邻地图走过去。' +
+      '<b class="mk-hunt">金色</b>是当前任务该去的地方。</div>' +
       '<div class="map-list">';
 
     for (var i = 0; i < ZX.MAPS.all.length; i++) {
       var m = ZX.MAPS.all[i];
       var visited = !!p.visited[m.key];
       var here = p.map === m.key;
-      var cls = 'map-row' + (here ? ' here' : '') + (visited ? '' : ' locked');
+      var mark = marks[m.key];
+
+      var cls = 'map-row' + (here ? ' here' : '') + (visited ? '' : ' locked') +
+        (mark ? ' quest' : '');
+
+      var badge = '';
+      if (mark === 'hunt') badge = '　<i class="mk-hunt">任务目标</i>';
+      else if (mark === 'turnin') badge = '　<i class="mk-turnin">回此复命</i>';
+
       html += '<div class="' + cls + '"' +
         (visited && !here ? ' data-act="travel" data-arg="' + m.key + '"' : '') + '>' +
         '<div class="m-name">' + esc(visited ? m.name : '？？？') +
-        (here ? '　<i>所在</i>' : '') + (m.safe ? '　<i class="safe">安全</i>' : '') + '</div>' +
+        (here ? '　<i>所在</i>' : '') + (m.safe ? '　<i class="safe">安全</i>' : '') +
+        badge + '</div>' +
         '<div class="m-sub">' + esc(visited ? m.sub : '尚未踏足') +
         '　Lv.' + m.lv[0] + '-' + m.lv[1] + '</div></div>';
     }

@@ -741,6 +741,63 @@ group('存档缺字段', () => {
   ZX.Save.wipe();
 });
 
+group('任务指路', () => {
+  const Q = ZX.Quest;
+
+  // 打野狗：应当指向野狗刷新的那张图
+  const p = ZX.Player.create('找路', 'qingyun');
+  let maps = Q.targetMaps(p);
+  eq(maps.caomiao, 'hunt', '打野狗指向草庙村');
+  ok(Object.keys(maps).length >= 1, '至少标出一张图');
+
+  // 标出来的每张图都必须真的刷这只怪，否则就是指错路
+  const id = Q.targetMonsterId(p);
+  for (const key of Object.keys(maps)) {
+    if (maps[key] !== 'hunt') continue;
+    const m = ZX.MAPS.byKey(key);
+    const has = (m.spawns || []).some((s) => s.id === id) || (m.boss && m.boss.id === id);
+    ok(has, key + ' 确实会刷 ' + id);
+  }
+
+  // 打够了就改指向复命的地方
+  const q = Q.current(p);
+  for (let i = 0; i < q.goal.count; i++) Q.onKill(p, ZX.MONSTERS.byId('yegou'));
+  maps = Q.targetMaps(p);
+  const turn = ZX.NPCS.byKey(q.turnIn);
+  eq(maps[turn.map], 'turnin', '目标达成后指向复命地点');
+  ok(!maps.caomiao || maps.caomiao === 'turnin', '不再指向猎场');
+
+  // 首领任务
+  const b = ZX.Player.create('讨伐', 'qingyun');
+  b.quest.current = 'q6';
+  b.level = 13;
+  ZX.Player.recompute(b);
+  eq(Q.targetMaps(b).dazhu, 'hunt', '千年竹妖指向大竹峰');
+
+  // 等级不够、主线做完都不指路
+  const low = ZX.Player.create('太菜', 'qingyun');
+  low.quest.current = 'q7';
+  low.level = 1;
+  eq(Object.keys(Q.targetMaps(low)).length, 0, '等级不够时不指路');
+
+  const done = ZX.Player.create('通关', 'qingyun');
+  done.quest.current = null;
+  eq(Object.keys(Q.targetMaps(done)).length, 0, '主线做完不指路');
+
+  // 全链路：每条任务都得指得出地方，不然中间会断线索
+  const walker = ZX.Player.create('全程', 'qingyun');
+  let steps = 0;
+  while (walker.quest.current && steps < 100) {
+    const cur = ZX.Quest.current(walker);
+    walker.level = Math.max(walker.level, cur.lv);
+    ZX.Player.recompute(walker);
+    ok(Object.keys(Q.targetMaps(walker)).length > 0, cur.key + ' 能指出该去哪张图');
+    walker.quest.progress = cur.goal.type === 'kill' ? cur.goal.count : 1;
+    ZX.Quest.turnIn(walker, cur.turnIn);
+    steps++;
+  }
+});
+
 group('任务目标标记', () => {
   const Q = ZX.Quest;
   const p = ZX.Player.create('找狗', 'qingyun');

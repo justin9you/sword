@@ -124,8 +124,53 @@
     return null;
   }
 
+  /**
+   * 当前任务该去哪张图。返回 { [地图key]: 'hunt' | 'turnin' }。
+   *
+   * 山河图面板拿它标颜色——目标怪不在当前这张图时，玩家原本完全不知道该去哪儿，
+   * 只能一张张图挨着翻。已经打够了就改指向复命的 NPC 所在地。
+   */
+  function targetMaps(p) {
+    var out = {};
+    var q = current(p);
+    if (!q || p.level < q.lv) return out;
+
+    if (complete(p)) {
+      var npc = ZX.NPCS.byKey(q.turnIn);
+      if (npc) out[npc.map] = 'turnin';
+      return out;
+    }
+
+    var id = targetMonsterId(p);
+    if (!id) {
+      // 没有击杀类目标（比如找人说话），那就指向该找的那个 NPC
+      if (q.goal.type === 'talk') {
+        var who = ZX.NPCS.byKey(q.goal.npc);
+        if (who) out[who.map] = 'turnin';
+      }
+      return out;
+    }
+
+    var maps = ZX.MAPS.all;
+    for (var i = 0; i < maps.length; i++) {
+      var m = maps[i];
+      var found = !!(m.boss && m.boss.id === id);
+      if (!found && m.spawns) {
+        for (var j = 0; j < m.spawns.length; j++) {
+          if (m.spawns[j].id === id) {
+            found = true;
+            break;
+          }
+        }
+      }
+      if (found) out[m.key] = 'hunt';
+    }
+    return out;
+  }
+
   ZX.Quest = {
     current: current,
+    targetMaps: targetMaps,
     locked: locked,
     complete: complete,
     onKill: onKill,
