@@ -686,8 +686,38 @@
   // 注册 Service Worker，装到桌面后可离线玩
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     global.addEventListener('load', function () {
-      navigator.serviceWorker.register('./sw.js').catch(function () {
-        // 注册失败不影响在线游玩
+      // 进页面时就记下有没有旧的 SW 在管事，下面判断"是不是更新"要用
+      var hadController = !!navigator.serviceWorker.controller;
+
+      // updateViaCache: 'none' —— 别用 HTTP 缓存里的 sw.js。
+      // GitHub Pages 对所有文件都发 cache-control: max-age=600，
+      // 不加这句的话，刚发布的新版本最多要等 10 分钟才会被发现。
+      navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+        .then(function (reg) {
+          reg.update();
+          // 从后台切回来时再查一次，手机上这是最常见的"回到游戏"路径
+          document.addEventListener('visibilitychange', function () {
+            if (!document.hidden) reg.update();
+          });
+        })
+        .catch(function () {
+          // 注册失败不影响在线游玩
+        });
+
+      /**
+       * 新版本接管的那一刻，自动刷新一次。
+       *
+       * 不这么做的话：页面还挂在旧 SW 上，静态资源走的仍是旧缓存，
+       * 用户会觉得"我明明刷新了，怎么还是老样子"——得刷第二次才行。
+       * 进度不会丢，切后台和关页面时都存过档。
+       */
+      var reloading = false;
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        // 首次安装（本来就没有 SW）不用刷，那是全新的页面
+        if (!hadController || reloading) return;
+        reloading = true;
+        if (game.player) ZX.Save.save(game.player);
+        global.location.reload();
       });
     });
   }

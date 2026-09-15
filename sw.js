@@ -6,7 +6,7 @@
  * 不要手改。改完代码跑 npm run stamp（npm test 会校验它有没有过期）。
  */
 const PREFIX = 'zx-';
-const VERSION = PREFIX + 'v01d843bbdb';
+const VERSION = PREFIX + 'v89cbde6024';
 
 /** 少一个都跑不起来的：必须全部缓存成功，否则整次安装作废 */
 const CORE = [
@@ -101,19 +101,22 @@ self.addEventListener('fetch', (event) => {
   }
 
   // 其余静态资源：缓存优先。启动最快，也最省电。
+  //
+  // 只查当前版本的缓存。不指定缓存名的 caches.match() 会搜遍所有版本，
+  // 万一 activate 阶段旧缓存没删干净，就会一直命中旧文件——
+  // 表现是"明明发了新版，刷新多少次还是老样子"，且无从排查。
   event.respondWith(
-    caches.match(req, { ignoreSearch: true }).then((hit) => {
+    caches.open(VERSION).then((cache) => cache.match(req, { ignoreSearch: true }).then((hit) => {
       if (hit) return hit;
 
       return fetch(req)
         .then((res) => {
           if (res && res.ok && res.type === 'basic') {
-            const copy = res.clone();
-            caches.open(VERSION).then((cache) => cache.put(req, copy));
+            cache.put(req, res.clone());
           }
           return res;
         })
         .catch(() => new Response('', { status: 504, statusText: 'offline' }));
-    })
+    }))
   );
 });
