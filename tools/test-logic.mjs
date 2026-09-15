@@ -475,12 +475,14 @@ group('任务链', () => {
   eq(p.quest.progress, 0, '进度归零');
   ok(p.quest.done.q1, '已完成的记在册');
 
-  // 等级不够时任务不推进
+  // 低于建议等级照样计数。这里曾经卡过等级，结果 15 条任务里有 11 条
+  // 刚接到时都不够级——任务挂在追踪栏上，打了却毫无反应。
   const low = ZX.Player.create('新', 'qingyun');
-  low.quest.current = 'q7';   // 要 15 级
+  low.quest.current = 'q7';   // 建议 15 级
   low.level = 1;
   ZX.Quest.onKill(low, ZX.MONSTERS.byId('xuanshe_wang'));
-  eq(low.quest.progress, 0, '等级不够时不推进任务');
+  eq(low.quest.progress, 1, '低于建议等级也照常计数');
+  ok(ZX.Quest.belowSuggested(low), '但界面上会提示等级偏低');
 
   // 整条链能走到底
   const runner = ZX.Player.create('通关', 'qingyun');
@@ -774,11 +776,11 @@ group('任务指路', () => {
   ZX.Player.recompute(b);
   eq(Q.targetMaps(b).dazhu, 'hunt', '千年竹妖指向大竹峰');
 
-  // 等级不够、主线做完都不指路
+  // 低于建议等级也要指路
   const low = ZX.Player.create('太菜', 'qingyun');
   low.quest.current = 'q7';
   low.level = 1;
-  eq(Object.keys(Q.targetMaps(low)).length, 0, '等级不够时不指路');
+  eq(Q.targetMaps(low).dixue, 'hunt', '低于建议等级仍然指路');
 
   const done = ZX.Player.create('通关', 'qingyun');
   done.quest.current = null;
@@ -818,11 +820,12 @@ group('任务目标标记', () => {
   ZX.Player.recompute(b);
   eq(Q.targetMonsterId(b), 'qiannianzhuyao', '首领任务标的是首领');
 
-  // 等级不够接不了的任务不标记，免得把新手引到打不过的怪跟前
+  // 低于建议等级也要标记——不标记等于把玩家扔在原地，
+  // 他既不知道该打谁、打了也不计数（那个更糟的旧行为已经去掉了）
   const low = ZX.Player.create('太菜', 'qingyun');
-  low.quest.current = 'q7';      // 需 15 级
+  low.quest.current = 'q7';      // 建议 15 级
   low.level = 1;
-  eq(Q.targetMonsterId(low), null, '等级不够时不标记目标');
+  eq(Q.targetMonsterId(low), 'xuanshe_wang', '低于建议等级仍然标记目标');
 
   // 主线做完了也不标
   const done = ZX.Player.create('通关', 'qingyun');
@@ -886,6 +889,50 @@ group('样式契约', () => {
   const panelZ = Number((rule('.panel').match(/z-index:\s*(\d+)/) || [])[1]);
   const popZ = Number((rule('.itempop').match(/z-index:\s*(\d+)/) || [])[1]);
   ok(popZ > panelZ, '物品弹窗层级高于面板', 'panel=' + panelZ + ' itempop=' + popZ);
+});
+
+// ── 全链路指引 ──────────────────────────────────────────────
+/*
+ * 这组是这次翻车翻出来的：单看某一条任务都正常，把整条链按真实节奏走一遍
+ * 才发现 15 条里有 11 条在刚接到时等级不够——于是不高亮、杀怪也不计数。
+ * 玩家看到任务挂在追踪栏上、目标写得明明白白，打了却毫无反应。
+ * 所以这里按"只靠打目标怪和交任务获得的经验"推进，全程检查引导不断线。
+ */
+group('全链路指引', () => {
+  const Q = ZX.Quest;
+  const p = ZX.Player.create('老实人', 'qingyun');
+
+  let steps = 0;
+  while (p.quest.current && steps < 40) {
+    const cur = Q.current(p);
+    const tag = cur.key + ' ' + cur.name;
+
+    // 接到手就必须能知道打谁、去哪儿
+    const target = Q.targetMonsterId(p);
+    ok(!!target, tag + '：说得出该打哪只怪');
+    ok(Object.keys(Q.targetMaps(p)).length > 0, tag + '：说得出该去哪张图');
+
+    // 按目标怪一只只打，进度必须真的涨
+    const def = ZX.MONSTERS.byId(target);
+    const need = cur.goal.type === 'kill' ? cur.goal.count : 1;
+    for (let i = 0; i < need; i++) {
+      const counted = Q.onKill(p, def);
+      ok(counted, tag + '：第 ' + (i + 1) + ' 只计数了');
+      ZX.Player.gainExp(p, def.exp);
+    }
+    ok(Q.complete(p), tag + '：打够了算完成');
+
+    // 完成后指引要翻面，指向复命的地方
+    const turn = ZX.NPCS.byKey(cur.turnIn);
+    eq(Q.targetMaps(p)[turn.map], 'turnin', tag + '：完成后指向复命地点');
+
+    ok(!!Q.turnIn(p, cur.turnIn), tag + '：交得掉');
+    steps++;
+  }
+
+  eq(steps, ZX.QUESTS.chain.length, '整条主线全程引导不断线');
+  eq(p.quest.current, null, '走到了尽头');
+  ok(p.level >= 40, '光做主线也能练到相当的等级', '实得 ' + p.level + ' 级');
 });
 
 // ── 汇总 ──────────────────────────────────────────────────────

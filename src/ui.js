@@ -277,7 +277,7 @@
         '<div class="qt-goal">主线已尽。天地间只剩你一个人在走。</div>';
       return;
     }
-    var lockedNote = p.level < q.lv ? '（需 ' + q.lv + ' 级）' : '';
+    var lockedNote = p.level < q.lv ? '（建议 ' + q.lv + ' 级）' : '';
     var doneCls = ZX.Quest.complete(p) ? ' done' : '';
     this.el.questTrack.innerHTML =
       '<div class="qt-name">' + esc(q.name) + esc(lockedNote) + '</div>' +

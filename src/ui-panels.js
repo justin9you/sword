@@ -432,7 +432,9 @@
         '（' + esc(giver ? ZX.MAPS.byKey(giver.map).name : '') + '）　' +
         '交付：' + esc(turn ? turn.name : '—') +
         '（' + esc(turn ? ZX.MAPS.byKey(turn.map).name : '') + '）</div>';
-      if (p.level < q.lv) html += '<div class="q-lock">修为不足，需 ' + q.lv + ' 级</div>';
+      if (p.level < q.lv) {
+        html += '<div class="q-lock">建议 ' + q.lv + ' 级再来。低于此等级照样能打、也照样计数，只是会吃力些。</div>';
+      }
       html += '<div class="q-reward">酬劳：' + U.big(q.reward.exp) + ' 经验　' +
         U.big(q.reward.gold) + ' 灵石' + rewardItems(q) + '</div></div>';
     } else {

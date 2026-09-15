@@ -15,8 +15,11 @@
     return ZX.QUESTS.byKey(p.quest.current);
   }
 
-  /** 等级不够时任务是"已接但做不了"，面板上要提示 */
-  function locked(p) {
+  /**
+  * 等级低于建议值。只用来在界面上提个醒，不阻断任何事——
+  * 任务链是线性的、玩家没得选，再拿等级卡住就只剩"打了不算数"这一种体验。
+  */
+  function belowSuggested(p) {
     var q = current(p);
     return !!q && p.level < q.lv;
   }
@@ -24,7 +27,6 @@
   function complete(p) {
     var q = current(p);
     if (!q) return false;
-    if (p.level < q.lv) return false;
     var g = q.goal;
     if (g.type === 'kill') return p.quest.progress >= g.count;
     if (g.type === 'boss') return p.quest.progress > 0;
@@ -33,10 +35,16 @@
     return false;
   }
 
-  /** 杀怪时调用，推进击杀类目标 */
+  /**
+   * 杀怪时调用，推进击杀类目标。
+   *
+   * 不看等级。曾经这里卡过"低于建议等级就不计数"，结果 15 条任务里有 11 条
+   * 刚接到时等级都不够——任务挂在追踪栏上、目标明明白白写着，打了却毫无反应。
+   * 沉默地不计数是最糟的反馈：玩家只会以为游戏坏了，不会想到是自己等级不够。
+   */
   function onKill(p, monsterDef) {
     var q = current(p);
-    if (!q || p.level < q.lv) return false;
+    if (!q) return false;
     var g = q.goal;
     if (g.type === 'kill' && g.monster === monsterDef.id && p.quest.progress < g.count) {
       p.quest.progress += 1;
@@ -111,14 +119,14 @@
   }
 
   /**
-   * 当前任务要打的怪 id。没有击杀类目标、等级不够、或已经打够了都返回 null。
+   * 当前任务要打的怪 id。没有击杀类目标、或已经打够了才返回 null。
    *
    * 渲染层拿它在场上把目标怪标出来——不然玩家面对一地长得都差不多的妖兽，
    * 根本不知道该打哪只，只能挨个试。
    */
   function targetMonsterId(p) {
     var q = current(p);
-    if (!q || p.level < q.lv || complete(p)) return null;
+    if (!q || complete(p)) return null;
     if (q.goal.type === 'kill') return q.goal.monster;
     if (q.goal.type === 'boss') return q.goal.id;
     return null;
@@ -133,7 +141,7 @@
   function targetMaps(p) {
     var out = {};
     var q = current(p);
-    if (!q || p.level < q.lv) return out;
+    if (!q) return out;
 
     if (complete(p)) {
       var npc = ZX.NPCS.byKey(q.turnIn);
@@ -171,7 +179,7 @@
   ZX.Quest = {
     current: current,
     targetMaps: targetMaps,
-    locked: locked,
+    belowSuggested: belowSuggested,
     complete: complete,
     onKill: onKill,
     onTalk: onTalk,
