@@ -423,6 +423,28 @@ group('面板逐个开关', () => {
   tick(2);
   ok(true, '在弹窗里服药不抛异常');
 
+  // 随身卖：必须先过一道确认，不能点一下就没了
+  const goldBefore = currentSave().gold;
+  fire(el('panel-body'), 'click', { target: makeAct('select', '0') });
+  tick(2);
+  fire(el('itempop'), 'click', { target: makeAct('sell-ask', '0') });
+  tick(2);
+  ok(el('itempop').innerHTML.indexOf('ip-confirm') >= 0, '点卖出先弹确认');
+  ok(el('itempop').innerHTML.indexOf('sell-do') >= 0, '确认框里有真正的卖出按钮');
+
+  // 反悔要能退回详情，且钱一分没动
+  fire(el('itempop'), 'click', { target: makeAct('sell-cancel', '0') });
+  tick(2);
+  ok(el('itempop').innerHTML.indexOf('ip-confirm') < 0, '取消回到物品详情');
+  eq(currentSave().gold, goldBefore, '取消不会扣东西也不会加钱');
+
+  // 确认之后才真的成交
+  fire(el('itempop'), 'click', { target: makeAct('sell-ask', '0') });
+  tick(2);
+  fire(el('itempop'), 'click', { target: makeAct('sell-do', '0,1') });
+  tick(20);
+  ok(currentSave().gold > goldBefore, '确认后灵石到账', '前 ' + goldBefore + ' 后 ' + currentSave().gold);
+
   // 角色面板加点
   key('KeyB');
   tick(2);

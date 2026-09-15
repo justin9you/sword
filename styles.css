@@ -1474,6 +1474,28 @@ body {
   flex-wrap: wrap;
 }
 
+/* 卖出确认。用金色边把它和普通详情区分开，一眼看出"这一步不一样" */
+.ip-confirm {
+  border-color: rgba(232, 191, 106, 0.45);
+}
+
+.cf-q {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--fg);
+  margin: 10px 0 6px;
+}
+
+.cf-warn {
+  font-size: 12.5px;
+  color: #ffc48a;
+  background: rgba(232, 140, 74, 0.1);
+  border-left: 2px solid rgba(232, 140, 74, 0.6);
+  padding: 5px 9px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}
+
 .ip-btns .btn {
   flex: 1 1 auto;
   min-width: 78px;

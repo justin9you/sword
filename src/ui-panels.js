@@ -62,6 +62,20 @@
         this.closeItem();
         break;
 
+      case 'sell-ask':
+        this.askSell(Number(arg));
+        break;
+
+      case 'sell-do': {
+        var parts = String(arg).split(',');
+        this.sellFromBag(Number(parts[0]), Number(parts[1]));
+        break;
+      }
+
+      case 'sell-cancel':
+        this.showItem(Number(arg));
+        break;
+
       case 'equip': {
         var res = ZX.Inventory.equip(p.bag, p.equip, Number(arg), p.sect, p.level);
         if (!res) {
@@ -237,12 +251,93 @@
     if (item.type === 'potion') {
       html += '<button class="btn primary" data-act="use" data-arg="' + index + '">服用</button>';
     }
+    // 随身卖：前期地图上根本没有商人（商店只在大竹峰、河阳城、鬼王宗），
+    // 不给这条路的话，背包一满就彻底卡住了
+    html += '<button class="btn" data-act="sell-ask" data-arg="' + index + '">卖出 ' +
+      U.big(ZX.ITEMS.sellPrice(item)) + '</button>';
     html += '<button class="btn danger" data-act="drop" data-arg="' + index + '">丢弃</button>';
     html += '<button class="btn" data-act="close-item">关闭</button>';
     html += '</div></div>';
 
     this.ui.el.itempop.innerHTML = html;
     this.ui.el.itempop.classList.remove('hidden');
+  };
+
+  /**
+   * 卖出前的确认。卖掉是不可撤销的，尤其是刚捡到的好装备，
+   * 手一滑就没了——所以必须过一道，并且把到手的灵石数写清楚。
+   */
+  Panels.prototype.askSell = function (index) {
+    var p = this.game.player;
+    var stack = p.bag[index];
+    if (!stack) {
+      this.closeItem();
+      return;
+    }
+    var item = ZX.ITEMS.byId(stack.id);
+    if (!item) {
+      this.closeItem();
+      return;
+    }
+
+    var one = ZX.ITEMS.sellPrice(item);
+    var q = ZX.QUALITY[item.q];
+
+    var html = '<div class="ip-box ip-confirm">' +
+      '<div class="ic-head"><span class="ic-name" style="color:' + q.color + '">' +
+      esc(item.name) + '</span><span class="ic-q">' + esc(q.name) + '</span></div>' +
+      '<div class="cf-q">卖掉它？换来的灵石买不回来。</div>';
+
+    // 稀有装备额外警告一句——最容易手滑卖掉的就是这些
+    if (item.q === 'epic' || item.q === 'legend') {
+      html += '<div class="cf-warn">这是' + esc(q.name) + '，卖了就没了。</div>';
+    }
+    if (ZX.ITEMS.isGear(item) && ZX.ITEMS.canEquip(item, p.sect, p.level)) {
+      html += '<div class="cf-warn">你现在就能装备这件。</div>';
+    }
+
+    html += '<div class="ip-btns">' +
+      '<button class="btn primary" data-act="sell-do" data-arg="' + index + ',1">' +
+      '卖 1 个　+' + U.big(one) + '</button>';
+    if (stack.n > 1) {
+      html += '<button class="btn primary" data-act="sell-do" data-arg="' + index + ',' + stack.n + '">' +
+        '全卖 ' + stack.n + ' 个　+' + U.big(one * stack.n) + '</button>';
+    }
+    html += '<button class="btn" data-act="sell-cancel" data-arg="' + index + '">再想想</button>' +
+      '</div></div>';
+
+    this.ui.el.itempop.innerHTML = html;
+    this.ui.el.itempop.classList.remove('hidden');
+  };
+
+  /** 真正卖掉。n 是件数，卖完这一格就关弹窗 */
+  Panels.prototype.sellFromBag = function (index, n) {
+    var g = this.game;
+    var p = g.player;
+    var stack = p.bag[index];
+    if (!stack) {
+      this.closeItem();
+      return;
+    }
+    var item = ZX.ITEMS.byId(stack.id);
+    if (!item) {
+      this.closeItem();
+      return;
+    }
+
+    n = Math.max(1, Math.min(n || 1, stack.n));
+    var gain = ZX.ITEMS.sellPrice(item) * n;
+
+    p.bag = ZX.Inventory.removeAt(p.bag, index, n);
+    p.gold += gain;
+
+    g.hooks.log('卖掉【' + item.name + '】' + (n > 1 ? ' ×' + n : '') +
+      '，得 ' + gain + ' 灵石。', 'loot');
+    g.audio.play('coin');
+
+    if (p.bag[index]) this.showItem(index);
+    else this.closeItem();
+    this.bag();
   };
 
   Panels.prototype.closeItem = function () {
