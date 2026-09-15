@@ -741,6 +741,38 @@ group('存档缺字段', () => {
   ZX.Save.wipe();
 });
 
+group('任务目标标记', () => {
+  const Q = ZX.Quest;
+  const p = ZX.Player.create('找狗', 'qingyun');
+
+  // 第一条任务就是打野狗，渲染层要能问出"该打哪只"
+  eq(Q.targetMonsterId(p), 'yegou', '第一条任务的目标是野狗');
+
+  // 打够了就不该再标——省得玩家继续刷已经满了的目标
+  const q = Q.current(p);
+  for (let i = 0; i < q.goal.count; i++) Q.onKill(p, ZX.MONSTERS.byId('yegou'));
+  ok(Q.complete(p), '打够了');
+  eq(Q.targetMonsterId(p), null, '目标达成后不再标记');
+
+  // 首领类任务标的是首领
+  const b = ZX.Player.create('讨伐', 'qingyun');
+  b.quest.current = 'q6';        // 千年竹妖
+  b.level = 13;
+  ZX.Player.recompute(b);
+  eq(Q.targetMonsterId(b), 'qiannianzhuyao', '首领任务标的是首领');
+
+  // 等级不够接不了的任务不标记，免得把新手引到打不过的怪跟前
+  const low = ZX.Player.create('太菜', 'qingyun');
+  low.quest.current = 'q7';      // 需 15 级
+  low.level = 1;
+  eq(Q.targetMonsterId(low), null, '等级不够时不标记目标');
+
+  // 主线做完了也不标
+  const done = ZX.Player.create('通关', 'qingyun');
+  done.quest.current = null;
+  eq(Q.targetMonsterId(done), null, '没有在做的任务时不标记');
+});
+
 // ── 汇总 ──────────────────────────────────────────────────────
 console.log('\n' + '─'.repeat(52));
 if (failures.length) {

@@ -110,6 +110,20 @@
     return !!q && q.giver === npcKey && !complete(p);
   }
 
+  /**
+   * 当前任务要打的怪 id。没有击杀类目标、等级不够、或已经打够了都返回 null。
+   *
+   * 渲染层拿它在场上把目标怪标出来——不然玩家面对一地长得都差不多的妖兽，
+   * 根本不知道该打哪只，只能挨个试。
+   */
+  function targetMonsterId(p) {
+    var q = current(p);
+    if (!q || p.level < q.lv || complete(p)) return null;
+    if (q.goal.type === 'kill') return q.goal.monster;
+    if (q.goal.type === 'boss') return q.goal.id;
+    return null;
+  }
+
   ZX.Quest = {
     current: current,
     locked: locked,
@@ -119,5 +133,6 @@
     canTurnInAt: canTurnInAt,
     turnIn: turnIn,
     isGiver: isGiver,
+    targetMonsterId: targetMonsterId,
   };
 })(window);

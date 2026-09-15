@@ -110,6 +110,17 @@
 
     A.blocks(ctx, world);
 
+    // 任务目标脚下先画金环，再画怪本身，环才在脚下而不是盖在身上
+    var questId = ZX.Quest.targetMonsterId(p);
+    if (questId) {
+      for (i = 0; i < world.monsters.length; i++) {
+        var qm = world.monsters[i];
+        if (qm.dead || qm.def.id !== questId) continue;
+        if (!inView(cam, qm.x, qm.y, 80)) continue;
+        drawQuestRing(ctx, qm, t);
+      }
+    }
+
     // 活物按 y 排序，形成前后遮挡
     var actors = [];
     for (i = 0; i < world.npcs.length; i++) {
@@ -142,11 +153,11 @@
     drawBolts(ctx, game);
     drawVisuals(ctx, game);
 
-    // 血条画在所有活物之上，免得被挡住
+    // 血条名牌画在所有活物之上，免得被挡住
     for (i = 0; i < world.monsters.length; i++) {
       var mm = world.monsters[i];
       if (mm.dead || !inView(cam, mm.x, mm.y, 80)) continue;
-      drawMonsterBar(ctx, mm, p);
+      drawMonsterBar(ctx, mm, p, questId && mm.def.id === questId);
     }
 
     drawFloaters(ctx, this.floaters);
@@ -274,29 +285,61 @@
     ctx.globalAlpha = 1;
   }
 
-  function drawMonsterBar(ctx, m, player) {
+  /**
+   * 怪物头顶的血条和名牌。
+   *
+   * 名字一律要显示。以前只给精英和高 5 级以上的怪标名，结果新手村里
+   * 野狗、山猪、青蛇、山贼全都不显示——玩家接了"打野狗"的任务，
+   * 面对一地长得差不多的妖兽只能挨个试，还以为是任务计数坏了。
+   *
+   * isTarget 为真表示这只是当前任务要打的，用金色标出来。
+   */
+  function drawMonsterBar(ctx, m, player, isTarget) {
     var def = m.def;
     var full = m.hp >= m.maxHp;
-    // 满血的杂鱼不显示血条，画面干净；精英和 Boss 始终显示
-    if (full && !def.isElite) return;
 
     var w = def.isBoss ? 64 : def.isElite ? 46 : 34;
     var y = m.y - def.radius - 16;
-    var ratio = U.clamp(m.hp / m.maxHp, 0, 1);
 
-    ctx.fillStyle = 'rgba(0,0,0,0.55)';
-    ctx.fillRect(m.x - w / 2 - 1, y - 1, w + 2, 6);
-    ctx.fillStyle = def.isBoss ? '#e05a6e' : def.isElite ? '#e0a04a' : '#7fc46a';
-    ctx.fillRect(m.x - w / 2, y, w * ratio, 4);
-
-    // 等级差超过 5 级就标个颜色，提醒别越级送
-    var gap = def.lv - player.level;
-    if (def.isElite || gap >= 5) {
-      ctx.fillStyle = gap >= 8 ? '#ff6a6a' : gap >= 4 ? '#ffb84a' : '#c8d0dc';
-      ctx.font = '10px system-ui, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText((def.isBoss ? '◆ ' : '') + 'Lv' + def.lv + ' ' + def.name, m.x, y - 4);
+    // 满血的杂鱼不画血条，画面干净；精英、Boss、任务目标始终画
+    if (!full || def.isElite || isTarget) {
+      var ratio = U.clamp(m.hp / m.maxHp, 0, 1);
+      ctx.fillStyle = 'rgba(0,0,0,0.55)';
+      ctx.fillRect(m.x - w / 2 - 1, y - 1, w + 2, 6);
+      ctx.fillStyle = def.isBoss ? '#e05a6e' : def.isElite ? '#e0a04a' : '#7fc46a';
+      ctx.fillRect(m.x - w / 2, y, w * ratio, 4);
     }
+
+    // 名牌：等级差用颜色提示，别越级硬啃
+    var gap = def.lv - player.level;
+    var color;
+    if (isTarget) color = '#ffd24a';
+    else if (gap >= 8) color = '#ff6a6a';
+    else if (gap >= 4) color = '#ffb84a';
+    else if (gap <= -6) color = 'rgba(160,172,190,0.55)';   // 远低于自己，弱化
+    else color = '#c8d0dc';
+
+    var label = (def.isBoss ? '◆ ' : '') + 'Lv' + def.lv + ' ' + def.name;
+    ctx.font = (isTarget ? 'bold ' : '') + '10px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+    ctx.strokeText(label, m.x, y - 4);
+    ctx.fillStyle = color;
+    ctx.fillText(label, m.x, y - 4);
+  }
+
+  /** 任务目标脚下的金环，远远就能认出来该打哪只 */
+  function drawQuestRing(ctx, m, t) {
+    var r = m.def.radius;
+    var pulse = 0.45 + Math.sin(t / 340) * 0.2;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255,210,74,' + pulse + ')';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.ellipse(m.x, m.y + r * 0.5, r * 1.15, r * 0.5, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
   }
 
   var FLOAT_STYLE = {

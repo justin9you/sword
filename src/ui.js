@@ -338,11 +338,17 @@
       ctx.fillRect(ox + n.x * k - 1.5, oy + n.y * k - 1.5, 3, 3);
     }
 
+    // 任务目标在小地图上也标成金色，省得满图乱找
+    var questId = ZX.Quest.targetMonsterId(p);
     for (i = 0; i < world.monsters.length; i++) {
       var m = world.monsters[i];
       if (m.dead) continue;
-      ctx.fillStyle = m.isBoss ? '#ff4a6a' : m.def.isElite ? '#ffa04a' : 'rgba(224,90,90,0.75)';
-      var size = m.isBoss ? 4 : 2;
+      var isTarget = questId && m.def.id === questId;
+      ctx.fillStyle = isTarget ? '#ffd24a'
+        : m.isBoss ? '#ff4a6a'
+          : m.def.isElite ? '#ffa04a'
+            : 'rgba(224,90,90,0.75)';
+      var size = m.isBoss ? 4 : isTarget ? 3.5 : 2;
       ctx.fillRect(ox + m.x * k - size / 2, oy + m.y * k - size / 2, size, size);
     }
 

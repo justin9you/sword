@@ -204,15 +204,26 @@
       game.hooks.log('【' + def.name + '】伏诛。' + (def.say ? '它最后说：「' + def.say + '」' : ''), 'quest');
     }
 
+    var wanted = ZX.Quest.targetMonsterId(p);
     if (ZX.Quest.onKill(p, def)) {
       var q = ZX.Quest.current(p);
       game.hooks.log('任务进度：' + ZX.QUESTS.goalText(q, p.quest.progress), 'quest');
+      game.renderer.floater(m.x, m.y - def.radius - 38, '任务 +1', 'gold');
       if (ZX.Quest.complete(p)) {
         game.audio.play('quest');
         var turn = ZX.NPCS.byKey(q.turnIn);
         game.ui.toast('可以复命了', 'quest');
         game.hooks.log('【' + q.name + '】目标达成，回去找 ' + (turn ? turn.name : '发布人') +
           '（' + (turn ? ZX.MAPS.byKey(turn.map).name : '') + '）复命。', 'quest');
+      }
+    } else if (wanted && wanted !== def.id) {
+      // 打错目标时说一声。否则玩家闷头刷半天不涨进度，
+      // 只会以为是任务坏了——而不会想到自己打的根本不是那只怪。
+      var want = ZX.MONSTERS.byId(wanted);
+      if (want && !game.wrongTargetCd) {
+        game.wrongTargetCd = true;
+        game.hooks.log(def.name + ' 不是当前任务目标，要打的是【' + want.name + '】（头顶有金圈）。', 'warn');
+        setTimeout(function () { game.wrongTargetCd = false; }, 8000);
       }
     }
 
