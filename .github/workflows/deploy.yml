@@ -1,0 +1,67 @@
+# 推到 main 就自动部署到 GitHub Pages。
+#
+# 先跑测试再发布：测试挂了就不会上线，避免把坏代码推到线上——
+# 已经把游戏装到主屏幕的人拿到的是缓存版本，线上一旦坏掉，
+# 他们下次联网打开就会同步成坏的。
+name: 部署到 GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # 也允许在 Actions 页面上手动点一下重新部署
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同时只跑一个部署；排队而不是互相取消，免得最后上线的是旧版本
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: 自测
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 逻辑自测 + 无头冒烟测试 + 校验 sw.js 的缓存版本号有没有过期。
+      # 本项目零依赖，不需要 npm install。
+      - name: 跑测试
+        run: npm test
+
+  deploy:
+    name: 发布
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      # 只发布运行时真正需要的东西，tools/ 和测试不上线。
+      # 这份清单和 tools/pack.mjs 里的保持一致。
+      - name: 组装站点
+        run: |
+          mkdir -p _site
+          cp index.html styles.css manifest.webmanifest sw.js .nojekyll _site/
+          cp -r src icons _site/
+          echo "--- 将要发布的内容 ---"
+          find _site -type f | sort
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

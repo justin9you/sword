@@ -104,9 +104,13 @@ NPC 头顶 **！** 是有任务，**？** 是可以复命。
 
 **GitHub Pages（本项目用的就是这个）**
 
-1. 把仓库推上 GitHub
-2. 仓库 **Settings → Pages → Source** 选 `Deploy from a branch`，分支选 `main`、目录选 `/ (root)`
-3. 等一两分钟，拿到 <https://justin9you.github.io/sword/>
+1. 把仓库推上 GitHub，并确保仓库是 **公开** 的（免费账号的私有仓库开不了 Pages）
+2. 仓库 **Settings → Pages → Source** 选 **`GitHub Actions`**
+3. 推一次代码（或去 Actions 页面手动点 Run workflow），`.github/workflows/deploy.yml` 会先跑测试、
+   通过后再发布，一两分钟后拿到 <https://justin9you.github.io/sword/>
+
+> 测试没过就不会上线。这点很重要：已经把游戏装到主屏幕的人拿的是缓存版本，
+> 线上一旦坏掉，他们下次联网打开就会同步成坏的。
 
 **Cloudflare Pages（不想用 GitHub 的话，拖个文件夹就完事）**
 
