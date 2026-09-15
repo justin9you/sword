@@ -1,0 +1,23 @@
+{
+  "name": "zhuxian-legend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "《诛仙》江湖录——按萧鼎原著剧情做的单机 MMORPG，纯手写，零依赖，完全离线。",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "stamp": "node tools/stamp-sw.mjs",
+    "pack": "node tools/stamp-sw.mjs && node tools/pack.mjs",
+    "icons": "node tools/gen-icons.mjs",
+    "test": "node tools/test-logic.mjs && node tools/test-browser.mjs && node tools/stamp-sw.mjs --check",
+    "test:logic": "node tools/test-logic.mjs",
+    "test:browser": "node tools/test-browser.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justin9you/sword.git"
+  },
+  "homepage": "https://justin9you.github.io/sword/"
+}

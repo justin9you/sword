@@ -1,0 +1,41 @@
+{
+  "name": "诛仙 · 江湖录",
+  "short_name": "诛仙",
+  "description": "按萧鼎《诛仙》原著剧情做的单机 MMORPG：四大门派、十二张场景、打怪练级穿装备。完全离线运行。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
+  "orientation": "any",
+  "background_color": "#05070c",
+  "theme_color": "#0b0d14",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "icons/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

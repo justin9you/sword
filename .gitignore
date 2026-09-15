@@ -1,0 +1,21 @@
+# 构建产物：用 `npm run pack` 随时重新生成，不进版本库
+诛仙-部署包.zip
+*.zip
+
+# 依赖（本项目零依赖，留着防手滑）
+node_modules/
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*~
+
+# 日志
+*.log
+npm-debug.log*

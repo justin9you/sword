@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#0b0d14" />
+<meta name="description" content="《诛仙》江湖录——按萧鼎原著剧情做的单机 MMORPG。四大门派、十二张场景、打怪练级穿装备，浏览器直接玩，可装到手机主屏离线运行。" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="诛仙" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./icons/icon-180.png" />
+<link rel="stylesheet" href="./styles.css" />
+<title>诛仙 · 江湖录</title>
+</head>
+<body>
+
+<!-- 标题页：选门派、起名 -->
+<div id="title">
+  <div class="title-inner">
+    <h1 class="game-title">诛仙</h1>
+    <p class="game-sub">江湖录　·　单机 MMORPG</p>
+    <p class="game-quote">天地不仁，以万物为刍狗。</p>
+
+    <div class="name-row">
+      <label for="name-input">道号</label>
+      <input id="name-input" type="text" maxlength="12" placeholder="张小凡" autocomplete="off" />
+    </div>
+
+    <p class="pick-hint">择一门派入道。门派决定体格、法术与专属兵器，入门后不可更改。</p>
+    <div id="sect-list" class="sect-list"></div>
+
+    <div class="title-btns">
+      <button id="btn-continue" class="btn big hidden"></button>
+      <button id="btn-new" class="btn big primary">入　道</button>
+    </div>
+
+    <p class="title-foot">
+      键鼠：WASD 移动 · 鼠标瞄准 · 左键/空格 普攻 · 1-6 技能 · Q 法宝 · E 交互 · R 吃药 · B 背包 · Esc 菜单<br />
+      触屏：左半屏按住出摇杆，右下角点技能
+    </p>
+  </div>
+</div>
+
+<canvas id="game" class="hidden"></canvas>
+
+<!-- 主界面 -->
+<div id="hud" class="hidden">
+
+  <!-- 左上：身份与血蓝 -->
+  <div class="hud-left">
+    <div class="portrait">
+      <span id="lvl">1</span>
+    </div>
+    <div class="vitals">
+      <div class="who"><b id="pname">无名</b><i id="psect">青云门</i></div>
+      <div class="bar hp"><span id="hp-fill" class="fill"></span><em id="hp-text"></em></div>
+      <div class="bar mp"><span id="mp-fill" class="fill"></span><em id="mp-text"></em></div>
+    </div>
+  </div>
+
+  <div id="buffs" class="buffs"></div>
+
+  <!-- 右上：地图名、小地图、按钮 -->
+  <div class="hud-right">
+    <div class="map-head">
+      <div id="map-name">草庙村</div>
+      <div id="map-sub"></div>
+    </div>
+    <canvas id="minimap" width="180" height="140"></canvas>
+    <div class="hud-btns">
+      <button class="btn tiny" data-action="bag">背包 B</button>
+      <button class="btn tiny" data-action="char">角色 C</button>
+      <button class="btn tiny" data-action="skills">技能 K</button>
+      <button class="btn tiny" data-action="quest">任务 L</button>
+      <button class="btn tiny" data-action="map">山河 M</button>
+      <button class="btn tiny" data-action="menu">菜单</button>
+    </div>
+    <div class="gold-row">灵石 <b id="gold">0</b></div>
+  </div>
+
+  <!-- Boss 血条 -->
+  <div id="bossbar" class="bossbar hidden">
+    <div id="boss-name"></div>
+    <div class="bar boss"><span id="boss-fill" class="fill"></span></div>
+  </div>
+
+  <!-- 任务追踪 -->
+  <div id="quest-track" class="quest-track"></div>
+
+  <!-- 左下：日志 -->
+  <div id="log" class="log"></div>
+
+  <!-- 底部：经验条 + 技能栏 -->
+  <div class="hud-bottom">
+    <div class="bar exp"><span id="exp-fill" class="fill"></span><em id="exp-text"></em></div>
+    <div id="skillbar" class="skillbar"></div>
+    <div class="touch-btns">
+      <button class="btn round" data-action="attack">攻</button>
+      <button class="btn round" data-action="interact">E</button>
+      <button class="btn round" data-action="potion">药</button>
+    </div>
+  </div>
+</div>
+
+<!-- 通用面板 -->
+<div id="panel" class="panel hidden">
+  <div class="panel-box">
+    <div class="panel-head">
+      <span id="panel-title"></span>
+      <button id="panel-close" class="btn tiny">✕</button>
+    </div>
+    <div id="panel-body" class="panel-body"></div>
+  </div>
+</div>
+
+<!-- NPC 对话 -->
+<div id="dialog" class="dialog hidden"></div>
+
+<div id="toast" class="toast"></div>
+
+<script src="./src/config.js"></script>
+<script src="./src/util.js"></script>
+<script src="./src/stats.js"></script>
+<script src="./src/data/sects.js"></script>
+<script src="./src/data/items.js"></script>
+<script src="./src/data/monsters.js"></script>
+<script src="./src/data/maps.js"></script>
+<script src="./src/data/npcs.js"></script>
+<script src="./src/data/quests.js"></script>
+<script src="./src/inventory.js"></script>
+<script src="./src/player.js"></script>
+<script src="./src/combat.js"></script>
+<script src="./src/world.js"></script>
+<script src="./src/skills.js"></script>
+<script src="./src/quest.js"></script>
+<script src="./src/save.js"></script>
+<script src="./src/audio.js"></script>
+<script src="./src/art.js"></script>
+<script src="./src/art-actors.js"></script>
+<script src="./src/render.js"></script>
+<script src="./src/input.js"></script>
+<script src="./src/ui.js"></script>
+<script src="./src/ui-panels.js"></script>
+<script src="./src/main.js"></script>
+</body>
+</html>
