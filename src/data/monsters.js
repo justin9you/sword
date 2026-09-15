@@ -142,7 +142,7 @@
   ZX.MONSTERS = {
     all: LIST,
     byId: function (id) {
-      return byId[id] || null;
+      return ZX.U.own(byId, id) || null;
     },
     ROLE: ROLE,
   };

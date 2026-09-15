@@ -54,8 +54,9 @@
     onHitPlayer: function (m) {
       monsterAttack(m);
     },
-    onDot: function () {
-      // 怪物身上的持续伤害飘字由 applyHit 之外单独处理，这里只保证战斗状态不断
+    onDot: function (m, amount) {
+      // 灼烧/中毒是"放完技能就不用管"的伤害，不跳字的话玩家根本看不出它生没生效
+      game.renderer.floater(m.x, m.y - m.def.radius - 8, amount, 'hit');
       game.inCombat = 5000;
     },
     onDeath: function (m) {
@@ -286,13 +287,16 @@
             break;
           }
           var a = game.input.aimWorld(game.renderer, p);
+          // 朝向必须在 cast 之前定好：strike 类技能是瞬发的，
+          // cast() 里立刻就用 p.facing 去筛前方扇形里的目标。
+          // 放完再转身等于每次都拿上一次的朝向打，站桩换向时第一下必空。
+          if (a.x !== p.x || a.y !== p.y) p.facing = U.dirTo(p.x, p.y, a.x, a.y);
           var res = ZX.Skills.cast(game, def, a.x, a.y);
           if (!res.ok) {
             ui.log(res.msg, 'warn');
             game.audio.play('error');
           } else {
             game.inCombat = 5000;
-            if (a.x !== p.x || a.y !== p.y) p.facing = U.dirTo(p.x, p.y, a.x, a.y);
           }
         }
         break;
@@ -384,18 +388,59 @@
 
   // ── 主循环 ──────────────────────────────────────────────
   var last = 0;
+  var crashes = 0;
 
+  /**
+   * 一帧。
+   *
+   * 整个循环靠 requestAnimationFrame 自己接自己——所以这里必须兜住异常：
+   * 漏出去一个错误，下一帧的 rAF 就排不上，画面直接定格、按键全无反应，
+   * 玩家只能刷新页面，还不知道发生了什么。宁可这一帧不画，也要让循环活着。
+   */
   function frame(now) {
     if (!game.running) return;
     var dt = Math.min(CFG.MAX_DT, now - last || 16);
     last = now;
     game.t += dt;
 
-    step(dt);
-    game.renderer.draw(game, game.t);
-    drawOverlay();
+    try {
+      step(dt);
+      game.renderer.draw(game, game.t);
+      drawOverlay();
+      crashes = 0;
+    } catch (e) {
+      onFrameError(e);
+    }
 
     global.requestAnimationFrame(frame);
+  }
+
+  /**
+   * 帧内出错的处理：告诉玩家、存档保住进度。
+   * 连着炸说明是稳定复现的错误，再跑下去只会刷屏，这时才停循环。
+   */
+  function onFrameError(e) {
+    crashes += 1;
+    if (global.console && global.console.error) global.console.error(e);
+
+    if (crashes === 1) {
+      try {
+        ZX.Save.save(game.player);
+        game.ui.log('出错了：' + (e && e.message ? e.message : e) + '（进度已保存）', 'warn');
+      } catch (ignored) {
+        // 连存档和日志都挂了，那就只剩下面的停机提示
+      }
+    }
+
+    if (crashes >= 60) {
+      game.running = false;
+      try {
+        game.ui.toast('游戏出错了，请刷新页面', 'death');
+        game.ui.log('连续出错，已停止。进度已保存，刷新后可继续。', 'warn');
+      } catch (ignored2) {
+        // 界面也坏了就没辙了，至少存档已经落盘
+      }
+    }
   }
 
   function step(dt) {
@@ -423,14 +468,14 @@
     if (p.attackCd > 0) p.attackCd -= dt;
     if (game.inCombat > 0) game.inCombat -= dt;
 
-    var buffDirty = p.buffs.length > 0;
-    C.tickBuffs(p, dt, function (amount) {
+    var tick = C.tickBuffs(p, dt, function (amount) {
       p.hp -= amount;
       game.renderer.floater(p.x, p.y - 36, amount, 'hurt');
       if (p.hp <= 0) playerDied();
     });
-    // buff 掉光的那一帧要重算属性，否则血炼的加成会一直挂着
-    if (buffDirty && p.buffs.length === 0) ZX.Player.recompute(p);
+    // 只要有 buff 到期就重算，不能等身上 buff 全空——
+    // 否则护盾还在的时候血炼到期，攻击加成会一直虚挂着
+    if (tick.expired > 0) ZX.Player.recompute(p);
 
     ZX.Player.tickRegen(p, dt, game.moving, game.inCombat > 0);
 

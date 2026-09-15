@@ -246,7 +246,7 @@
   ZX.ITEMS = {
     all: ALL,
     byId: function (id) {
-      return byId[id] || null;
+      return ZX.U.own(byId, id) || null;
     },
 
     /** 某槽位所有装备，按等级升序 */

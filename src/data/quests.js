@@ -166,12 +166,12 @@
   ZX.QUESTS = {
     chain: CHAIN,
     byKey: function (k) {
-      return byKey[k] || null;
+      return ZX.U.own(byKey, k) || null;
     },
     goalText: goalText,
     /** 链上的下一条；没有了返回 null */
     next: function (key) {
-      var q = byKey[key];
+      var q = ZX.U.own(byKey, key);
       if (!q) return CHAIN[0];
       return CHAIN[q.index + 1] || null;
     },

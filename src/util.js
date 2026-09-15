@@ -71,6 +71,19 @@
       return arr[arr.length - 1];
     },
 
+    /**
+     * 查表：只认自有属性。
+     *
+     * 直接写 map[key] 的话，key 是 'constructor' / 'toString' 这类原型上的名字时
+     * 会取到 Object.prototype 上的东西——它是真值，于是 `map[key] || 默认值`
+     * 的兜底就被短路掉，一个本该退回默认值的坏 key 会带着个函数继续往下跑。
+     * 存档是能被手改的，所以所有按 id 查表的地方都走这里。
+     */
+    own: function (map, key) {
+      if (typeof key !== 'string' && typeof key !== 'number') return undefined;
+      return Object.prototype.hasOwnProperty.call(map, key) ? map[key] : undefined;
+    },
+
     /** 大数字显示成 1.2万 */
     big: function (n) {
       n = Math.floor(n);

@@ -209,6 +209,9 @@
     p.deaths += 1;
     p.dead = true;
     p.buffs = [];
+    // 清 buff 之后必须重算：死的那一刻身上若带着血炼，
+    // 加成会跟着一路复活，白捡一身属性
+    recompute(p);
     return lost;
   }
 

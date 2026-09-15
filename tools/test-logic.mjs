@@ -394,7 +394,7 @@ group('战斗数值', () => {
   const t4 = { buffs: [] };
   C.addBuff(t4, { kind: 'burn', ms: 3000, dps: 100 });
   let total = 0;
-  for (let i = 0; i < 30; i++) total += C.tickBuffs(t4, 100);
+  for (let i = 0; i < 30; i++) total += C.tickBuffs(t4, 100).dot;
   near(total, 300, 12, '灼烧 3 秒共约 300 点伤害');
 
   // 定身期间不能动
@@ -573,6 +573,172 @@ group('离线缓存清单', () => {
   const notCached = scripts.filter((s) => listed.indexOf(s) < 0);
   ok(!notCached.length, 'index.html 引用的脚本都在缓存清单里', notCached.join('，'));
   eq(scripts.length, MODULES.length + 1, 'index.html 的脚本数与测试加载的模块数一致（含 main.js）');
+});
+
+// ── 死亡结算 ────────────────────────────────────────────────
+group('死亡结算', () => {
+  const W = ZX.World;
+
+  // 回归：首领被灼烧/中毒烧死时，曾经绕过 hurtMonster 的死亡分支，
+  // 结果 bossDead 一直是 false，烧死的 Boss 再也不会重生。
+  const w = W.create('dazhu');
+  const boss = w.monsters.find((m) => m.isBoss);
+  ok(boss, '大竹峰有首领');
+
+  let died = null;
+  const hooks = { onDeath: (m) => { died = m; } };
+
+  ZX.Combat.addBuff(boss, { kind: 'burn', ms: 60000, dps: boss.maxHp });
+  const player = ZX.Player.create('纵火犯', 'fenxiang');
+  for (let i = 0; i < 40 && !boss.dead; i++) W.update(w, 100, player, hooks);
+
+  ok(boss.dead, '首领确实被灼烧打死了');
+  eq(died, boss, '死亡回调拿到的是这只首领');
+  eq(w.bossDead, true, '烧死的首领也要记上 bossDead');
+  ok(w.bossTimer > 0, '烧死的首领仍会进入重生倒计时');
+
+  // 死亡回调只能触发一次，否则经验和掉落会翻倍
+  const w2 = W.create('caomiao');
+  const mob = w2.monsters.find((m) => !m.isBoss);
+  let times = 0;
+  const once = { onDeath: () => { times++; } };
+  W.hurtMonster(w2, mob, mob.maxHp * 10, once);
+  W.hurtMonster(w2, mob, mob.maxHp * 10, once);
+  eq(times, 1, '同一只怪的死亡结算只跑一次');
+});
+
+// ── 查表健壮性 ──────────────────────────────────────────────
+group('查表健壮性', () => {
+  // 存档是玩家能手改的。以前查表直接写 map[key]，遇到 'constructor'、'toString'
+  // 这类原型链上的名字会取到 Object.prototype 上的东西——它是真值，
+  // 于是「取不到就用默认值」的兜底被短路，一个坏 key 会带着个函数继续往下跑。
+  const evil = ['constructor', 'toString', '__proto__', 'hasOwnProperty', 'valueOf'];
+
+  for (const k of evil) {
+    eq(ZX.ITEMS.byId(k), null, '物品表对 ' + k + ' 返回 null');
+    eq(ZX.MONSTERS.byId(k), null, '怪物表对 ' + k + ' 返回 null');
+    eq(ZX.NPCS.byKey(k), null, 'NPC 表对 ' + k + ' 返回 null');
+    eq(ZX.QUESTS.byKey(k), null, '任务表对 ' + k + ' 返回 null');
+    eq(ZX.skillDef(k), null, '技能表对 ' + k + ' 返回 null');
+    eq(ZX.sect(k), ZX.SECTS[0], '门派表对 ' + k + ' 退回默认门派');
+    eq(ZX.MAPS.byKey(k), ZX.MAPS.all[0], '地图表对 ' + k + ' 退回默认地图');
+  }
+
+  // 端到端：把存档里的门派和地图改成原型属性名，读档必须能优雅活下来
+  ZX.Save.wipe();
+  const p = ZX.Player.create('捣乱', 'qingyun');
+  ZX.Save.save(p);
+  const raw = JSON.parse(store.get('zx.save.v1'));
+  raw.sect = 'constructor';
+  raw.map = '__proto__';
+  raw.quest.current = 'toString';
+  store.set('zx.save.v1', JSON.stringify(raw));
+
+  let loaded = null;
+  let threw = false;
+  try {
+    loaded = ZX.Save.load();
+  } catch (e) {
+    threw = true;
+  }
+  ok(!threw, '被手改成原型属性名的存档不会抛异常');
+  ok(loaded, '仍能读出一个可用的角色');
+  if (loaded) {
+    eq(loaded.sect, ZX.SECTS[0].key, '非法门派退回默认门派');
+    eq(loaded.map, ZX.MAPS.all[0].key, '非法地图退回默认地图');
+    eq(loaded.quest.current, 'q1', '非法任务 key 退回第一条');
+  }
+  ZX.Save.wipe();
+});
+
+// ── 审查发现的回归 ──────────────────────────────────────────
+group('增益到期结算', () => {
+  const C = ZX.Combat;
+  const p = ZX.Player.create('连招', 'guiwang');
+  p.level = 20;
+  ZX.Player.recompute(p);
+  const baseAtk = p.stats.atk;
+
+  // 同时挂一个短的攻击加成和一个长的护盾，模拟连招
+  C.addBuff(p, { kind: 'atkUp', ms: 1000, amount: 0.5 });
+  C.addBuff(p, { kind: 'shield', ms: 9000, value: 500 });
+  ZX.Player.recompute(p);
+  ok(p.stats.atk > baseAtk, '血炼期间攻击确实变高');
+
+  // 推到攻击加成过期，但护盾还在——buff 数组不空
+  const r = C.tickBuffs(p, 1200);
+  eq(r.expired, 1, '有一个 buff 到期被报告出来');
+  ok(C.hasBuff(p, 'shield'), '护盾仍在，buff 数组没空');
+  ok(!C.hasBuff(p, 'atkUp'), '攻击加成已经到期');
+
+  // 这一步就是 bug 所在：过去只在"buff 全空"时才重算，
+  // 于是攻击加成过期后属性一直虚高，直到护盾也没了才纠正
+  if (r.expired > 0) ZX.Player.recompute(p);
+  eq(p.stats.atk, baseAtk, '加成到期后攻击回到基准值');
+
+  // 死亡清空 buff 时也要重算，否则加成会跟着复活
+  const dying = ZX.Player.create('阵亡', 'guiwang');
+  dying.level = 20;
+  ZX.Player.recompute(dying);
+  const base2 = dying.stats.atk;
+  C.addBuff(dying, { kind: 'atkUp', ms: 30000, amount: 0.5 });
+  ZX.Player.recompute(dying);
+  ok(dying.stats.atk > base2, '死前带着加成');
+  ZX.Player.die(dying);
+  eq(dying.stats.atk, base2, '死亡清空增益后属性同步回落');
+});
+
+group('范围命中判定', () => {
+  const W = ZX.World;
+  const w = W.create('dazhu');
+  w.monsters.length = 0;
+
+  // 造一只半径 40 的大块头，摆在正右方
+  const boss = ZX.MONSTERS.byId('qiannianzhuyao');
+  eq(boss.radius, 40, '首领半径按预期是 40');
+  const fake = {
+    uid: 99999, def: boss, x: 500, y: 500,
+    homeX: 500, homeY: 500, hp: boss.maxHp, maxHp: boss.maxHp,
+    state: 'idle', atkCd: 0, wanderCd: 0, vx: 0, vy: 0,
+    buffs: [], flash: 0, dead: false, castFx: 0,
+  };
+  w.monsters.push(fake);
+
+  // 圆与圆相交的正确判据是「两心距 ≤ 半径之和」。
+  // 以 62 的近战射程 + 40 的怪物半径为例，边界就在 102。
+  const R = 62;
+  const edge = R + boss.radius;   // 102
+
+  fake.x = 500 + edge - 2;
+  eq(W.inRadius(w, 500, 500, R).length, 1, '刚好贴上（100 < 102）算命中');
+
+  fake.x = 500 + edge + 2;
+  eq(W.inRadius(w, 500, 500, R).length, 0, '超出半径之和（104 > 102）不算命中');
+
+  // 这是修之前会挂的那个点：写成 r² + mr² 时阈值只有 sqrt(62²+40²)≈73.8，
+  // 距离 90 明明该打中，却会被判成空。
+  fake.x = 500 + 90;
+  eq(W.inRadius(w, 500, 500, R).length, 1, '距离 90 时命中（旧公式会漏掉）');
+});
+
+group('存档缺字段', () => {
+  ZX.Save.wipe();
+  const p = ZX.Player.create('缺血', 'tianyin');
+  p.level = 30;
+  ZX.Player.recompute(p);
+  ZX.Save.save(p);
+
+  // 老版本存档 / 字段被删：不能钳成 1 点血，那是"一读档就剩一滴血"
+  const raw = JSON.parse(store.get('zx.save.v1'));
+  delete raw.hp;
+  delete raw.mp;
+  store.set('zx.save.v1', JSON.stringify(raw));
+
+  const q = ZX.Save.load();
+  ok(q, '缺血量字段的存档仍能读出');
+  eq(q.hp, q.stats.hp, '缺 hp 字段时按满血处理');
+  eq(q.mp, q.stats.mp, '缺 mp 字段时按满灵力处理');
+  ZX.Save.wipe();
 });
 
 // ── 汇总 ──────────────────────────────────────────────────────

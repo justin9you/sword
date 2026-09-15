@@ -128,14 +128,14 @@
   ZX.NPCS = {
     all: LIST,
     byKey: function (k) {
-      return byKey[k] || null;
+      return ZX.U.own(byKey, k) || null;
     },
     /** 某张图上的 NPC，按 maps.js 里列的顺序 */
     onMap: function (mapKey) {
       var map = ZX.MAPS.byKey(mapKey);
       var out = [];
       for (var i = 0; i < map.npcs.length; i++) {
-        var n = byKey[map.npcs[i]];
+        var n = ZX.U.own(byKey, map.npcs[i]);
         if (n) out.push(n);
       }
       return out;

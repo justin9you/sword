@@ -15,6 +15,30 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const W = 1280, H = 720;
 
+// ── 可重现的随机 ──────────────────────────────────────────────
+/**
+ * 整个游戏（刷怪位置、掉落、伤害浮动、怪物游荡）都跑在 Math.random 上，
+ * 用真随机的话这套测试就是抽奖：同样的代码，五次里能挂一次。
+ * 所以给沙箱换一个带种子的 random——每次跑出来的世界完全一样，
+ * 挂了就是真挂了，而且能原样复现。
+ *
+ * 想换个世界试试：ZX_SEED=123 node tools/test-browser.mjs
+ */
+function mulberry32(a) {
+  a = a >>> 0;
+  return function () {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), 1 | t);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const SEED = Number(process.env.ZX_SEED || 20260915);
+const seededMath = Object.create(Math);
+seededMath.random = mulberry32(SEED);
+
 // ── 断言 ──────────────────────────────────────────────────────
 let passed = 0;
 const failures = [];
@@ -184,7 +208,7 @@ const sandbox = {
     return timers.length;
   },
   clearTimeout() {},
-  Math,
+  Math: seededMath,
   Date,
   JSON,
   isFinite,

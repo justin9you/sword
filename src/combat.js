@@ -88,10 +88,15 @@
   /**
    * 推进所有 buff 的计时，结算持续伤害。
    * onDot(amount) 由调用方决定伤害怎么落到血条上（玩家和怪物扣血方式不同）。
-   * 返回这一帧的 DOT 总伤害。
+   *
+   * 返回 { dot, expired }：
+   *   dot     这一帧的持续伤害总量
+   *   expired 这一帧过期掉的 buff 个数——调用方要据此重算属性。
+   *           不能只看"buff 数组空没空"：身上同时挂着护盾和攻击加成时，
+   *           攻击加成先到期，数组还不空，属性就一直停在虚高的数上。
    */
   function tickBuffs(target, dt, onDot) {
-    if (!target.buffs || !target.buffs.length) return 0;
+    if (!target.buffs || !target.buffs.length) return { dot: 0, expired: 0 };
     var total = 0;
     var kept = [];
     for (var i = 0; i < target.buffs.length; i++) {
@@ -112,8 +117,9 @@
 
       if (b.ms > 0 && !(b.kind === 'shield' && b.value <= 0)) kept.push(b);
     }
+    var expired = target.buffs.length - kept.length;
     target.buffs = kept;
-    return total;
+    return { dot: total, expired: expired };
   }
 
   /**

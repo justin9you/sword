@@ -292,7 +292,7 @@
   ZX.MAPS = {
     all: MAPS,
     byKey: function (k) {
-      return byKey[k] || MAPS[0];
+      return ZX.U.own(byKey, k) || MAPS[0];
     },
     /** 传送面板里的顺序 = 剧情顺序 */
     order: MAPS.map(function (m) {

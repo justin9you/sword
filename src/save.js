@@ -102,13 +102,20 @@
     p.playMs = Math.max(0, num(raw.playMs));
 
     ZX.Player.recompute(p);
-    p.hp = clampInt(raw.hp, 1, p.stats.hp) || p.stats.hp;
-    p.mp = clampInt(raw.mp, 0, p.stats.mp);
+    // 存档里没记血量（旧版本存档、字段被删）时要当满血处理。
+    // 不能图省事写 clampInt(raw.hp, 1, max) —— 那样缺字段会被钳成 1，
+    // 玩家一读档就剩一滴血，出门就死。
+    p.hp = isNum(raw.hp) ? clampInt(raw.hp, 1, p.stats.hp) : p.stats.hp;
+    p.mp = isNum(raw.mp) ? clampInt(raw.mp, 0, p.stats.mp) : p.stats.mp;
     return p;
   }
 
+  function isNum(v) {
+    return typeof v === 'number' && isFinite(v);
+  }
+
   function num(v) {
-    return typeof v === 'number' && isFinite(v) ? v : 0;
+    return isNum(v) ? v : 0;
   }
 
   function clampInt(v, lo, hi) {

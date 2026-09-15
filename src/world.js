@@ -145,14 +145,20 @@
     return best;
   }
 
-  /** 圆形范围内的所有活怪 */
+  /**
+   * 圆形范围内的所有活怪。所有 AOE、弹道、扇形的命中判定都从这里出去。
+   *
+   * 判据是圆与圆相交：两心距 ≤ 半径之和，平方形式是 (r + mr)²。
+   * 写成 r² + mr² 是错的——少了 2·r·mr 这一项，体型越大的怪缩水越多，
+   * 表现就是"贴着 Boss 放大招却打空"。
+   */
   function inRadius(w, x, y, r) {
     var out = [];
-    var rr = r * r;
     for (var i = 0; i < w.monsters.length; i++) {
       var m = w.monsters[i];
       if (m.dead) continue;
-      if (U.dist2(x, y, m.x, m.y) <= rr + m.def.radius * m.def.radius) out.push(m);
+      var reach = r + m.def.radius;
+      if (U.dist2(x, y, m.x, m.y) <= reach * reach) out.push(m);
     }
     return out;
   }
@@ -304,9 +310,9 @@
       m.flash = 120;
       if (hooks && hooks.onDot) hooks.onDot(m, amount);
     });
+    // 被灼烧/中毒打死也要走同一个死亡入口，否则首领的重生记账会被跳过
     if (m.hp <= 0) {
-      m.dead = true;
-      if (hooks && hooks.onDeath) hooks.onDeath(m);
+      kill(w, m, hooks);
       return;
     }
 
@@ -379,20 +385,28 @@
     }
   }
 
+  /**
+   * 怪物死亡的唯一入口。
+   * 不管是被打死还是被灼烧/中毒烧死，都必须从这里走——
+   * 首领的重生计时就挂在这儿，绕过去的话烧死的 Boss 再也不会刷。
+   */
+  function kill(w, m, hooks) {
+    if (m.dead) return;
+    m.dead = true;
+    if (m.isBoss) {
+      w.bossDead = true;
+      w.bossTimer = w.def.bossRespawnMs;
+    }
+    if (hooks && hooks.onDeath) hooks.onDeath(m);
+  }
+
   /** 怪物受到伤害的统一入口，处理护盾和死亡 */
   function hurtMonster(w, m, amount, hooks) {
     var real = C.absorb(m, amount);
     m.hp -= real;
     m.flash = 140;
     if (m.state === 'idle') m.state = 'chase';
-    if (m.hp <= 0 && !m.dead) {
-      m.dead = true;
-      if (m.isBoss) {
-        w.bossDead = true;
-        w.bossTimer = w.def.bossRespawnMs;
-      }
-      if (hooks && hooks.onDeath) hooks.onDeath(m);
-    }
+    if (m.hp <= 0) kill(w, m, hooks);
     return real;
   }
 
@@ -408,6 +422,7 @@
     rollLoot: rollLoot,
     update: update,
     hurtMonster: hurtMonster,
+    kill: kill,
     spawnOne: spawnOne,
   };
 })(window);

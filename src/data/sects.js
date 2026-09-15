@@ -153,7 +153,7 @@
   ZX.SECTS = SECTS;
 
   ZX.sect = function (key) {
-    return byKey[key] || SECTS[0];
+    return ZX.U.own(byKey, key) || SECTS[0];
   };
 
   /** 某门派在 level 级时已解锁的技能 */
@@ -168,6 +168,6 @@
 
   /** 按 key 查技能定义（跨门派） */
   ZX.skillDef = function (key) {
-    return skillIndex[key] || null;
+    return ZX.U.own(skillIndex, key) || null;
   };
 })(window);
