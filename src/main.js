@@ -272,7 +272,10 @@
         break;
 
       case 'menu':
-        if (ui.isBlocking()) ui.closePanel();
+        // 逐层往回退：先关物品详情，再关面板。
+        // 一下子全关掉的话，看个装备属性就得重新打开背包
+        if (!ui.el.itempop.classList.contains('hidden')) panels.closeItem();
+        else if (ui.isBlocking()) ui.closePanel();
         else toggle('menu', function () { showMenu(); });
         break;
 

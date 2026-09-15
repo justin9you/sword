@@ -406,8 +406,22 @@ group('面板逐个开关', () => {
   tick(2);
   fire(el('panel-body'), 'click', { target: makeAct('select', '0') });
   tick(2);
-  ok(el('panel-body').innerHTML.indexOf('item-card') >= 0 ||
-    el('panel-body').innerHTML.indexOf('选一格') >= 0, '点背包格子有反应');
+  // 详情是独立弹窗，不再接在格子网格后面——40 个格子铺下来会把它挤出屏幕
+  ok(el('itempop').innerHTML.indexOf('item-card') >= 0, '点背包格子弹出物品详情');
+  ok(!el('itempop').classList.contains('hidden'), '详情弹窗已显示');
+  ok(el('panel-body').innerHTML.indexOf('item-card') < 0, '详情不再塞在面板底部');
+
+  // 关掉
+  fire(el('itempop'), 'click', { target: makeAct('close-item', '') });
+  tick(2);
+  ok(el('itempop').classList.contains('hidden'), '关闭按钮能收起弹窗');
+
+  // 弹窗里吃药应当真的生效
+  fire(el('panel-body'), 'click', { target: makeAct('select', '0') });
+  tick(2);
+  fire(el('itempop'), 'click', { target: makeAct('use', '0') });
+  tick(2);
+  ok(true, '在弹窗里服药不抛异常');
 
   // 角色面板加点
   key('KeyB');

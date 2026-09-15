@@ -39,6 +39,7 @@
       toast: $('toast'),
       panel: $('panel'), panelTitle: $('panel-title'), panelBody: $('panel-body'),
       dialog: $('dialog'),
+      itempop: $('itempop'),
       minimap: $('minimap'),
       questTrack: $('quest-track'),
       buffs: $('buffs'),
@@ -117,10 +118,14 @@
     this.openPanel = null;
     this.el.panel.classList.add('hidden');
     this.el.dialog.classList.add('hidden');
+    this.el.itempop.classList.add('hidden');
   };
 
+  /** 有任何浮层挡着（面板 / 对话 / 物品详情）*/
   UI.prototype.isBlocking = function () {
-    return !this.el.panel.classList.contains('hidden') || !this.el.dialog.classList.contains('hidden');
+    return !this.el.panel.classList.contains('hidden') ||
+      !this.el.dialog.classList.contains('hidden') ||
+      !this.el.itempop.classList.contains('hidden');
   };
 
   // ── 每帧刷新 ────────────────────────────────────────────

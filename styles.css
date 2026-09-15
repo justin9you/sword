@@ -863,10 +863,6 @@ body {
   text-shadow: 0 1px 3px #000;
 }
 
-.bag-detail {
-  margin-top: 12px;
-}
-
 .bag-foot {
   margin-top: 10px;
   font-size: 12px;
@@ -1377,6 +1373,71 @@ body {
   margin-top: 12px;
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+/* ══ 物品详情弹窗 ══════════════════════════════════════
+   压在背包面板之上（z-index 高于 .panel 的 30）。
+   桌面居中，手机做成底部抽屉——拇指够得到，也不挡着上面的格子。 */
+.itempop {
+  position: fixed;
+  inset: 0;
+  z-index: 36;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(4, 6, 12, 0.6);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.ip-box {
+  width: min(420px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(170deg, rgba(24, 30, 45, 0.99), rgba(10, 13, 21, 0.99));
+  border: 1px solid rgba(150, 180, 220, 0.24);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  animation: ip-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes ip-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+}
+
+.ip-btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.ip-btns .btn {
+  flex: 1 1 auto;
+  min-width: 78px;
+  text-align: center;
+}
+
+@media (max-width: 760px), (pointer: coarse) {
+  /* 底部抽屉：贴着下边缘，从下往上出 */
+  .itempop {
+    align-items: end;
+    padding: 12px 10px max(12px, env(safe-area-inset-bottom));
+  }
+
+  .ip-box {
+    width: 100%;
+    max-height: 78vh;
+  }
+
+  .ip-btns .btn {
+    padding: 10px 14px;
+  }
 }
 
 /* ══ 居中大字提示 ══════════════════════════════════════ */

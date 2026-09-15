@@ -33,6 +33,19 @@
       e.preventDefault();
       self.dispatch(node.getAttribute('data-act'), node.getAttribute('data-arg'));
     });
+
+    ui.el.itempop.addEventListener('click', function (e) {
+      // 点弹窗外的遮罩就关掉
+      if (e.target === ui.el.itempop) {
+        self.closeItem();
+        return;
+      }
+      var node = e.target;
+      while (node && node !== ui.el.itempop && !node.getAttribute('data-act')) node = node.parentNode;
+      if (!node || node === ui.el.itempop) return;
+      e.preventDefault();
+      self.dispatch(node.getAttribute('data-act'), node.getAttribute('data-arg'));
+    });
   }
 
   Panels.prototype.dispatch = function (act, arg) {
@@ -42,7 +55,11 @@
     switch (act) {
       case 'select':
         this.selected = Number(arg);
-        this.bag();
+        this.showItem(this.selected);
+        break;
+
+      case 'close-item':
+        this.closeItem();
         break;
 
       case 'equip': {
@@ -57,6 +74,7 @@
           g.hooks.log('装备了【' + res.item.name + '】', 'loot');
           g.audio.play('loot');
         }
+        this.closeItem();
         this.bag();
         break;
       }
@@ -76,7 +94,8 @@
       }
 
       case 'use': {
-        var r = ZX.Player.usePotion(p, Number(arg));
+        var idx = Number(arg);
+        var r = ZX.Player.usePotion(p, idx);
         if (r && r.ok) {
           g.hooks.log('服下【' + r.item.name + '】' +
             (r.healed ? '，气血 +' + r.healed : '') +
@@ -86,6 +105,9 @@
           g.hooks.log(r.msg, 'warn');
           g.audio.play('error');
         }
+        // 这一格还有剩就把弹窗留着，方便连着吃；吃完了才关
+        if (p.bag[idx]) this.showItem(idx);
+        else this.closeItem();
         this.bag();
         break;
       }
@@ -93,6 +115,7 @@
       case 'drop':
         p.bag = ZX.Inventory.removeAt(p.bag, Number(arg), 9999);
         this.selected = -1;
+        this.closeItem();
         this.bag();
         break;
 
@@ -177,22 +200,35 @@
     }
     html += '</div>';
 
-    html += '<div class="bag-detail">' + this.detailHtml(this.selected) + '</div>';
     html += '<div class="bag-foot">灵石 <b>' + U.big(p.gold) + '</b>　空格 ' +
       p.bag.filter(function (s) { return !s; }).length + '/' + p.bag.length + '</div>';
 
     this.ui.show('bag', '背包', html);
   };
 
-  Panels.prototype.detailHtml = function (index) {
+  /**
+   * 物品详情弹窗。
+   *
+   * 以前是把详情接在格子网格后面，40 个格子铺下来，手机上详情直接跑到屏幕外，
+   * 点了没反应——所以改成压在面板之上的弹窗。
+   */
+  Panels.prototype.showItem = function (index) {
     var p = this.game.player;
-    if (index < 0 || !p.bag[index]) return '<div class="hint">选一格看看。</div>';
     var stack = p.bag[index];
+    if (index < 0 || !stack) {
+      this.closeItem();
+      return;
+    }
     var item = ZX.ITEMS.byId(stack.id);
-    if (!item) return '<div class="hint">空的。</div>';
+    if (!item) {
+      this.closeItem();
+      return;
+    }
 
-    var html = itemCard(item, p);
-    html += '<div class="row">';
+    var html = '<div class="ip-box">' + itemCard(item, p);
+    if (stack.n > 1) html += '<div class="ic-price">持有 ' + stack.n + ' 个</div>';
+
+    html += '<div class="ip-btns">';
     if (ZX.ITEMS.isGear(item)) {
       var ok = ZX.ITEMS.canEquip(item, p.sect, p.level);
       html += '<button class="btn primary" data-act="equip" data-arg="' + index + '"' +
@@ -202,8 +238,16 @@
       html += '<button class="btn primary" data-act="use" data-arg="' + index + '">服用</button>';
     }
     html += '<button class="btn danger" data-act="drop" data-arg="' + index + '">丢弃</button>';
-    html += '</div>';
-    return html;
+    html += '<button class="btn" data-act="close-item">关闭</button>';
+    html += '</div></div>';
+
+    this.ui.el.itempop.innerHTML = html;
+    this.ui.el.itempop.classList.remove('hidden');
+  };
+
+  Panels.prototype.closeItem = function () {
+    this.selected = -1;
+    this.ui.el.itempop.classList.add('hidden');
   };
 
   /** 物品卡片。装备会和身上那件对比，直接标出属性差 */
