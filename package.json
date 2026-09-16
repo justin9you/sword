@@ -10,7 +10,10 @@
     "icons": "node tools/gen-icons.mjs",
     "test": "node tools/test-logic.mjs && node tools/test-browser.mjs && node tools/stamp-sw.mjs --check",
     "test:logic": "node tools/test-logic.mjs",
-    "test:browser": "node tools/test-browser.mjs"
+    "test:browser": "node tools/test-browser.mjs",
+    "export:unity": "node tools/export-unity.mjs",
+    "verify:unity": "dotnet build tools/unity/verify/ZxVerify.csproj --nologo -v q",
+    "test:unity": "node tools/test-unity-codegen.mjs && node tools/export-unity.mjs --check"
   },
   "engines": {
     "node": ">=18"

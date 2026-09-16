@@ -157,6 +157,10 @@ npm test         # 逻辑自测 + 无头冒烟测试 + 检查 sw.js 版本号
 npm run stamp    # 改完代码后更新 sw.js 的缓存版本号
 npm run icons    # 重新生成图标 PNG
 npm run pack     # 打部署包 zip
+
+npm run export:unity  # 导出 Unity 数据包（JSON + C# 数据类）
+npm run test:unity    # 代码生成器自测 + 检查数据包有没有过期
+npm run verify:unity  # 编译一遍生成的 C#（需要 .NET SDK）
 ```
 
 **不能直接双击 index.html**：Service Worker 只在 http(s) 下注册，`file://` 打开装不了主屏幕、也没法离线。
@@ -212,6 +216,29 @@ src/
 `npm test` 里有一整组**数据接线检查**：刷怪表里的怪是否存在、任务指向的 NPC 是否存在、
 商店货单的物品 id 有没有拼错、任务目标怪是否真的能在某张图刷出来、出生点有没有压在墙里。
 这类错误一旦漏出去就是运行时崩溃，所以让测试来盯。
+
+---
+
+## 导到 Unity
+
+`npm run export:unity` 把 `src/data/` 下的数据导成 Unity 直接能吃的东西，落在 [export/unity/](export/unity/)：
+
+```
+export/unity/
+├── Resources/ZhuxianData/*.json   7 份数据（物品 / 怪物 / 地图 / NPC / 任务 / 门派 / 数值常量）
+├── Runtime/ZxData.cs              C# 数据类，照着数据自动生成
+├── Runtime/ZxDatabase.cs          加载 + 查表
+└── README.md                      怎么装进工程、有哪些坑
+```
+
+C# 类是**生成**的不是手写的：数据表还在长，手写的类一旦落后，JsonUtility 不会报错，
+只会把读不到的字段留成 0，然后你在游戏里追一个"为什么这把剑没有暴击"的鬼。
+所以有 `npm run test:unity` 盯着数据包有没有过期，CI 里也单独跑一遍。
+
+这道检查**不挂在 `npm test` 上，也不拦部署**：Unity 数据包过期是另一码事，
+不该让网页版跟着上不了线。改完 `src/data/` 只想发网页版，那就不用管它。
+
+搬过去的只有数据。战斗公式、技能行为、任务状态机这些还在 JS 里，属于下一步的事。
 
 ---
 

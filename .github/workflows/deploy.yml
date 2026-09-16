@@ -37,6 +37,22 @@ jobs:
       - name: 跑测试
         run: npm test
 
+  unity:
+    name: Unity 数据包
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 检查 export/unity/ 还跟不跟 src/data 对得上。
+      # 故意不挂在 deploy 的 needs 上：Unity 数据包过期是另一码事，
+      # 不该拦住网页版上线——网页版自己的测试已经在上面跑过了。
+      - name: 检查数据包是否过期
+        run: npm run test:unity
+
   deploy:
     name: 发布
     needs: test

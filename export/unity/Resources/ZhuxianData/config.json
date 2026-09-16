@@ -1,0 +1,159 @@
+{
+  "TILE": 48,
+  "MAX_DT": 50,
+  "MAX_LEVEL": 65,
+  "MOVE_SPEED": 168,
+  "MELEE_RANGE": 62,
+  "ATTACK_MS": 780,
+  "POINTS_PER_LEVEL": 3,
+  "DEATH_EXP_LOSS": 0.1,
+  "REGEN_DELAY_MS": 2600,
+  "REGEN_RATE": 0.04,
+  "DAMAGE_JITTER": 0.1,
+  "DEF_FACTOR": 0.55,
+  "MDEF_FACTOR": 0.45,
+  "MIN_DAMAGE": 1,
+  "CRIT_MUL": 1.75,
+  "LEVEL_GAP_BONUS": 0.04,
+  "LEVEL_GAP_CAP": 0.6,
+  "HURT_IFRAME_MS": 260,
+  "SWING_MS": 260,
+  "AGGRO_RANGE": 260,
+  "LEASH_RANGE": 620,
+  "RESPAWN_MS": 9000,
+  "MAX_ALIVE": 26,
+  "DROP_GEAR": 0.16,
+  "ELITE_DROP_MUL": 2.6,
+  "BOSS_DROPS": 2,
+  "DROP_LIFE_MS": 45000,
+  "PICKUP_RANGE": 52,
+  "BAG_SIZE": 40,
+  "STACK_MAX": 99,
+  "CAM_LERP": 0.14,
+  "FLOAT_MS": 850,
+  "LOG_MAX": 60,
+  "slots": [
+    {
+      "key": "weapon",
+      "name": "兵器"
+    },
+    {
+      "key": "talisman",
+      "name": "法宝"
+    },
+    {
+      "key": "robe",
+      "name": "衣袍"
+    },
+    {
+      "key": "bracer",
+      "name": "护腕"
+    },
+    {
+      "key": "boots",
+      "name": "靴履"
+    },
+    {
+      "key": "pendant",
+      "name": "玉佩"
+    }
+  ],
+  "quality": [
+    {
+      "key": "common",
+      "name": "凡品",
+      "color": "#b9c2cf",
+      "mul": 1
+    },
+    {
+      "key": "fine",
+      "name": "灵品",
+      "color": "#67c98a",
+      "mul": 1.18
+    },
+    {
+      "key": "rare",
+      "name": "宝器",
+      "color": "#5aa8f0",
+      "mul": 1.4
+    },
+    {
+      "key": "epic",
+      "name": "仙器",
+      "color": "#b483f5",
+      "mul": 1.7
+    },
+    {
+      "key": "legend",
+      "name": "神器",
+      "color": "#f0a34a",
+      "mul": 2.1
+    }
+  ],
+  "expToNext": [
+    154,
+    303,
+    494,
+    719,
+    975,
+    1259,
+    1570,
+    1906,
+    2265,
+    2647,
+    3051,
+    3476,
+    3921,
+    4386,
+    4870,
+    5373,
+    5894,
+    6433,
+    6989,
+    7563,
+    8153,
+    8759,
+    9382,
+    10020,
+    10674,
+    11344,
+    12028,
+    12728,
+    13442,
+    14171,
+    14914,
+    15671,
+    16442,
+    17227,
+    18026,
+    18838,
+    19664,
+    20503,
+    21355,
+    22220,
+    23098,
+    23988,
+    24892,
+    25807,
+    26736,
+    27676,
+    28629,
+    29593,
+    30570,
+    31559,
+    32559,
+    33571,
+    34595,
+    35630,
+    36677,
+    37735,
+    38805,
+    39886,
+    40978,
+    42081,
+    43195,
+    44320,
+    45455,
+    46602
+  ]
+}
