@@ -164,6 +164,7 @@ npm run gen:fixtures  # 重新生成 C# 对照测试的样本
 npm run test:core     # 跑 C# 逻辑层的对照测试（需要 .NET SDK）
 npm run verify:unity  # 编译一遍 Unity 适配器（需要 .NET SDK）
 npm run verify:godot  # 编译一遍 Godot 适配器 + 逻辑层（需要 .NET SDK）
+npm run smoke:godot   # 在 Godot 里真跑一遍（无头，需要 Godot）
 ```
 
 **不能直接双击 index.html**：Service Worker 只在 http(s) 下注册，`file://` 打开装不了主屏幕、也没法离线。
@@ -244,8 +245,12 @@ C# 数据类是**生成**的不是手写的：数据表还在长，手写的类�
 上不了线。改完 `src/data/` 只想发网页版，那就不用管它。
 
 两个适配器都能在**没装引擎**的机器上验证编译：`verify:unity` 和 `verify:godot`
-各配一个最小的引擎 API 桩，保证"拖进去一定编得过"。要提醒的是，桩只能证明代码自洽，
-证明不了和真引擎的签名完全一致——所以碰引擎 API 的地方刻意压到了最少。
+各配一个最小的引擎 API 桩，保证"拖进去一定编得过"。桩只能证明代码自洽，
+证明不了和真引擎的签名一致，所以碰引擎 API 的地方刻意压到了最少。
+
+Godot 那边还能更进一步——仓库里有个配好的工程 [godot/](godot/)，`npm run smoke:godot`
+会无头启动 Godot 真跑一遍：读数据 → 建号 → 建图 → 打一架 → 存档往返。
+**实测 Godot 4.7.2 .NET 版，27 项全过**。这是唯一一个真在引擎里跑的检查。
 
 ---
 

@@ -1,7 +1,7 @@
 /**
  * 把游戏数据导成 Unity 能直接吃的 JSON + C# 数据类。
  *
- *   node tools/export-gamedata.mjs          导出到 export/
+ *   node tools/export-gamedata.mjs          导出到 export/ 和 godot/data/
  *   node tools/export-gamedata.mjs --check  只校验，不写文件（给 npm run test:data 用）
  *
  * 做法跟 test-logic.mjs 一样：把 src 下的数据模块塞进一个假 window 里跑一遍，
@@ -25,8 +25,16 @@ import { inferSchema, emitDataFile } from './csharp-codegen.mjs';
 import { rootReadme, unityReadme, godotReadme } from './export-docs.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = path.join(ROOT, 'export');
+/**
+ * 导出器全权拥有的目录：里面每一个文件都由它生成，多出来的都算孤儿。
+ * godot/data/zhuxian 是 Godot 工程里的数据副本——Godot 只认 res:// 底下的文件，
+ * 所以那份必须真实存在，但也不能靠人手动拷，只能一起生成、一起检查。
+ */
+const OWNED_DIRS = ['export', 'godot/data/zhuxian', 'godot/scripts'];
 const CHECK_ONLY = process.argv.includes('--check');
+
+/** Godot 工程里那份数据的位置，和 ZxGodotData.DataDir 对应 */
+const GODOT_DATA = 'godot/data/zhuxian/';
 
 // ── 把数据模块跑起来 ──────────────────────────────────────────
 
@@ -170,23 +178,32 @@ for (const c of cols) {
     console.error('✗ ' + c.file + ' 一条数据都没有，导出中止');
     process.exit(1);
   }
-  files.set('data/' + c.file, JSON.stringify({ [c.field]: c.rows }, null, 2) + '\n');
+  const json = JSON.stringify({ [c.field]: c.rows }, null, 2) + '\n';
+  files.set('export/data/' + c.file, json);
+  files.set(GODOT_DATA + c.file, json);
 }
-files.set('data/config.json', JSON.stringify(config, null, 2) + '\n');
+const configJson = JSON.stringify(config, null, 2) + '\n';
+files.set('export/data/config.json', configJson);
+files.set(GODOT_DATA + 'config.json', configJson);
 
 // 数据类是引擎无关的（只 using System），所以和 JSON 放一起
-files.set('data/ZxData.cs', dataCs);
+files.set('export/data/ZxData.cs', dataCs);
 
 // 每个引擎一个适配器目录，只放"这个引擎怎么把文件读进来"
 const adapter = (engine, file) => fs.readFileSync(path.join(ROOT, 'tools', engine, file), 'utf8');
-files.set('unity/ZxDatabase.cs', adapter('unity', 'ZxDatabase.cs'));
-files.set('unity/ZxSmokeTest.cs', adapter('unity', 'ZxSmokeTest.cs'));
-files.set('godot/ZxGodotData.cs', adapter('godot', 'ZxGodotData.cs'));
-files.set('godot/ZxSmoke.cs', adapter('godot', 'ZxSmoke.cs'));
+files.set('export/unity/ZxDatabase.cs', adapter('unity', 'ZxDatabase.cs'));
+files.set('export/unity/ZxSmokeTest.cs', adapter('unity', 'ZxSmokeTest.cs'));
+files.set('export/godot/ZxGodotData.cs', adapter('godot', 'ZxGodotData.cs'));
+files.set('export/godot/ZxSmoke.cs', adapter('godot', 'ZxSmoke.cs'));
 
-files.set('README.md', rootReadme(cols, config));
-files.set('unity/README.md', unityReadme(config));
-files.set('godot/README.md', godotReadme(config));
+// Godot 工程里也要有一份：挂在节点上的 C# 脚本必须落在 res:// 底下，
+// 编译时从别处 include 进来是不够的，编辑器认不出它是个脚本
+files.set('godot/scripts/ZxGodotData.cs', adapter('godot', 'ZxGodotData.cs'));
+files.set('godot/scripts/ZxSmoke.cs', adapter('godot', 'ZxSmoke.cs'));
+
+files.set('export/README.md', rootReadme(cols, config));
+files.set('export/unity/README.md', unityReadme(config));
+files.set('export/godot/README.md', godotReadme(config));
 
 // 落盘前先把 JSON 再解析一遍，确认写出去的东西真能读回来
 for (const [rel, text] of files) {
@@ -199,15 +216,15 @@ for (const [rel, text] of files) {
   }
 }
 
-/** 已经落在 export/unity/ 下的文件（相对 OUT，统一用 / 分隔） */
-function existingFiles(dir, base) {
-  base = base || dir;
-  if (!fs.existsSync(dir)) return [];
+/** 某个目录下已经存在的文件，路径相对仓库根，统一用 / 分隔 */
+function existingFiles(dir) {
+  const abs = path.join(ROOT, dir);
+  if (!fs.existsSync(abs)) return [];
   const out = [];
-  for (const name of fs.readdirSync(dir)) {
-    const full = path.join(dir, name);
-    if (fs.statSync(full).isDirectory()) out.push(...existingFiles(full, base));
-    else out.push(path.relative(base, full).split(path.sep).join('/'));
+  for (const name of fs.readdirSync(abs)) {
+    const rel = dir + '/' + name;
+    if (fs.statSync(path.join(ROOT, rel)).isDirectory()) out.push(...existingFiles(rel));
+    else out.push(rel);
   }
   return out;
 }
@@ -217,16 +234,24 @@ function sameText(a, b) {
   return a.replace(/\r\n/g, '\n') === b.replace(/\r\n/g, '\n');
 }
 
-const orphans = existingFiles(OUT).filter((rel) => !files.has(rel));
+/**
+ * 引擎自己在这些目录里生成的边车文件，不算孤儿。
+ * Godot 4.4+ 会给每个脚本生成 .uid，用来稳定资源引用——它该进版本库，
+ * 只是不归导出器管。
+ */
+const ENGINE_SIDECARS = /.uid$/;
+
+const orphans = OWNED_DIRS.flatMap(existingFiles)
+  .filter((rel) => !files.has(rel) && !ENGINE_SIDECARS.test(rel));
 
 if (CHECK_ONLY) {
   const stale = [...files.keys()].filter((rel) => {
-    const f = path.join(OUT, rel);
+    const f = path.join(ROOT, rel);
     return !fs.existsSync(f) || !sameText(fs.readFileSync(f, 'utf8'), files.get(rel));
   });
   if (stale.length) {
     console.error(
-      '✗ export/ 与 src/data 不同步，过期文件：' + stale.join('，') + '\n' +
+      '✗ 导出的文件与 src/data 不同步，过期的有：' + stale.join('，') + '\n' +
       '  跑一下：npm run export:data'
     );
     process.exit(1);
@@ -235,23 +260,23 @@ if (CHECK_ONLY) {
     // 导出器只写自己那份清单，多出来的文件它不会清理，也不该假装没看见：
     // 删掉一个集合之后留下的旧 JSON 照样能被 ZxDatabase 读进去。
     console.error(
-      '✗ export/ 下有不该存在的文件：' + orphans.join('，') + '\n' +
+      '✗ 导出目录下有不该存在的文件：' + orphans.join('，') + '\n' +
       '  这些不在导出清单里，手动删掉'
     );
     process.exit(1);
   }
-  console.log('✓ export/ 与数据源一致（' + files.size + ' 个文件）');
+  console.log('✓ 导出的文件与数据源一致（' + files.size + ' 个文件）');
   process.exit(0);
 }
 
 for (const [rel, text] of files) {
-  const f = path.join(OUT, rel);
+  const f = path.join(ROOT, rel);
   fs.mkdirSync(path.dirname(f), { recursive: true });
   fs.writeFileSync(f, text);
 }
 
 const classCount = (dataCs.match(/public class /g) || []).length;
-console.log('导出到 export/');
+console.log('导出到 export/ 和 ' + GODOT_DATA);
 for (const c of cols) console.log('  ' + c.file.padEnd(16) + c.rows.length + ' 条');
 console.log('  config.json      ' + Object.keys(config).length + ' 项（含 ' + config.expToNext.length + ' 级经验表）');
 console.log('  ZxData.cs        ' + classCount + ' 个类');

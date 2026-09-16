@@ -5,15 +5,14 @@
   整个 Zhuxian.Core。少了任何一块都编不过，所以这一步顺带验证了
   「Core 能被 Godot 侧引用」这件事。
 
-  TargetFramework 用 net7.0 是因为这台机器只有 .NET 7 SDK；Godot 4.2+ 的工程
-  实际是 net8.0。代码本身不挑框架，所以这个差别不影响结论。
+  TargetFramework 用 net8.0，和 Godot 4.2+ 的工程口径一致。
 
     npm run verify:godot
 -->
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <AssemblyName>ZxGodotVerify</AssemblyName>
     <RootNamespace>Zhuxian.Verify</RootNamespace>

@@ -1,0 +1,32 @@
+<!--
+  诛仙 3D —— Godot 侧的 C# 工程。
+
+  刻意不拷贝源码：数据类、引擎适配器、整个逻辑层都是直接编译仓库里那一份，
+  所以改了 src/data 重跑导出、或者改了 Zhuxian.Core，这边下次编译就跟上了，
+  不存在"两份源码对不上"这种事。
+
+  JSON 不一样——Godot 只认 res:// 底下的文件，所以数据由 npm run export:data
+  直接写进 godot/data/zhuxian/，同样不用手动同步。
+
+  TargetFramework 跟着 Godot 走：Godot 4.7 用 net8.0。
+-->
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>disable</Nullable>
+    <RootNamespace>Zhuxian.Game</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      引擎无关的数据类。适配器和冒烟脚本不在这里列——它们在 scripts/ 下，
+      Godot 的 SDK 会自动把项目目录下的 .cs 全都编进来，再 Include 一次就重复定义了。
+    -->
+    <Compile Include="..\export\data\ZxData.cs" />
+    <!-- 移植过来的游戏逻辑：战斗、背包、任务、技能、存档 -->
+    <Compile Include="..\csharp\Zhuxian.Core\*.cs" />
+  </ItemGroup>
+
+</Project>

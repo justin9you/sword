@@ -16,7 +16,8 @@
     "gen:fixtures": "node tools/gen-fixtures.mjs",
     "test:core": "dotnet run --project csharp/Zhuxian.Tests --nologo -v q",
     "verify:unity": "dotnet build tools/unity/verify/ZxVerify.csproj --nologo -v q",
-    "verify:godot": "dotnet build tools/godot/verify/ZxGodotVerify.csproj --nologo -v q"
+    "verify:godot": "dotnet build tools/godot/verify/ZxGodotVerify.csproj --nologo -v q",
+    "smoke:godot": "node tools/smoke-godot.mjs"
   },
   "engines": {
     "node": ">=18"

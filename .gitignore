@@ -29,3 +29,10 @@ csharp/**/bin/
 csharp/**/obj/
 tools/godot/verify/bin/
 tools/godot/verify/obj/
+
+# Godot 工程的本地产物：导入缓存、编译输出、编辑器状态
+godot/.godot/
+godot/bin/
+godot/obj/
+godot/.mono/
+godot/*.sln
