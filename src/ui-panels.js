@@ -284,7 +284,7 @@
     var q = ZX.QUALITY[item.q];
 
     var html = '<div class="ip-box ip-confirm">' +
-      '<div class="ic-head"><span class="ic-name" style="color:' + q.color + '">' +
+      '<div class="ic-head"><span class="ic-name" style="--q:' + q.color + '">' +
       esc(item.name) + '</span><span class="ic-q">' + esc(q.name) + '</span></div>' +
       '<div class="cf-q">卖掉它？换来的灵石买不回来。</div>';
 
@@ -423,7 +423,7 @@
 
     var html = '<div class="char-top">' +
       '<div class="ct-name">' + esc(p.name) + '</div>' +
-      '<div class="ct-sect" style="color:' + sect.color + '">' +
+      '<div class="ct-sect" style="--c:' + sect.color + '">' +
       esc(sect.name) + ' · ' + esc(sect.art) + '　Lv.' + p.level + '</div>' +
       '<div class="ct-quote">「' + esc(sect.quote) + '」</div></div>';
 

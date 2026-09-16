@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-<meta name="theme-color" content="#0b0d14" />
+<meta name="theme-color" content="#e9dfc9" />
 <meta name="description" content="《诛仙》江湖录——按萧鼎原著剧情做的单机 MMORPG。四大门派、十二张场景、打怪练级穿装备，浏览器直接玩，可装到手机主屏离线运行。" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -15,11 +15,49 @@
 </head>
 <body>
 
-<!-- 标题页：选门派、起名 -->
+<!-- 标题页：选门派、起名。
+     整页当一张四尺整纸来排：上方大片留白，远山压在下三分之一，
+     题字在上首、朱印在题字右下——就是国画款识的老位置。 -->
 <div id="title">
+
+  <!-- 纯装饰的水墨层。远山三重、一轮淡月、山间水气、三只飞鸟，
+       全是内联 SVG + CSS 现画，不引任何图片文件 -->
+  <div class="ink-scene" aria-hidden="true">
+    <div class="ink-moon"></div>
+
+    <svg class="ink-mountains" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax meet">
+      <!-- 通天峰：一座远得发灰的孤峰，全图的最高处 -->
+      <path class="mt-peak" d="M640 520C700 430 720 330 762 154 800 320 828 420 890 520Z" />
+      <!-- 侧峰：陪着主峰，免得孤峰太像一个三角形 -->
+      <path class="mt-peak2" d="M916 520C956 448 972 372 1002 246 1030 360 1050 440 1092 520Z" />
+      <!-- 远山：碎、低、糊 -->
+      <path class="mt-far" d="M0 300 70 252 118 286 186 206 242 262 300 232 362 288 430 238 498 292 560 246 628 300 700 244 768 296 840 250 910 302 982 254 1060 306 1130 262 1200 308V520H0Z" />
+      <ellipse class="mt-mist" cx="880" cy="312" rx="320" ry="18" />
+      <!-- 中景：连绵的缓坡 -->
+      <path class="mt-mid" d="M0 372C70 336 128 356 196 322 262 290 316 336 388 322 458 308 512 356 592 342 672 328 730 290 812 326 892 362 952 334 1032 356 1112 378 1156 362 1200 374V520H0Z" />
+      <ellipse class="mt-mist" cx="320" cy="368" rx="380" ry="22" />
+      <!-- 近景：最重的一笔压在左下，把画面撑住 -->
+      <path class="mt-near" d="M0 470C52 452 92 412 142 378 186 348 206 300 250 258 286 224 312 262 342 300 382 350 428 392 484 420 540 448 584 468 648 480 712 492 760 496 820 502 880 508 940 500 1010 496 1080 492 1140 502 1200 496V520H0Z" />
+      <ellipse class="mt-mist" cx="600" cy="452" rx="460" ry="24" />
+    </svg>
+
+    <div class="ink-mist"></div>
+
+    <svg class="ink-birds" viewBox="0 0 120 40">
+      <g fill="none" stroke="#2b2620" stroke-linecap="round">
+        <path d="M6 14Q12 8 18 13Q24 8 30 14" stroke-width="1.8" />
+        <path d="M44 24Q49 19 54 23Q59 19 64 24" stroke-width="1.5" />
+        <path d="M80 9Q84 5 88 8.5Q92 5 96 9" stroke-width="1.2" />
+      </g>
+    </svg>
+  </div>
+
   <div class="title-inner">
-    <h1 class="game-title">诛仙</h1>
-    <p class="game-sub">江湖录　·　单机 MMORPG</p>
+    <div class="title-brand">
+      <h1 class="game-title">诛仙</h1>
+      <span class="seal" aria-hidden="true">江湖录</span>
+    </div>
+    <p class="game-sub">单机 MMORPG</p>
     <p class="game-quote">天地不仁，以万物为刍狗。</p>
 
     <div class="name-row">

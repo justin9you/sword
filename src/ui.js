@@ -332,10 +332,12 @@
     var oy = (ch - world.h * k) / 2;
 
     ctx.clearRect(0, 0, cw, ch);
-    ctx.fillStyle = 'rgba(12,14,20,0.82)';
+    // 纸底墨绘的山河小样：跟 HUD 上那些纸笺同一套色，
+    // 否则右上角会孤零零地嵌着一块暗色玻璃
+    ctx.fillStyle = 'rgba(233,223,201,0.94)';
     ctx.fillRect(ox, oy, world.w * k, world.h * k);
 
-    ctx.fillStyle = 'rgba(160,180,210,0.28)';
+    ctx.fillStyle = 'rgba(77,69,58,0.34)';
     var i;
     for (i = 0; i < world.blocks.length; i++) {
       var b = world.blocks[i];
@@ -344,13 +346,13 @@
 
     for (i = 0; i < world.portals.length; i++) {
       var pt = world.portals[i];
-      ctx.fillStyle = '#7fd8ff';
+      ctx.fillStyle = '#3c647f';
       ctx.fillRect(ox + pt.x * k - 2, oy + pt.y * k - 2, 4, 4);
     }
 
     for (i = 0; i < world.npcs.length; i++) {
       var n = world.npcs[i];
-      ctx.fillStyle = '#ffd24a';
+      ctx.fillStyle = '#a97b26';
       ctx.fillRect(ox + n.x * k - 1.5, oy + n.y * k - 1.5, 3, 3);
     }
 
@@ -360,17 +362,22 @@
       var m = world.monsters[i];
       if (m.dead) continue;
       var isTarget = questId && m.def.id === questId;
-      ctx.fillStyle = isTarget ? '#ffd24a'
-        : m.isBoss ? '#ff4a6a'
-          : m.def.isElite ? '#ffa04a'
-            : 'rgba(224,90,90,0.75)';
+      ctx.fillStyle = isTarget ? '#a97b26'
+        : m.isBoss ? '#a8392c'
+          : m.def.isElite ? '#b0662a'
+            : 'rgba(150,60,48,0.68)';
       var size = m.isBoss ? 4 : isTarget ? 3.5 : 2;
       ctx.fillRect(ox + m.x * k - size / 2, oy + m.y * k - size / 2, size, size);
     }
 
-    ctx.fillStyle = '#ffffff';
+    // 自己是最重的一点焦墨，外面留一圈纸色，从底图上"挑"出来
+    ctx.beginPath();
+    ctx.arc(ox + p.x * k, oy + p.y * k, 4.2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(242,235,219,0.92)';
+    ctx.fill();
     ctx.beginPath();
     ctx.arc(ox + p.x * k, oy + p.y * k, 2.6, 0, Math.PI * 2);
+    ctx.fillStyle = '#16130f';
     ctx.fill();
   };
 

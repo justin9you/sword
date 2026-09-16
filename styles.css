@@ -1,55 +1,91 @@
 /*
- * 视觉方向：水墨仙侠。
+ * 视觉方向：宣纸水墨。
  *
- * 底色是压到近黑的墨蓝，信息层用半透明的"宣纸格"浮在上面；
- * 强调色只用三种——青玉（正）、赤朱（危）、鎏金（贵重），其余一律灰阶。
- * 标题走衬线（宋体一路），正文走无衬线，两套字形拉开层次，不靠加粗硬撑。
+ * 整套界面当成一张摊开的生宣来做——
+ * 底是泛黄的纸，字是墨，唯一的彩色是朱砂（印章、危、要紧处），
+ * 其余一切靠墨的浓淡分层次：焦墨压标题，浓墨写正文，淡墨作界格，清墨留白。
+ *
+ * 三条自己定的规矩，通篇不破：
+ *   1. 不用纯黑纯白。墨最深到 #16130f，纸最亮到 #f2ebdb，眼睛才不累。
+ *   2. 不靠加粗撑层级。楷体 + 字距 + 竖排 + 朱印，这四样比 bold 有效得多。
+ *   3. 一个外部文件都不引。纸纹、墨晕、飞白、印泥的斑驳，全是 SVG 湍流现算，
+ *      写在 data URI 里跟着 CSS 一起走——这个项目的底线就是零外部资源。
+ *
+ * 游戏画面本身是暗的，纸色 HUD 浮在上面反差最大，也最像"在画上作注"。
  */
 
 :root {
-  /* 墨色阶 */
-  --ink-0: #070910;
-  --ink-1: #0b0e18;
-  --ink-2: #121724;
-  --ink-3: #1a2132;
-  --ink-4: #263047;
+  /* ── 纸 ───────────────────────────────────────────────
+     从受光面到背光面五阶。生宣本身偏暖，越暗越发赭，不是简单地掺灰 */
+  --paper-0: #f6efdd;
+  --paper-1: #eee4cd;
+  --paper-2: #e3d8be;
+  --paper-3: #d4c6a8;
+  --paper-4: #c1b090;
 
-  /* 文字 */
-  --fg: #dde5f0;
-  --fg-dim: #94a2b8;
-  --fg-faint: #5d6a80;
+  /* ── 墨 ───────────────────────────────────────────────
+     焦、浓、重、淡、清，国画里本来就是五色 */
+  --ink-9: #16130f;
+  --ink-7: #2b2620;
+  --ink-5: #4d453a;
+  --ink-3: #7d7364;
+  --ink-1: #a99d88;
+  --ink-0: #c4b89f;
 
-  /* 强调 */
-  --jade: #5fd4b4;
-  --cyan: #7fc4e8;
-  --gold: #e8bf6a;
-  --blood: #e0566e;
-  --violet: #b483f5;
+  /* ── 彩 ───────────────────────────────────────────────
+     矿物色，取自传统颜料，不用屏幕原色。饱和度一律压在 45% 以下 */
+  --cinnabar: #a8392c;   /* 朱砂：危、损、警 */
+  --seal: #b4372a;       /* 印泥：印章专用，比朱砂再艳一点 */
+  --stone-blue: #3c647f; /* 石青：灵力、水、寒 */
+  --stone-green: #4e7a5b;/* 石绿：生、治愈、达成 */
+  --gamboge: #a97b26;    /* 藤黄：贵重、经验、灵石 */
+  --dai: #5b4d6b;        /* 黛：异常、幻 */
 
-  /* 品质 */
-  --q-common: #b9c2cf;
-  --q-fine: #67c98a;
-  --q-rare: #5aa8f0;
-  --q-epic: #b483f5;
-  --q-legend: #f0a34a;
+  /* 品质。原始色在 JS 里是给 canvas 用的亮色，进到纸面一律 color-mix 压成矿物色，
+     见下面各处的 --qi。这里只留一个兜底 */
+  --q-fallback: #7d7364;
 
   /* 底部两个高度，分开定义——它们避让的对象不一样：
      --hud-bar-h    经验条 + 技能栏。触屏圆钮要贴在它正上方
      --hud-bottom-h 整个底部簇（触屏下还要算上那排圆钮）。
                     左下日志、NPC 对话框要避开的是这个
      桌面端没有圆钮，两者相等 */
-  --hud-bar-h: 77px;
+  --hud-bar-h: 80px;
   --hud-bottom-h: var(--hud-bar-h);
 
-  --radius: 10px;
-  --radius-sm: 6px;
-  --shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
-  --line: rgba(150, 180, 220, 0.14);
+  /* 纸是裁出来的，不是塑料件，所以圆角极小；圆的地方（印、钱、珠）才真圆 */
+  --radius: 2px;
+  --radius-sm: 1px;
 
-  --serif: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif;
-  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+  /* 影子模拟"纸压在画面上"：一层贴地的实影 + 一层散开的墨气 */
+  --lift: 0 1px 2px rgba(22, 19, 15, 0.3), 0 10px 26px rgba(22, 19, 15, 0.34);
+  --lift-lg: 0 2px 4px rgba(22, 19, 15, 0.34), 0 22px 60px rgba(22, 19, 15, 0.48);
 
-  color-scheme: dark;
+  --rule: rgba(77, 69, 58, 0.26);
+  --rule-soft: rgba(77, 69, 58, 0.14);
+
+  /* ── 字 ───────────────────────────────────────────────
+     楷书走情绪（门派、技能、人名、招式），宋体走叙述（描述、对白），
+     黑体只用来排数字——楷体的数字宽窄不一，血条上会跳 */
+  --kai: "Kaiti SC", "STKaiti", "KaiTi", "楷体", "TW-Kai", "Noto Serif CJK SC",
+    "Noto Serif SC", "Songti SC", "STSong", serif;
+  --song: "Songti SC", "STSong", "SimSun", "Noto Serif SC", "Source Han Serif SC", serif;
+  --hei: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+    "Segoe UI", system-ui, sans-serif;
+
+  /* ── 材质 ─────────────────────────────────────────────
+     三张现算的噪声图，全篇的纸感都来自它们：
+       --grain 细颗粒，纸的"齿"
+       --fiber 横向拉长的絮状，宣纸的纤维
+       --cloud 大团块，用来做墨晕和远雾 */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.13 0 0 0 0.86 0.13 0 0 0 0.85 0.13 0 0 0 0.81 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='170' height='170' filter='url(%23g)'/%3E%3C/svg%3E");
+  --fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005 0.36' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.07 0 0 0 0.92 0.07 0 0 0 0.91 0.07 0 0 0 0.88 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23f)'/%3E%3C/svg%3E");
+  --cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.7 0 0 0 -0.36'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23c)'/%3E%3C/svg%3E");
+
+  /* 印泥的斑驳：拿湍流当 alpha 蒙版，盖上去就是"没印匀"的那种缺口 */
+  --seal-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.4 0 0 0 -0.16'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23s)'/%3E%3C/svg%3E");
+
+  color-scheme: light;
 }
 
 * {
@@ -62,17 +98,38 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
-  background: var(--ink-0);
-  color: var(--fg);
-  font-family: var(--sans);
+  background: var(--paper-1);
+  color: var(--ink-7);
+  font-family: var(--song);
   font-size: 14px;
-  line-height: 1.55;
+  line-height: 1.7;
   overscroll-behavior: none;
   touch-action: manipulation;
+  -webkit-font-smoothing: antialiased;
 }
 
 .hidden {
   display: none !important;
+}
+
+/* 滚动条也要是墨的。默认那条亮灰在纸上格外刺眼 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-1) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--ink-1);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 #game {
@@ -81,272 +138,550 @@ body {
   width: 100%;
   height: 100%;
   display: block;
-  /* 底层再压一层暗角，把注意力收到画面中心 */
-  background: radial-gradient(ellipse at 50% 45%, #0e1420 0%, #05070c 100%);
+  background: radial-gradient(ellipse at 50% 44%, #16171a 0%, #08080a 100%);
 }
 
-/* ══ 标题页 ════════════════════════════════════════════ */
+/* ══ 纸与墨的基元 ══════════════════════════════════════
+   下面这几个 class 不出现在 HTML 里，是给别的规则 @extend 式复用的思路：
+   实际写法是把这几段背景直接抄进各自的规则。留在这儿是为了说清配方。
+
+   一张纸 = 四层叠起来：
+     ① 斜向的明暗渐变（受光）
+     ② 两三团随机的陈化斑（--cloud 蒙版的赭色）
+     ③ --fiber 纤维，multiply，很淡
+     ④ --grain 颗粒，multiply，更淡
+   少一层都会露出"纯色块"的马脚。 */
+
+/* ── 印章 ───────────────────────────────────────────────
+   朱文（红底白字）用在最重的地方，白文（红字红框）用在次一级。
+   两者都过一遍 --seal-mask，看着才像盖上去的而不是画上去的 */
+.seal {
+  --seal-size: 40px;
+  display: inline-grid;
+  place-items: center;
+  width: var(--seal-size);
+  padding: calc(var(--seal-size) * 0.11) 0;
+  background: var(--seal);
+  color: var(--paper-0);
+  font-family: var(--song);
+  font-size: calc(var(--seal-size) * 0.4);
+  line-height: 1.12;
+  letter-spacing: 0.04em;
+  writing-mode: vertical-rl;
+  border-radius: 2px;
+  transform: rotate(-4deg);
+  -webkit-mask-image: var(--seal-mask);
+  mask-image: var(--seal-mask);
+  -webkit-mask-size: 80px 80px;
+  mask-size: 80px 80px;
+  user-select: none;
+  flex: none;
+}
+
+.seal.bai {
+  background: transparent;
+  color: var(--seal);
+  box-shadow: inset 0 0 0 2.5px var(--seal);
+}
+
+/* ── 笔锋横线 ───────────────────────────────────────────
+   两笔叠出来：一笔实的，一笔更淡更歪的，错开 1px 就有飞白味 */
+.brush-rule {
+  height: 9px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='9' preserveAspectRatio='none'%3E%3Cpath d='M2 5.1C40 2.3 96 5.5 148 3.5 186 2 214 3.5 238 3.3 214 5.4 186 4.8 148 6 96 7.8 40 6.8 2 5.1Z' fill='%232b2620' opacity='0.55'/%3E%3Cpath d='M28 7.2C74 6.4 120 7.8 176 6.6' fill='none' stroke='%232b2620' stroke-width='0.7' stroke-linecap='round' opacity='0.2'/%3E%3C/svg%3E")
+    no-repeat center / 100% 100%;
+}
+
+/* ══ 标题页 ════════════════════════════════════════════
+   一张立起来的四尺整纸：上方留白最多，远山压在下三分之一，
+   题字在上首，印在题字右下——就是国画的常规款识位置 */
 #title {
   position: fixed;
   inset: 0;
   z-index: 50;
   overflow-y: auto;
-  padding: max(28px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom));
+  overflow-x: hidden;
+  padding: max(26px, env(safe-area-inset-top)) 20px max(30px, env(safe-area-inset-bottom));
+  background-color: var(--paper-1);
+  background-image:
+    var(--grain),
+    var(--fiber),
+    radial-gradient(ellipse 66% 48% at 24% 10%, rgba(196, 166, 108, 0.22), transparent 72%),
+    radial-gradient(ellipse 58% 42% at 84% 76%, rgba(168, 138, 88, 0.18), transparent 70%),
+    linear-gradient(168deg, var(--paper-0) 0%, var(--paper-1) 52%, var(--paper-2) 100%);
+  background-size: 170px 170px, 340px 340px, auto, auto, auto;
+  background-blend-mode: multiply, multiply, normal, normal, normal;
+}
+
+/* ── 远山与云气 ─────────────────────────────────────────
+   纯装饰层，aria-hidden。铺在内容之下、纸之上 */
+.ink-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ink-mountains {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  /* 固有比例 1200:520。宽度给一个下限，窄屏上山才不会被压成一条线；
+     超出的部分左右各裁掉一点，主峰始终在视野里 */
+  width: max(1080px, 104%);
+  aspect-ratio: 1200 / 520;
+  height: auto;
+  max-height: 72%;
+  display: block;
+}
+
+/* 三层山按远近给不同的虚实：远的糊、近的实。
+   这是空气透视，不是随手调的透明度 */
+.mt-far { fill: var(--ink-5); opacity: 0.1; filter: blur(3px); }
+.mt-mid { fill: var(--ink-7); opacity: 0.14; filter: blur(1.6px); }
+.mt-near { fill: var(--ink-9); opacity: 0.22; }
+.mt-peak { fill: var(--ink-7); opacity: 0.13; filter: blur(2.4px); }
+.mt-peak2 { fill: var(--ink-5); opacity: 0.09; filter: blur(3.4px); }
+
+/* 山间留白的云。宣纸上的云本来就是「不画」出来的，所以它是纸色而不是白色 */
+.mt-mist { fill: var(--paper-1); opacity: 0.85; filter: blur(16px); }
+
+/* 一轮淡月压在右上，给上半张纸一个视觉落点 */
+.ink-moon {
+  position: absolute;
+  top: 7%;
+  right: 13%;
+  width: clamp(70px, 11vw, 132px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  /* 月是"淡墨烘云"烘出来的：周围一圈极淡的墨，中间留白。
+     不描边——一描边就成了贴上去的一个球 */
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(95, 212, 180, 0.09) 0%, transparent 55%),
-    radial-gradient(ellipse at 50% 100%, rgba(224, 86, 110, 0.07) 0%, transparent 50%),
-    linear-gradient(180deg, #080b13 0%, #05070c 100%);
+    radial-gradient(circle,
+      rgba(250, 245, 231, 0.9) 0%,
+      rgba(250, 245, 231, 0.78) 40%,
+      rgba(198, 184, 158, 0.3) 53%,
+      rgba(150, 138, 116, 0.14) 62%,
+      transparent 78%);
+  filter: blur(5px);
+}
+
+/* 水气：拿 --cloud 当蒙版刷一层墨雾，极慢地横向漂 */
+.ink-mist {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: 4%;
+  height: 46%;
+  background: linear-gradient(180deg, transparent, rgba(77, 69, 58, 0.09) 45%, transparent);
+  -webkit-mask-image: var(--cloud);
+  mask-image: var(--cloud);
+  -webkit-mask-size: 900px 500px;
+  mask-size: 900px 500px;
+  animation: mist-drift 90s linear infinite;
+}
+
+@keyframes mist-drift {
+  to {
+    -webkit-mask-position: 900px 0;
+    mask-position: 900px 0;
+  }
+}
+
+/* 三只飞鸟，两笔一只。慢慢横掠过去，整张画就活了 */
+.ink-birds {
+  position: absolute;
+  top: 22%;
+  left: 0;
+  width: 120px;
+  height: 40px;
+  opacity: 0.42;
+  animation: birds-cross 64s linear infinite;
+}
+
+@keyframes birds-cross {
+  from { transform: translate(-14vw, 0); }
+  to { transform: translate(112vw, -5vh); }
 }
 
 .title-inner {
-  max-width: 940px;
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
   margin: 0 auto;
   text-align: center;
 }
 
+/* ── 题头 ───────────────────────────────────────────────
+   「诛仙」两个大字 + 右下角一方朱印，底对齐，就是款识的位置 */
+.title-brand {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 2.4vw, 22px);
+  margin: clamp(6px, 3vh, 34px) 0 0;
+}
+
 .game-title {
-  font-family: var(--serif);
-  font-size: clamp(56px, 16vw, 128px);
-  line-height: 1;
-  margin: 12px 0 2px;
-  letter-spacing: 0.22em;
-  text-indent: 0.22em;
-  font-weight: 500;
-  background: linear-gradient(180deg, #f0f6ff 0%, #8fa8c8 60%, #4a5a74 100%);
+  font-family: var(--kai);
+  font-size: clamp(64px, 17vw, 146px);
+  line-height: 0.96;
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  font-weight: 400;
+  /* 墨色渐变打底，上面叠一层横向拉丝的高光当飞白——
+     笔锋扫过去、纸面没吃满墨的那种断白。用 lighten 混合，
+     只有噪声里最亮的那几缕丝会把墨"扫开"，其余原样保留 */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='140'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.016 0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='2.6 0 0 0 -1.52 2.6 0 0 0 -1.58 2.6 0 0 0 -1.68 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='320' height='140' filter='url(%23w)'/%3E%3C/svg%3E"),
+    linear-gradient(166deg, var(--ink-9) 0%, #332d25 50%, #564d40 100%);
+  background-size: 320px 140px, 100% 100%;
+  background-blend-mode: lighten;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 6px 24px rgba(120, 180, 255, 0.18));
+  /* 墨落在纸上会洇开一圈 */
+  filter: drop-shadow(0 2px 14px rgba(22, 19, 15, 0.16));
+}
+
+.title-brand .seal {
+  --seal-size: clamp(30px, 5.4vw, 46px);
+  margin-bottom: clamp(8px, 1.6vw, 16px);
 }
 
 .game-sub {
-  font-family: var(--serif);
-  color: var(--fg-dim);
-  letter-spacing: 0.4em;
-  text-indent: 0.4em;
-  font-size: 13px;
-  margin: 0 0 18px;
+  font-family: var(--song);
+  color: var(--ink-5);
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  font-size: 12.5px;
+  margin: 14px 0 0;
 }
 
+/* 题头和正文之间隔一笔，不用线 */
 .game-quote {
-  font-family: var(--serif);
-  color: var(--fg-faint);
-  font-size: 15px;
-  letter-spacing: 0.1em;
-  margin: 0 0 30px;
+  font-family: var(--kai);
+  color: var(--ink-5);
+  font-size: clamp(15px, 2.1vw, 18px);
+  letter-spacing: 0.18em;
+  margin: 22px 0 30px;
+  padding-top: 20px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='9' preserveAspectRatio='none'%3E%3Cpath d='M2 5.1C40 2.3 96 5.5 148 3.5 186 2 214 3.5 238 3.3 214 5.4 186 4.8 148 6 96 7.8 40 6.8 2 5.1Z' fill='%232b2620' opacity='0.55'/%3E%3Cpath d='M28 7.2C74 6.4 120 7.8 176 6.6' fill='none' stroke='%232b2620' stroke-width='0.7' stroke-linecap='round' opacity='0.2'/%3E%3C/svg%3E")
+    no-repeat top center / min(300px, 64%) 9px;
 }
 
 .name-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 22px;
+  gap: 14px;
+  margin-bottom: 26px;
 }
 
 .name-row label {
-  font-family: var(--serif);
-  color: var(--fg-dim);
-  letter-spacing: 0.2em;
+  font-family: var(--kai);
+  color: var(--ink-5);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  font-size: 15px;
 }
 
+/* 稿纸上的填空格：只留下面一条墨线，不画框 */
 #name-input {
-  background: rgba(10, 14, 24, 0.9);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  color: var(--fg);
-  padding: 9px 14px;
-  font-size: 15px;
-  font-family: var(--serif);
-  width: 200px;
+  background: linear-gradient(180deg, rgba(246, 239, 221, 0) 40%, rgba(212, 198, 168, 0.4));
+  border: none;
+  border-bottom: 2px solid var(--ink-5);
+  border-radius: 0;
+  color: var(--ink-9);
+  padding: 6px 10px 5px;
+  font-size: 17px;
+  font-family: var(--kai);
+  width: 190px;
   text-align: center;
-  letter-spacing: 0.1em;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  transition: border-color 0.24s, background 0.24s;
+}
+
+#name-input::placeholder {
+  color: var(--ink-1);
+  letter-spacing: 0.16em;
 }
 
 #name-input:focus {
   outline: none;
-  border-color: rgba(95, 212, 180, 0.6);
-  box-shadow: 0 0 0 3px rgba(95, 212, 180, 0.12);
+  border-bottom-color: var(--seal);
+  background: linear-gradient(180deg, transparent 62%, rgba(180, 55, 42, 0.07));
 }
 
 .pick-hint,
 .title-foot {
-  color: var(--fg-faint);
-  font-size: 12px;
-  margin: 0 0 14px;
+  color: var(--ink-5);
+  font-size: 12.5px;
+  margin: 0 0 16px;
+  letter-spacing: 0.04em;
 }
 
 .title-foot {
-  margin-top: 24px;
-  line-height: 1.9;
+  margin-top: 30px;
+  line-height: 2.1;
+  color: var(--ink-3);
 }
 
+/* ── 门派帖 ─────────────────────────────────────────────
+   四张册页并排。门派名竖着写在左边、占满整张卡的高度，像帖子的题签；
+   右边横排功法、注解、门规。竖排是这套 UI 最认得出的一个记号 */
 .sect-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(206px, 1fr));
   gap: 12px;
-  margin-bottom: 26px;
+  margin-bottom: 28px;
   text-align: left;
 }
 
 .sect-card {
+  --ci: color-mix(in srgb, var(--c, #3c647f) 52%, #1c1812);
   position: relative;
-  background: linear-gradient(160deg, rgba(26, 33, 50, 0.9), rgba(12, 16, 26, 0.9));
-  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  column-gap: 13px;
+  align-items: start;
+  background-color: var(--paper-0);
+  background-image: var(--grain), linear-gradient(158deg, var(--paper-0), var(--paper-2));
+  background-size: 160px 160px, auto;
+  background-blend-mode: multiply, normal;
+  border: 1px solid var(--ink-1);
   border-radius: var(--radius);
-  padding: 16px 16px 14px;
+  padding: 15px 15px 13px;
   cursor: pointer;
   color: inherit;
   font: inherit;
   text-align: left;
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s, box-shadow 0.18s;
-  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 3px 12px rgba(22, 19, 15, 0.14);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s, border-color 0.22s;
 }
 
-/* 左侧那道门派色，是这张卡唯一的身份标识 */
+/* 册页的内框线。中式装裱都是双线：外框贴边，内框留一圈 */
 .sect-card::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--c);
-  opacity: 0.55;
-  transition: opacity 0.18s, width 0.18s;
+  inset: 5px;
+  border: 1px solid var(--rule-soft);
+  pointer-events: none;
+  transition: border-color 0.22s;
 }
 
 .sect-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(150, 180, 220, 0.3);
-}
-
-.sect-card:hover::before {
-  opacity: 1;
-  width: 5px;
+  border-color: var(--ink-3);
+  box-shadow: var(--lift);
 }
 
 .sect-card.on {
-  border-color: var(--c);
-  box-shadow: 0 0 0 1px var(--c), 0 12px 32px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(160deg, rgba(38, 48, 71, 0.95), rgba(14, 19, 30, 0.95));
+  border-color: var(--seal);
+  box-shadow: 0 0 0 1px var(--seal), var(--lift);
 }
 
 .sect-card.on::before {
-  opacity: 1;
-  width: 5px;
+  border-color: rgba(180, 55, 42, 0.34);
+}
+
+/* 选中的那张右上角盖一个「入」印。比描边更像"这事定下了" */
+.sect-card.on::after {
+  content: "入";
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  background: var(--seal);
+  color: var(--paper-0);
+  font-family: var(--song);
+  font-size: 13px;
+  line-height: 1;
+  border-radius: 2px;
+  transform: rotate(-6deg);
+  -webkit-mask-image: var(--seal-mask);
+  mask-image: var(--seal-mask);
+  -webkit-mask-size: 80px 80px;
+  mask-size: 80px 80px;
 }
 
 .sc-name {
-  font-family: var(--serif);
-  font-size: 21px;
-  letter-spacing: 0.14em;
-  color: var(--c);
+  grid-column: 1;
+  grid-row: 1 / -1;
+  writing-mode: vertical-rl;
+  font-family: var(--kai);
+  font-size: 23px;
+  letter-spacing: 0.22em;
+  color: var(--ci);
+  border-left: 2px solid var(--ci);
+  padding: 2px 4px 2px 9px;
+  min-height: 100px;
 }
 
 .sc-art {
-  font-size: 12px;
-  color: var(--fg-faint);
-  letter-spacing: 0.24em;
-  margin-bottom: 8px;
+  grid-column: 2;
+  grid-row: 1;
+  padding-right: 30px;
+  font-family: var(--kai);
+  font-size: 13px;
+  color: var(--ink-3);
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
 }
 
 .sc-desc {
+  grid-column: 2;
+  grid-row: 2;
   font-size: 12.5px;
-  color: var(--fg-dim);
-  line-height: 1.7;
+  color: var(--ink-5);
+  line-height: 1.85;
 }
 
 .sc-quote {
-  font-family: var(--serif);
-  font-size: 12px;
-  color: var(--fg-faint);
+  grid-column: 2;
+  grid-row: 3;
+  align-self: end;
+  font-family: var(--kai);
+  font-size: 12.5px;
+  color: var(--ink-3);
   margin-top: 10px;
   padding-top: 8px;
-  border-top: 1px dashed rgba(150, 180, 220, 0.14);
+  border-top: 1px solid var(--rule-soft);
 }
 
 .title-btns {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-/* ══ 通用按钮 ══════════════════════════════════════════ */
+/* iOS 装到主屏后状态栏是白字浮在页面上，纸色底上一个字都看不见。
+   只在 standalone 下给顶端一道暮色墨染，浏览器里根本不会出现这层 */
+@media (display-mode: standalone) {
+  #title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 96px;
+    background: linear-gradient(180deg, rgba(22, 19, 15, 0.62), transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+
+/* ══ 按钮 ══════════════════════════════════════════════
+   一张小纸片：外框墨线，内嵌一道更细的框，按下去像把纸按进桌面 */
 .btn {
-  background: rgba(30, 38, 56, 0.85);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  color: var(--fg);
-  font: inherit;
-  padding: 7px 14px;
+  position: relative;
+  background-color: var(--paper-0);
+  background-image: var(--grain), linear-gradient(176deg, var(--paper-0), var(--paper-2));
+  background-size: 160px 160px, auto;
+  background-blend-mode: multiply, normal;
+  border: 1px solid var(--ink-3);
+  border-radius: var(--radius);
+  color: var(--ink-7);
+  font-family: var(--song);
+  font-size: 14px;
+  padding: 7px 15px;
   cursor: pointer;
-  transition: background 0.16s, border-color 0.16s, transform 0.12s;
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(169, 157, 136, 0.5);
+  transition: color 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.12s;
 }
 
 .btn:hover:not(:disabled) {
-  background: rgba(46, 58, 84, 0.95);
-  border-color: rgba(150, 180, 220, 0.34);
+  color: var(--ink-9);
+  border-color: var(--ink-7);
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(77, 69, 58, 0.4),
+    0 2px 6px rgba(22, 19, 15, 0.14);
 }
 
 .btn:active:not(:disabled) {
   transform: translateY(1px);
+  box-shadow: inset 0 1px 3px rgba(22, 19, 15, 0.22), inset 0 0 0 2px var(--paper-1);
 }
 
 .btn:disabled {
-  opacity: 0.38;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--jade);
+  outline: 1.5px solid var(--seal);
   outline-offset: 2px;
 }
 
+/* 主按钮就是一方大印：朱砂底、纸色字，连斑驳都留着 */
 .btn.primary {
-  background: linear-gradient(180deg, rgba(95, 212, 180, 0.22), rgba(95, 212, 180, 0.1));
-  border-color: rgba(95, 212, 180, 0.5);
-  color: #d4fff0;
+  background-color: var(--seal);
+  background-image: var(--grain), linear-gradient(176deg, #bd3d2f, #93301f);
+  background-size: 160px 160px, auto;
+  background-blend-mode: soft-light, normal;
+  border-color: #7e2a1d;
+  color: var(--paper-0);
+  box-shadow: inset 0 0 0 2px rgba(246, 239, 221, 0.24), 0 2px 10px rgba(122, 40, 28, 0.3);
 }
 
 .btn.primary:hover:not(:disabled) {
-  background: linear-gradient(180deg, rgba(95, 212, 180, 0.34), rgba(95, 212, 180, 0.16));
+  color: #fff;
+  border-color: #6a231a;
+  box-shadow: inset 0 0 0 2px rgba(246, 239, 221, 0.34), 0 4px 16px rgba(122, 40, 28, 0.42);
 }
 
 .btn.danger {
-  border-color: rgba(224, 86, 110, 0.45);
-  color: #ffc4ce;
+  border-color: rgba(168, 57, 44, 0.6);
+  color: var(--cinnabar);
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(168, 57, 44, 0.24);
 }
 
 .btn.danger:hover:not(:disabled) {
-  background: rgba(224, 86, 110, 0.18);
+  border-color: var(--cinnabar);
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(168, 57, 44, 0.45),
+    0 2px 6px rgba(122, 40, 28, 0.2);
 }
 
 .btn.big {
-  font-family: var(--serif);
-  font-size: 17px;
-  letter-spacing: 0.3em;
-  text-indent: 0.3em;
-  padding: 12px 34px;
+  font-family: var(--kai);
+  font-size: 18px;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  padding: 13px 36px;
 }
 
 .btn.tiny {
-  padding: 3px 9px;
+  padding: 2px 8px;
   font-size: 12px;
+  box-shadow: inset 0 0 0 1px var(--paper-0);
 }
 
+/* 触屏圆钮：一枚铜钱。双环 + 楷体字 */
 .btn.round {
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  font-family: var(--serif);
-  font-size: 16px;
+  font-family: var(--kai);
+  font-size: 17px;
   padding: 0;
+  box-shadow: inset 0 0 0 3px var(--paper-0), inset 0 0 0 4px rgba(77, 69, 58, 0.3),
+    0 3px 10px rgba(22, 19, 15, 0.3);
 }
 
-/* ══ HUD ══════════════════════════════════════════════ */
+/* ══ HUD ══════════════════════════════════════════════
+   底下是暗的游戏画面，所以 HUD 上但凡要认字的地方，
+   先铺一张纸再写——像在画上贴条、题跋。
+   没纸的地方一个字都别放，墨色的字落在暗画面上等于没有。 */
 #hud {
   position: fixed;
   inset: 0;
@@ -361,7 +696,23 @@ body {
   pointer-events: auto;
 }
 
-/* 左上角一整列：身份行（头像+血蓝）在上，功能按钮在下 */
+/* 纸笺：HUD 上所有贴在画面之上的纸片，共用这一身打扮 */
+.hud-id,
+.map-head,
+.quest-track,
+.gold-row,
+.bossbar,
+.slot {
+  background-color: rgba(238, 228, 205, 0.93);
+  background-image: var(--grain), linear-gradient(160deg, rgba(246, 239, 221, 0.96), rgba(227, 216, 190, 0.96));
+  background-size: 160px 160px, auto;
+  background-blend-mode: multiply, normal;
+  border: 1px solid rgba(77, 69, 58, 0.42);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+}
+
+/* 左上角一整列：身份笺在上，功能按钮在下 */
 .hud-left {
   position: absolute;
   top: calc(max(10px, env(safe-area-inset-top)) + var(--boss-offset, 0px));
@@ -375,57 +726,68 @@ body {
 
 .hud-id {
   display: flex;
-  gap: 10px;
+  gap: 11px;
   align-items: flex-start;
+  padding: 9px 13px 9px 10px;
 }
 
+/* 整块 HUD 里唯一的深色：一枚墨玉牌，写着修为。
+   纸色圈一道、朱砂圈一道，视线第一眼一定落在这儿 */
 .portrait {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-family: var(--serif);
-  font-size: 20px;
-  color: var(--gold);
-  background: radial-gradient(circle at 35% 30%, #2a3450, #10141f);
-  border: 1px solid rgba(232, 191, 106, 0.4);
-  box-shadow: var(--shadow);
+  font-family: var(--kai);
+  font-size: 21px;
+  color: var(--paper-0);
+  background: radial-gradient(circle at 36% 28%, #3d362c, #16130f 74%);
+  box-shadow: 0 0 0 1.5px var(--paper-0), 0 0 0 3px var(--seal), 0 2px 7px rgba(22, 19, 15, 0.4);
   flex: none;
 }
 
 .vitals {
-  width: min(210px, 42vw);
+  width: min(214px, 42vw);
 }
 
 .who {
   display: flex;
-  gap: 7px;
+  gap: 8px;
   align-items: baseline;
-  margin-bottom: 3px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  margin-bottom: 5px;
 }
 
 .who b {
-  font-family: var(--serif);
-  font-size: 14px;
-  letter-spacing: 0.08em;
+  font-family: var(--kai);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--ink-9);
 }
 
 .who i {
   font-style: normal;
   font-size: 11px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
+  letter-spacing: 0.08em;
 }
 
+/* ── 条 ─────────────────────────────────────────────────
+   槽是留白的纸，填充是洇上去的设色淡彩——不是发光的塑料条。
+   所以填充一律半透明：底下的纸纹要透出来，上面的墨字也才认得出 */
 .bar {
   position: relative;
-  height: 13px;
-  background: rgba(6, 9, 15, 0.82);
-  border: 1px solid rgba(150, 180, 220, 0.18);
-  border-radius: 3px;
+  height: 14px;
+  background-color: var(--paper-2);
+  background-image: var(--grain);
+  background-size: 160px 160px;
+  background-blend-mode: multiply;
+  border: 1px solid rgba(77, 69, 58, 0.5);
+  border-radius: 1px;
   overflow: hidden;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
+  box-shadow: inset 0 1px 2px rgba(22, 19, 15, 0.14);
 }
 
 .bar .fill {
@@ -433,6 +795,9 @@ body {
   inset: 0 auto 0 0;
   width: 0;
   transition: width 0.18s linear;
+  /* 右端羽化：墨走到头是洇散开的，不是切齐的 */
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 84%, rgba(0, 0, 0, 0.45) 95%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0, #000 84%, rgba(0, 0, 0, 0.45) 95%, transparent 100%);
 }
 
 .bar em {
@@ -441,151 +806,169 @@ body {
   display: grid;
   place-items: center;
   font-style: normal;
+  font-family: var(--hei);
   font-size: 10px;
   line-height: 1;
   white-space: nowrap;
-  letter-spacing: 0.04em;
-  text-shadow: 0 1px 2px #000;
-  color: #eaf0f8;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-9);
+  text-shadow: 0 1px 0 rgba(246, 239, 221, 0.6);
 }
 
+/* 三色都往笔尖方向渐深，模仿一笔拖过去墨在末端积住 */
 .bar.hp .fill {
-  background: linear-gradient(180deg, #ef6a7e, #a82f45);
+  background: linear-gradient(90deg, rgba(168, 57, 44, 0.46), rgba(168, 57, 44, 0.66) 88%, rgba(120, 34, 25, 0.84));
 }
 
 .bar.mp .fill {
-  background: linear-gradient(180deg, #6aa8ef, #2f4fa8);
+  background: linear-gradient(90deg, rgba(60, 100, 127, 0.46), rgba(60, 100, 127, 0.66) 88%, rgba(36, 66, 88, 0.84));
 }
 
-/* 经验条里要塞得下一行 10px 的文字。
-   以前是 9px 高，比字还矮，"64 / 154（41.6%）"上下都被切掉 */
+/* 经验条里要塞得下一行 10px 的字，所以比血蓝条高一点 */
 .bar.exp {
-  height: 16px;
+  height: 17px;
 }
 
 .bar.exp .fill {
-  background: linear-gradient(180deg, #e8d06a, #a8862f);
+  background: linear-gradient(90deg, rgba(169, 123, 38, 0.42), rgba(169, 123, 38, 0.6) 88%, rgba(126, 89, 22, 0.78));
 }
 
 .bar.boss {
-  height: 15px;
+  height: 16px;
 }
 
 .bar.boss .fill {
-  background: linear-gradient(180deg, #ff6a7e, #8a1f35);
+  background: linear-gradient(90deg, rgba(168, 57, 44, 0.42), rgba(168, 57, 44, 0.62) 90%, rgba(110, 30, 22, 0.78));
 }
 
-/* 跟在血蓝条下面自然排。以前用 top: 计算值 定位，
-   血条高度一变就得回来改这个数，迟早对不上 */
+/* 跟在血蓝条下面自然排。以前用 top 算好的偏移定位，
+   条高一变就得回来改那个数，迟早对不上 */
 .buffs {
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-  margin-top: 3px;
+  margin-top: 4px;
   max-width: 100%;
 }
 
+/* 状态是盖在身份笺上的小方印，不是发光药丸，所以不用圆角胶囊 */
 .buff {
+  font-family: var(--song);
   font-size: 10.5px;
-  padding: 2px 7px;
-  border-radius: 999px;
-  background: rgba(16, 22, 34, 0.9);
-  border: 1px solid var(--line);
-  color: var(--fg-dim);
+  line-height: 1.5;
+  padding: 1px 6px;
+  border-radius: 1px;
+  background: rgba(246, 239, 221, 0.7);
+  border: 1px solid var(--ink-1);
+  color: var(--ink-5);
   white-space: nowrap;
 }
 
 .buff i {
   font-style: normal;
-  color: var(--fg-faint);
-  margin-left: 2px;
+  font-family: var(--hei);
+  font-size: 9.5px;
+  color: var(--ink-3);
+  margin-left: 3px;
 }
 
-.buff.b-shield { border-color: rgba(127, 196, 232, 0.5); color: #bfe4f8; }
-.buff.b-atkUp { border-color: rgba(224, 86, 110, 0.5); color: #f8bfc8; }
-.buff.b-defUp { border-color: rgba(232, 191, 106, 0.5); color: #f8e4bf; }
-.buff.b-lifesteal { border-color: rgba(200, 60, 90, 0.5); color: #f8bfcf; }
-.buff.b-reflect { border-color: rgba(127, 232, 224, 0.5); color: #bff8f2; }
+.buff.b-shield { border-color: rgba(60, 100, 127, 0.7); color: #2f5a75; }
+.buff.b-atkUp { border-color: rgba(168, 57, 44, 0.7); color: var(--cinnabar); }
+.buff.b-defUp { border-color: rgba(169, 123, 38, 0.7); color: #8a6318; }
+.buff.b-lifesteal { border-color: rgba(140, 40, 56, 0.7); color: #8c2838; }
+.buff.b-reflect { border-color: rgba(64, 118, 118, 0.7); color: #2f6363; }
 .buff.b-slow,
-.buff.b-stun { border-color: rgba(180, 131, 245, 0.5); color: #ddc8f8; }
-.buff.b-burn { border-color: rgba(240, 138, 74, 0.5); color: #f8d6bf; }
-.buff.b-poison { border-color: rgba(143, 196, 74, 0.5); color: #e0f8bf; }
+.buff.b-stun { border-color: rgba(91, 77, 107, 0.7); color: var(--dai); }
+.buff.b-burn { border-color: rgba(176, 94, 36, 0.7); color: #a1521f; }
+.buff.b-poison { border-color: rgba(106, 126, 54, 0.7); color: #5d6f2c; }
 
-/* 地图名 → 小地图 → 按钮 → 灵石 → 任务追踪，一列从上往下排。
-   用 flex + gap，谁的高度变了下面的自己跟着让位 */
+/* 地图名 → 小地图 → 按钮 → 灵石 → 任务追踪，一列从上往下。
+   用 flex + gap，谁的高度变了下面的自己让位 */
 .hud-right {
   position: absolute;
   top: calc(max(10px, env(safe-area-inset-top)) + var(--boss-offset, 0px));
   right: max(10px, env(safe-area-inset-right));
   transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  width: 186px;
+  width: 190px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 5px;
+  gap: 6px;
   text-align: right;
 }
 
+/* 地名做成一块小匾：竖排太占地方，就用横匾 + 宽字距 */
 .map-head {
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  /* 按字数撑开而不是跟着列宽走：地名长短不一，钉死宽度必然从中间断行 */
+  align-self: flex-end;
+  width: max-content;
+  max-width: min(70vw, 340px);
+  padding: 6px 11px 5px;
 }
 
 #map-name {
-  font-family: var(--serif);
-  font-size: 17px;
-  letter-spacing: 0.14em;
-  color: #e8eef8;
+  font-family: var(--kai);
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  color: var(--ink-9);
+  line-height: 1.3;
 }
 
 #map-sub {
   font-size: 10.5px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
 }
 
+/* 小地图是一张山河小样：内容由 ui.js 用纸墨色画，这里只管装裱 */
 #minimap {
-  width: 180px;
-  height: 140px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: rgba(6, 9, 15, 0.7);
-  box-shadow: var(--shadow);
+  width: 188px;
+  height: 142px;
+  border: 1px solid rgba(77, 69, 58, 0.42);
+  border-radius: var(--radius);
+  background: var(--paper-1);
+  box-shadow: var(--lift), inset 0 0 0 2px var(--paper-0);
   display: block;
   margin-left: auto;
 }
 
-/* 两列网格。原先是右边小地图下面挤着一排 tiny 按钮，
-   点击区才 20px 高，手指根本点不准——这里按 44px 的最小触摸尺寸来 */
+/* 两列网格。按钮点击区按 44px 最小触摸尺寸来，手机上才点得准 */
 .hud-btns {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-  width: 152px;
+  gap: 6px;
+  width: 158px;
 }
 
 .hud-btns .btn {
-  padding: 10px 4px;
-  font-family: var(--serif);
-  font-size: 14px;
-  letter-spacing: 0.1em;
+  padding: 9px 4px;
+  font-family: var(--kai);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
   text-align: center;
-  background: rgba(16, 22, 34, 0.82);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
 }
 
 .gold-row {
-  font-size: 11.5px;
-  color: var(--fg-faint);
-  text-shadow: 0 1px 3px #000;
+  align-self: flex-end;
+  padding: 3px 9px;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.1em;
 }
 
 .gold-row b {
-  color: var(--gold);
+  color: var(--gamboge);
+  font-family: var(--hei);
   font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
 }
 
-/* 顶部通栏。以前是 60vw 居中，手机上左边身份栏和右边小地图各占一头，
-   中间根本不够站，Boss 条直接压在玩家血条上，名字也被盖掉了。 */
+/* 顶部通栏的匾额。以前是 60vw 居中，手机上左边身份栏、右边小地图各占一头，
+   中间根本不够站，Boss 条直接压在玩家血条上 */
 .bossbar {
   position: absolute;
   top: max(10px, env(safe-area-inset-top));
@@ -593,153 +976,170 @@ body {
   transform: translateX(-50%);
   width: min(560px, calc(100% - 20px));
   text-align: center;
+  padding: 7px 14px 8px;
+  box-shadow: var(--lift-lg);
 }
 
 /* Boss 出场时，左右两栏一起让出这段高度 */
 #hud.boss-on {
-  --boss-offset: 52px;
+  --boss-offset: 64px;
 }
 
 #boss-name {
-  font-family: var(--serif);
-  font-size: 16px;
-  letter-spacing: 0.14em;
-  color: #ffd0d8;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 18px rgba(224, 86, 110, 0.5);
-  margin-bottom: 3px;
+  font-family: var(--kai);
+  font-size: 17px;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  color: var(--cinnabar);
+  margin-bottom: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* 当前因果。右边一道朱砂笔，像批注旁边的红线 */
 .quest-track {
   text-align: right;
-  background: linear-gradient(90deg, transparent, rgba(10, 14, 22, 0.75));
-  border-right: 2px solid rgba(232, 191, 106, 0.45);
-  padding: 6px 8px;
-  border-radius: 3px;
+  padding: 7px 10px 7px 9px;
+  border-right: 3px solid var(--seal);
 }
 
 .qt-name {
-  font-family: var(--serif);
-  font-size: 13px;
-  color: var(--gold);
-  letter-spacing: 0.08em;
+  font-family: var(--kai);
+  font-size: 13.5px;
+  color: var(--ink-9);
+  letter-spacing: 0.1em;
 }
 
 .qt-goal {
   font-size: 11.5px;
-  color: var(--fg-dim);
+  color: var(--ink-5);
+  line-height: 1.65;
 }
 
 .qt-goal.done {
-  color: var(--jade);
+  color: var(--stone-green);
 }
 
+/* 日志：一张往上洇没了的纸边，字写在上面。
+   左边一道墨线当栏界，右边纸色渐隐——不给硬框，免得在画面上切一块方块出来 */
 .log {
   position: absolute;
   left: max(10px, env(safe-area-inset-left));
   bottom: calc(max(10px, env(safe-area-inset-bottom)) + var(--hud-bottom-h) + 16px);
-  width: min(360px, 52vw);
-  max-height: 172px;
+  width: min(370px, 54vw);
+  max-height: 176px;
   overflow: hidden;
+  padding: 8px 26px 8px 11px;
   font-size: 12px;
-  line-height: 1.75;
-  mask-image: linear-gradient(180deg, transparent, #000 22%);
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%);
+  line-height: 1.8;
+  border-left: 2px solid rgba(77, 69, 58, 0.45);
+  background: linear-gradient(95deg, rgba(238, 228, 205, 0.9) 0%, rgba(238, 228, 205, 0.76) 52%, rgba(238, 228, 205, 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 26%);
+  mask-image: linear-gradient(180deg, transparent, #000 26%);
 }
 
 .log-line {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
-  color: var(--fg-dim);
+  color: var(--ink-5);
 }
 
-.l-combat { color: #b9c6d8; }
-.l-loot { color: var(--gold); }
-.l-quest { color: var(--jade); }
-.l-skill { color: var(--cyan); }
-.l-warn { color: #ff9aa8; }
+.l-sys { color: var(--ink-5); }
+.l-combat { color: var(--ink-7); }
+.l-loot { color: var(--gamboge); }
+.l-quest { color: var(--stone-green); }
+.l-skill { color: var(--stone-blue); }
+.l-warn { color: var(--cinnabar); }
 
 .hud-bottom {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   bottom: max(10px, env(safe-area-inset-bottom));
-  width: min(560px, 94vw);
+  width: min(576px, 94vw);
 }
 
 .skillbar {
   display: flex;
-  gap: 6px;
+  gap: 7px;
   justify-content: center;
-  margin-top: 7px;
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 
+/* 技能格是一枚木牌／玉简：纸面、墨框，底下一道门派色的墨痕 */
 .slot {
+  --si: color-mix(in srgb, var(--slot-color, #3c647f) 55%, #1c1812);
   position: relative;
-  width: 54px;
-  height: 54px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(150, 180, 220, 0.24);
-  background: linear-gradient(170deg, rgba(30, 38, 56, 0.92), rgba(10, 14, 22, 0.92));
-  color: var(--fg);
+  width: 56px;
+  height: 56px;
+  color: var(--ink-7);
   font: inherit;
   cursor: pointer;
   overflow: hidden;
   padding: 0;
-  transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 0 2px var(--paper-0), 0 2px 7px rgba(22, 19, 15, 0.32);
+  transition: border-color 0.16s, transform 0.1s, box-shadow 0.16s;
 }
 
 .slot::after {
   content: "";
   position: absolute;
-  inset: auto 0 0 0;
-  height: 2px;
-  background: var(--slot-color, var(--cyan));
-  opacity: 0.7;
+  inset: auto 4px 3px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--si);
+  opacity: 0.85;
 }
 
 .slot:hover {
-  border-color: var(--slot-color, var(--cyan));
-  box-shadow: 0 0 14px rgba(127, 196, 232, 0.2);
+  border-color: var(--si);
+  box-shadow: inset 0 0 0 2px var(--paper-0), 0 0 0 1px var(--si), 0 4px 12px rgba(22, 19, 15, 0.36);
 }
 
 .slot:active {
   transform: translateY(1px);
 }
 
+/* 灵力不够：压暗到"一眼知道按不响"，但名字还得认得出来，
+   不然玩家根本不知道自己缺的是哪一招 */
 .slot.nomp {
-  opacity: 0.45;
+  opacity: 0.62;
+  filter: grayscale(0.4);
 }
 
-/* 底部留出 11px 给快捷键，否则"太极玄清道"这种五字技能名换行后会压在上面 */
+.slot.nomp .slot-name {
+  color: var(--ink-5);
+}
+
+/* 底部留出 12px 给快捷键和那道墨痕，
+   否则「太极玄清道」这种五字技能名换行后会压上去 */
 .slot-name {
   position: absolute;
-  inset: 5px 3px 11px;
+  inset: 6px 4px 12px;
   overflow: hidden;
-  font-family: var(--serif);
-  font-size: 12px;
-  line-height: 1.25;
+  font-family: var(--kai);
+  font-size: 12.5px;
+  line-height: 1.24;
   letter-spacing: 0.02em;
-  color: #e4ecf6;
-  text-shadow: 0 1px 3px #000;
+  color: var(--ink-9);
 }
 
 .slot-key {
   position: absolute;
-  right: 3px;
-  bottom: 2px;
-  font-size: 10px;
-  color: var(--fg-faint);
+  right: 4px;
+  bottom: 5.5px;
+  font-family: var(--hei);
+  font-size: 9.5px;
+  line-height: 1;
+  color: var(--ink-1);
 }
 
+/* 冷却是墨从底下漫上来，退下去就是墨干了 */
 .cd-mask {
   position: absolute;
   inset: auto 0 0 0;
   height: 0;
-  background: rgba(4, 6, 12, 0.76);
+  background: linear-gradient(180deg, rgba(22, 19, 15, 0.5), rgba(22, 19, 15, 0.74));
   pointer-events: none;
 }
 
@@ -748,226 +1148,337 @@ body {
   inset: 0;
   display: grid;
   place-items: center;
-  font-size: 16px;
+  font-family: var(--hei);
+  font-size: 17px;
   font-weight: 600;
-  color: #fff;
-  text-shadow: 0 1px 4px #000;
+  color: var(--paper-0);
   pointer-events: none;
+}
+
+/* 冷却快走完时墨已经退到底下了，数字会落在纸上；
+   给它自带一小团墨晕，哪种底色都读得出 */
+.cd-text:not(:empty) {
+  background: radial-gradient(circle closest-side, rgba(22, 19, 15, 0.78), rgba(22, 19, 15, 0.5) 62%, transparent 80%);
+  text-shadow: 0 1px 3px rgba(22, 19, 15, 0.9);
 }
 
 /* 单手握持时拇指够得到的地方，所以直接钉在屏幕右下角，
    而不是跟着居中的底栏走——底栏是居中的，会把按钮带离边缘。
-   纵向贴在技能栏正上方，条高一变自己跟着让位。 */
+   纵向贴在技能栏正上方，条高一变自己跟着让位 */
 .touch-btns {
   display: none;
   position: fixed;
   right: max(8px, env(safe-area-inset-right));
   bottom: calc(max(10px, env(safe-area-inset-bottom)) + var(--hud-bar-h) + 8px);
-  gap: 8px;
+  gap: 9px;
   pointer-events: auto;
 }
 
-/* ══ 面板 ══════════════════════════════════════════════ */
+/* ══ 面板 ══════════════════════════════════════════════
+   一页册页：外框墨线、内框细线，天头地脚都留白。
+   打开时先糊后清，像墨落到纸上洇开又定住 */
 .panel {
   position: fixed;
   inset: 0;
   z-index: 30;
-  background: rgba(4, 6, 12, 0.62);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(20, 17, 13, 0.52);
+  backdrop-filter: blur(4px) saturate(0.7);
+  -webkit-backdrop-filter: blur(4px) saturate(0.7);
   display: grid;
   place-items: center;
   padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
 }
 
 .panel-box {
-  width: min(680px, 100%);
+  position: relative;
+  width: min(700px, 100%);
   max-height: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(170deg, rgba(22, 28, 42, 0.98), rgba(10, 13, 21, 0.98));
-  border: 1px solid rgba(150, 180, 220, 0.2);
+  background-color: var(--paper-1);
+  background-image:
+    var(--grain),
+    var(--fiber),
+    radial-gradient(ellipse 60% 50% at 18% 6%, rgba(176, 152, 104, 0.14), transparent 70%),
+    linear-gradient(162deg, var(--paper-0) 0%, var(--paper-1) 55%, var(--paper-2) 100%);
+  background-size: 160px 160px, 300px 300px, auto, auto;
+  background-blend-mode: multiply, multiply, normal, normal;
+  border: 1px solid var(--ink-5);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--lift-lg);
   overflow: hidden;
+  animation: ink-settle 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 内框：贴着边留一圈，中式装裱的双线 */
+.panel-box::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--rule-soft);
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes ink-settle {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px) scale(0.99);
+  }
 }
 
 .panel-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 11px 14px;
-  border-bottom: 1px solid var(--line);
-  background: rgba(8, 11, 18, 0.7);
+  gap: 11px;
+  padding: 12px 15px 11px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* 每一页都盖一方朱印，像藏家的钤印 */
+.panel-head::before {
+  content: "诛仙";
+  flex: none;
+  width: 26px;
+  padding: 3px 0;
+  display: grid;
+  place-items: center;
+  writing-mode: vertical-rl;
+  background: var(--seal);
+  color: var(--paper-0);
+  font-family: var(--song);
+  font-size: 11px;
+  line-height: 1.1;
+  border-radius: 2px;
+  transform: rotate(-4deg);
+  -webkit-mask-image: var(--seal-mask);
+  mask-image: var(--seal-mask);
+  -webkit-mask-size: 80px 80px;
+  mask-size: 80px 80px;
 }
 
 #panel-title {
-  font-family: var(--serif);
-  font-size: 17px;
-  letter-spacing: 0.22em;
-  color: #e8eef8;
+  font-family: var(--kai);
+  font-size: 20px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: var(--ink-9);
+}
+
+#panel-close {
+  margin-left: auto;
 }
 
 .panel-body {
-  padding: 14px;
+  padding: 15px 16px 18px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
+/* 小节标题：一个朱砂界标 + 楷体，底下压一笔 */
 .sec-title {
-  font-family: var(--serif);
-  font-size: 14px;
-  letter-spacing: 0.16em;
-  color: var(--fg-dim);
-  margin: 16px 0 8px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  font-family: var(--kai);
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  color: var(--ink-9);
+  margin: 20px 0 10px;
+  padding-bottom: 8px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.3C38 2.1 92 4.6 144 2.9 182 1.7 212 3 239 2.9 212 4.5 182 4.1 144 5.1 92 6.6 38 5.9 1 4.3Z' fill='%232b2620' opacity='0.42'/%3E%3C/svg%3E")
+    no-repeat bottom left / 100% 7px;
+}
+
+.sec-title::before {
+  content: "";
+  flex: none;
+  width: 3px;
+  height: 14px;
+  background: var(--seal);
+  transform: translateY(1px);
 }
 
 .sec-title b {
-  color: var(--gold);
+  color: var(--gamboge);
+  font-family: var(--song);
   font-weight: 400;
   font-size: 12px;
-  letter-spacing: 0;
+  letter-spacing: 0.06em;
 }
 
+/* 夹注：比正文退一格、字小一号，左边一道细墨线 */
 .hint {
   font-size: 12px;
-  color: var(--fg-faint);
-  line-height: 1.8;
-  margin: 8px 0;
+  color: var(--ink-3);
+  line-height: 1.95;
+  margin: 10px 0;
+  padding-left: 10px;
+  border-left: 1px solid var(--ink-0);
 }
 
 .row {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 9px;
+  margin-top: 12px;
   flex-wrap: wrap;
 }
 
-/* 背包。
-   物品名最长 5 个字（只有 4 件），详情又已经挪到弹窗里了，
-   所以格子只要放得下「4 字一行、最多两行」就够——
-   原先 76px 的方格纯属浪费，手机上一行才排得下 4 个，40 格要翻 10 屏。 */
+/* ── 背包 ───────────────────────────────────────────────
+   物品名最长 5 个字，详情又已经挪到弹窗里，
+   格子放得下「4 字一行、最多两行」就够 */
 .bag-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 5px;
 }
 
 .cell {
+  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
   position: relative;
   aspect-ratio: 1;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: rgba(8, 11, 18, 0.7);
+  border: 1px solid var(--ink-0);
+  border-radius: var(--radius);
+  background: var(--paper-2);
+  box-shadow: inset 0 1px 3px rgba(22, 19, 15, 0.14);
   cursor: pointer;
   padding: 3px;
   overflow: hidden;
   display: grid;
   place-items: center;
-  transition: border-color 0.14s, background 0.14s;
+  transition: border-color 0.14s, box-shadow 0.14s, transform 0.12s;
 }
 
+/* 有东西的格子才「浮」起来：纸是新的，还压着一道品质色的墨 */
 .cell:not(.empty) {
-  border-color: color-mix(in srgb, var(--q) 55%, transparent);
-  background: linear-gradient(160deg, color-mix(in srgb, var(--q) 14%, transparent), rgba(8, 11, 18, 0.85));
+  background-color: var(--paper-0);
+  background-image: var(--grain), linear-gradient(160deg, var(--paper-0), var(--paper-2));
+  background-size: 160px 160px, auto;
+  background-blend-mode: multiply, normal;
+  border-color: color-mix(in srgb, var(--qi) 45%, var(--ink-1));
+  box-shadow: inset 0 0 0 1px rgba(246, 239, 221, 0.7), 0 1px 3px rgba(22, 19, 15, 0.12);
 }
 
-.cell:hover {
-  border-color: var(--q, rgba(150, 180, 220, 0.5));
+.cell:not(.empty)::after {
+  content: "";
+  position: absolute;
+  inset: auto 5px 3px;
+  height: 2px;
+  background: var(--qi);
+  opacity: 0.75;
+}
+
+.cell:not(.empty):hover {
+  border-color: var(--qi);
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 0 1px rgba(246, 239, 221, 0.7), 0 4px 10px rgba(22, 19, 15, 0.2);
 }
 
 .cell.sel {
-  box-shadow: 0 0 0 2px var(--jade);
-  border-color: var(--jade);
+  border-color: var(--seal);
+  box-shadow: 0 0 0 1.5px var(--seal), inset 0 0 0 1px rgba(246, 239, 221, 0.7);
 }
 
 .cell-name {
-  font-family: var(--serif);
-  font-size: 10.5px;
-  line-height: 1.2;
-  color: var(--q, var(--fg));
+  font-family: var(--kai);
+  font-size: 11.5px;
+  line-height: 1.25;
+  color: var(--qi, var(--ink-7));
   text-align: center;
   word-break: break-all;
+  padding-bottom: 3px;
 }
 
-/* 数量角标：给个底，压在名字上也读得清 */
+/* 数量角标：小小一枚墨牌，压在名字上也读得清 */
 .cell-n {
   position: absolute;
-  right: 1px;
-  bottom: 1px;
+  right: 2px;
+  top: 2px;
   min-width: 15px;
   padding: 0 3px;
-  border-radius: 7px;
-  background: rgba(6, 9, 15, 0.88);
-  font-size: 10px;
+  border-radius: 1px;
+  background: var(--ink-7);
+  font-family: var(--hei);
+  font-size: 9.5px;
   line-height: 14px;
   text-align: center;
-  color: #fff;
+  color: var(--paper-0);
 }
 
 .bag-foot {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 12px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
   text-align: right;
 }
 
 .bag-foot b {
-  color: var(--gold);
+  color: var(--gamboge);
+  font-family: var(--hei);
+  font-variant-numeric: tabular-nums;
 }
 
-/* 物品卡 */
+/* ── 物品卡 ─────────────────────────────────────────────
+   左边一道品质色的粗笔，像装裱的包边 */
 .item-card {
-  border: 1px solid color-mix(in srgb, var(--q) 45%, transparent);
-  border-left: 3px solid var(--q);
-  border-radius: var(--radius-sm);
-  background: linear-gradient(160deg, color-mix(in srgb, var(--q) 9%, transparent), rgba(8, 11, 18, 0.8));
-  padding: 11px 13px;
+  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  position: relative;
+  border: 1px solid var(--ink-0);
+  border-left: 4px solid var(--qi);
+  border-radius: var(--radius);
+  background-color: var(--paper-0);
+  background-image: var(--grain), linear-gradient(160deg, var(--paper-0), var(--paper-2));
+  background-size: 160px 160px, auto;
+  background-blend-mode: multiply, normal;
+  padding: 13px 15px;
 }
 
 .ic-head {
   display: flex;
   align-items: baseline;
-  gap: 9px;
+  gap: 10px;
 }
 
 .ic-name {
-  font-family: var(--serif);
-  font-size: 17px;
-  letter-spacing: 0.06em;
-  color: var(--q);
+  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  font-family: var(--kai);
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  color: var(--qi);
 }
 
 .ic-q {
   font-size: 11px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
+  letter-spacing: 0.1em;
 }
 
 .ic-meta {
   font-size: 11.5px;
-  color: var(--fg-faint);
-  margin-bottom: 7px;
+  color: var(--ink-3);
+  margin-bottom: 9px;
 }
 
 .ic-meta b {
-  color: var(--gold);
+  color: var(--gamboge);
   font-weight: 400;
 }
 
 .ic-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 2px 14px;
-  margin-bottom: 7px;
+  gap: 3px 16px;
+  margin-bottom: 8px;
 }
 
 .ic-stat {
   font-size: 12.5px;
-  color: #c8d4e4;
+  color: var(--ink-7);
   display: flex;
   gap: 6px;
+  font-variant-numeric: tabular-nums;
 }
 
 .ic-stat i {
@@ -975,140 +1486,183 @@ body {
   font-size: 11.5px;
 }
 
-.ic-stat i.up { color: var(--jade); }
-.ic-stat i.down { color: var(--blood); }
+.ic-stat i.up { color: var(--stone-green); }
+.ic-stat i.down { color: var(--cinnabar); }
 
 .ic-active {
   font-size: 12px;
-  color: var(--cyan);
-  margin-bottom: 5px;
+  color: var(--stone-blue);
+  margin-bottom: 6px;
 }
 
+/* 器物的来历用楷体写，跟上面的数据拉开 */
 .ic-desc {
-  font-family: var(--serif);
-  font-size: 12.5px;
-  color: var(--fg-faint);
-  line-height: 1.75;
-  padding-top: 7px;
-  border-top: 1px dashed rgba(150, 180, 220, 0.14);
+  font-family: var(--kai);
+  font-size: 13.5px;
+  color: var(--ink-5);
+  line-height: 1.9;
+  padding-top: 9px;
+  border-top: 1px solid var(--rule-soft);
 }
 
 .ic-price {
   font-size: 11.5px;
-  color: var(--gold);
-  margin-top: 5px;
+  color: var(--gamboge);
+  margin-top: 6px;
 }
 
-/* 角色 */
+/* ── 角色 ───────────────────────────────────────────────
+   道号写得最大，像题在卷首 */
 .char-top {
   text-align: center;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.3C38 2.1 92 4.6 144 2.9 182 1.7 212 3 239 2.9 212 4.5 182 4.1 144 5.1 92 6.6 38 5.9 1 4.3Z' fill='%232b2620' opacity='0.42'/%3E%3C/svg%3E")
+    no-repeat bottom center / min(300px, 70%) 7px;
 }
 
 .ct-name {
-  font-family: var(--serif);
-  font-size: 26px;
-  letter-spacing: 0.16em;
+  font-family: var(--kai);
+  font-size: 30px;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  color: var(--ink-9);
 }
 
 .ct-sect {
+  --ci: color-mix(in srgb, var(--c, #3c647f) 52%, #1c1812);
+  font-family: var(--song);
   font-size: 13px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
+  color: var(--ci);
 }
 
 .ct-quote {
-  font-family: var(--serif);
-  font-size: 12px;
-  color: var(--fg-faint);
-  margin-top: 5px;
+  font-family: var(--kai);
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-top: 7px;
+  letter-spacing: 0.06em;
 }
 
 .eq-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 6px;
-  margin-top: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 7px;
+  margin-top: 14px;
 }
 
 .eq-cell {
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--q, var(--fg-faint));
-  border-radius: var(--radius-sm);
-  padding: 7px 10px;
-  background: rgba(8, 11, 18, 0.62);
+  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  border: 1px solid var(--ink-0);
+  border-left: 3px solid var(--qi);
+  border-radius: var(--radius);
+  padding: 7px 11px;
+  background: rgba(246, 239, 221, 0.55);
   cursor: pointer;
-  transition: background 0.14s;
+  transition: background 0.14s, border-color 0.14s;
 }
 
 .eq-cell.empty {
+  --qi: var(--ink-0);
   cursor: default;
-  opacity: 0.5;
+  background: var(--paper-2);
+  box-shadow: inset 0 1px 3px rgba(22, 19, 15, 0.1);
+}
+
+.eq-cell.empty .eq-item {
+  color: var(--ink-1);
 }
 
 .eq-cell:not(.empty):hover {
-  background: rgba(30, 40, 60, 0.8);
+  background: var(--paper-0);
+  border-color: var(--ink-3);
+  border-left-color: var(--qi);
 }
 
 .eq-slot {
   display: block;
   font-size: 11px;
-  color: var(--fg-faint);
-  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  letter-spacing: 0.18em;
 }
 
 .eq-item {
-  font-family: var(--serif);
-  font-size: 14px;
-  color: var(--q, var(--fg-dim));
+  font-family: var(--kai);
+  font-size: 15px;
+  color: var(--qi, var(--ink-5));
 }
 
+/* ── 属性表 ─────────────────────────────────────────────
+   名目和数字之间牵一串引线，是中式表格最常见的排法，
+   比画格子轻，比空着好读 */
 .base-grid,
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 4px 14px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 2px 18px;
 }
 
 .base-row,
 .stat-row {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 8px;
-  background: rgba(8, 11, 18, 0.5);
-  border-radius: 4px;
+  align-items: baseline;
+  gap: 7px;
+  padding: 5px 2px;
   font-size: 13px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.base-row::before,
+.stat-row::before {
+  content: "";
+  order: 1;
+  flex: 1;
+  align-self: center;
+  height: 0;
+  border-bottom: 1.5px dotted var(--ink-1);
+  margin: 0 4px;
 }
 
 .base-row span,
 .stat-row span {
-  color: var(--fg-dim);
-  flex: 1;
+  order: 0;
+  flex: none;
+  color: var(--ink-5);
+  letter-spacing: 0.1em;
 }
 
 .base-row b,
 .stat-row b {
-  color: #e6eef8;
+  order: 2;
+  color: var(--ink-9);
+  font-family: var(--hei);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
-/* 技能 */
+.base-row .btn {
+  order: 3;
+}
+
+/* ── 技能 ───────────────────────────────────────────────*/
 .skill-list {
   display: grid;
-  gap: 7px;
+  gap: 8px;
 }
 
 .skill-row {
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--c);
-  border-radius: var(--radius-sm);
-  padding: 9px 12px;
-  background: rgba(8, 11, 18, 0.55);
+  --ci: color-mix(in srgb, var(--c, #3c647f) 52%, #1c1812);
+  border: 1px solid var(--ink-0);
+  border-left: 3px solid var(--ci);
+  border-radius: var(--radius);
+  padding: 10px 13px;
+  background: rgba(246, 239, 221, 0.55);
 }
 
 .skill-row.locked {
-  opacity: 0.45;
+  opacity: 0.44;
+  background: var(--paper-2);
 }
 
 .sk-head {
@@ -1119,167 +1673,204 @@ body {
 }
 
 .sk-name {
-  font-family: var(--serif);
-  font-size: 16px;
-  color: var(--c);
-  letter-spacing: 0.06em;
+  font-family: var(--kai);
+  font-size: 17px;
+  color: var(--ci);
+  letter-spacing: 0.1em;
 }
 
 .sk-lv {
   font-size: 11px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
+  white-space: nowrap;
 }
 
 .sk-meta {
-  font-size: 11.5px;
-  color: var(--fg-faint);
+  font-family: var(--hei);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
 }
 
 .sk-desc {
-  font-family: var(--serif);
-  font-size: 12.5px;
-  color: var(--fg-dim);
-  margin-top: 3px;
+  font-family: var(--kai);
+  font-size: 13.5px;
+  color: var(--ink-5);
+  line-height: 1.85;
+  margin-top: 4px;
 }
 
-/* 任务 */
+/* ── 任务 ───────────────────────────────────────────────
+   右上角盖一方印：在办的是朱砂「令」，办完的是石绿「毕」 */
 .quest-card {
-  border: 1px solid rgba(232, 191, 106, 0.3);
-  border-left: 3px solid var(--gold);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  background: linear-gradient(160deg, rgba(232, 191, 106, 0.07), rgba(8, 11, 18, 0.7));
+  position: relative;
+  border: 1px solid var(--ink-0);
+  border-left: 4px solid var(--seal);
+  border-radius: var(--radius);
+  padding: 14px 52px 14px 15px;
+  background-color: var(--paper-0);
+  background-image: var(--grain), linear-gradient(160deg, var(--paper-0), var(--paper-2));
+  background-size: 160px 160px, auto;
+  background-blend-mode: multiply, normal;
+}
+
+.quest-card::after {
+  content: "令";
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: var(--seal);
+  color: var(--paper-0);
+  font-family: var(--song);
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 2px;
+  transform: rotate(-7deg);
+  -webkit-mask-image: var(--seal-mask);
+  mask-image: var(--seal-mask);
+  -webkit-mask-size: 80px 80px;
+  mask-size: 80px 80px;
 }
 
 .quest-card.done {
-  border-color: rgba(95, 212, 180, 0.34);
-  border-left-color: var(--jade);
-  background: linear-gradient(160deg, rgba(95, 212, 180, 0.07), rgba(8, 11, 18, 0.7));
+  border-left-color: var(--stone-green);
+}
+
+.quest-card.done::after {
+  content: "毕";
+  background: var(--stone-green);
 }
 
 .q-name {
-  font-family: var(--serif);
-  font-size: 19px;
-  letter-spacing: 0.1em;
-  color: var(--gold);
+  font-family: var(--kai);
+  font-size: 21px;
+  letter-spacing: 0.14em;
+  color: var(--ink-9);
 }
 
 .quest-card.done .q-name {
-  color: var(--jade);
+  color: var(--stone-green);
 }
 
 .q-brief {
-  font-family: var(--serif);
-  font-size: 13px;
-  color: var(--fg-dim);
-  line-height: 1.85;
-  margin: 6px 0;
+  font-family: var(--kai);
+  font-size: 14px;
+  color: var(--ink-5);
+  line-height: 2;
+  margin: 8px 0;
 }
 
 .q-goal {
   font-size: 13px;
-  color: #e6eef8;
+  color: var(--ink-9);
 }
 
 .q-npc,
 .q-reward {
   font-size: 11.5px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
   margin-top: 5px;
 }
 
 .q-lock {
   font-size: 12px;
-  color: var(--blood);
-  margin-top: 4px;
+  color: var(--cinnabar);
+  margin-top: 5px;
 }
 
 .q-done-list {
   display: grid;
-  gap: 3px;
+  gap: 2px;
 }
 
 .q-done-row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   font-size: 12px;
-  padding: 4px 8px;
-  background: rgba(8, 11, 18, 0.5);
-  border-radius: 4px;
+  padding: 5px 4px;
+  border-bottom: 1px solid var(--rule-soft);
 }
 
 .q-done-row span {
-  color: var(--jade);
+  color: var(--stone-green);
   flex: none;
-  min-width: 96px;
+  min-width: 100px;
 }
 
 .q-done-row i {
-  font-family: var(--serif);
+  font-family: var(--kai);
   font-style: normal;
-  color: var(--fg-faint);
+  color: var(--ink-3);
 }
 
-/* 山河图 */
+/* ── 山河图 ─────────────────────────────────────────────
+   做成一份目次：地名在左，注在右，中间牵引线 */
 .map-list {
   display: grid;
-  gap: 5px;
+  gap: 2px;
 }
 
 .map-row {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 9px 12px;
-  background: rgba(8, 11, 18, 0.55);
+  border: 1px solid transparent;
+  border-bottom: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  padding: 10px 12px;
   cursor: pointer;
-  transition: background 0.14s, border-color 0.14s, transform 0.14s;
+  transition: background 0.14s, border-color 0.14s, transform 0.16s, padding-left 0.16s;
 }
 
 .map-row:not(.locked):not(.here):hover {
-  background: rgba(30, 40, 60, 0.85);
-  border-color: rgba(127, 196, 232, 0.5);
-  transform: translateX(3px);
+  background: rgba(246, 239, 221, 0.85);
+  border-color: var(--ink-1);
+  padding-left: 17px;
 }
 
 .map-row.locked {
-  opacity: 0.38;
+  opacity: 0.4;
   cursor: default;
 }
 
+/* 当前所在：左边一道朱笔，跟"能去的地方"分开 */
 .map-row.here {
-  border-color: var(--jade);
+  border-left: 3px solid var(--seal);
+  background: rgba(180, 55, 42, 0.07);
   cursor: default;
-  background: rgba(95, 212, 180, 0.08);
 }
 
-/* 当前任务该去的地方。左边一道金边 + 底色，扫一眼就能找到 */
+/* 任务该去的地方：藤黄底，扫一眼就找得到 */
 .map-row.quest {
-  border-left: 3px solid var(--gold);
-  background: linear-gradient(90deg, rgba(232, 191, 106, 0.12), rgba(8, 11, 18, 0.55));
+  border-left: 3px solid var(--gamboge);
+  background: linear-gradient(90deg, rgba(169, 123, 38, 0.14), rgba(169, 123, 38, 0.02));
 }
 
 .map-row.quest.locked {
   /* 没去过但是任务目标：别整行压暗到看不见，这正是要指路的那一行 */
-  opacity: 0.72;
+  opacity: 0.74;
 }
 
+/* 两枚小印：去打的盖藤黄，去复命的盖石绿 */
 .mk-hunt,
 .mk-turnin {
+  font-family: var(--song);
   font-style: normal;
-  font-size: 11px;
+  font-size: 10.5px;
   padding: 1px 6px;
-  border-radius: 999px;
+  border-radius: 1px;
+  letter-spacing: 0.08em;
   white-space: nowrap;
+  color: var(--paper-0);
 }
 
 .mk-hunt {
-  color: #2a2109;
-  background: var(--gold);
+  background: var(--gamboge);
 }
 
 .mk-turnin {
-  color: #05231a;
-  background: var(--jade);
+  background: var(--stone-green);
 }
 
 .hint b.mk-hunt {
@@ -1287,175 +1878,239 @@ body {
 }
 
 .m-name {
-  font-family: var(--serif);
-  font-size: 15px;
-  letter-spacing: 0.08em;
+  font-family: var(--kai);
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  color: var(--ink-9);
 }
 
 .m-name i {
   font-style: normal;
+  font-family: var(--song);
   font-size: 11px;
-  color: var(--jade);
+  color: var(--stone-green);
+  letter-spacing: 0.06em;
 }
 
 .m-name i.safe {
-  color: var(--cyan);
+  color: var(--stone-blue);
 }
 
 .m-sub {
   font-size: 11.5px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
 }
 
-/* 商店 */
+/* ── 商铺 ───────────────────────────────────────────────*/
 .shop-tabs {
   display: flex;
-  gap: 8px;
+  gap: 9px;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .shop-gold {
   margin-left: auto;
   font-size: 12px;
-  color: var(--gold);
+  color: var(--gamboge);
+  font-variant-numeric: tabular-nums;
 }
 
 .shop-list {
   display: grid;
-  gap: 2px;
+  gap: 1px;
 }
 
 .shop-row {
+  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 10px;
-  padding: 7px 10px;
-  background: rgba(8, 11, 18, 0.55);
-  border-left: 2px solid var(--q);
-  border-radius: 4px;
+  padding: 8px 11px;
+  border-left: 3px solid var(--qi);
+  border-bottom: 1px solid var(--rule-soft);
+  background: rgba(246, 239, 221, 0.45);
 }
 
 .s-name {
-  font-family: var(--serif);
-  font-size: 14px;
-  color: var(--q);
+  font-family: var(--kai);
+  font-size: 15px;
+  color: var(--qi);
+  flex: none;
+}
+
+.shop-row::before {
+  content: "";
+  order: 1;
   flex: 1;
+  align-self: center;
+  height: 0;
+  border-bottom: 1.5px dotted var(--ink-1);
+  margin: 0 4px;
 }
 
 .s-lv,
 .s-price {
+  order: 2;
+  font-family: var(--hei);
   font-size: 12px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
   font-variant-numeric: tabular-nums;
 }
 
 .s-price {
-  color: var(--gold);
-  min-width: 52px;
+  order: 3;
+  color: var(--gamboge);
+  min-width: 54px;
   text-align: right;
 }
 
-.s-desc {
-  font-family: var(--serif);
-  font-size: 11.5px;
-  color: var(--fg-faint);
-  padding: 0 10px 7px 12px;
-  margin-top: -2px;
+.shop-row .btn {
+  order: 4;
 }
 
-/* 菜单 */
+.s-desc {
+  font-family: var(--kai);
+  font-size: 12px;
+  color: var(--ink-3);
+  padding: 0 11px 8px 14px;
+  margin-top: -1px;
+  background: rgba(246, 239, 221, 0.45);
+}
+
+/* ── 菜单 ───────────────────────────────────────────────*/
 .menu-list {
   display: grid;
-  gap: 8px;
+  gap: 9px;
 }
 
-/* ══ NPC 对话 ═════════════════════════════════════════ */
+.menu-list .btn {
+  font-family: var(--kai);
+  font-size: 16px;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  padding: 11px 15px;
+}
+
+/* ══ NPC 对话 ═════════════════════════════════════════
+   一张压在画面下方的信笺。说的话用楷体、行距拉到 2，
+   读起来才像有人在慢慢讲，而不是弹了个提示框 */
 .dialog {
   position: fixed;
   z-index: 35;
   left: 50%;
   bottom: calc(max(16px, env(safe-area-inset-bottom)) + var(--hud-bottom-h) + 12px);
   transform: translateX(-50%);
-  width: min(560px, 92vw);
+  width: min(580px, 92vw);
 }
 
 .d-box {
-  background: linear-gradient(170deg, rgba(22, 28, 42, 0.97), rgba(9, 12, 20, 0.97));
-  border: 1px solid rgba(150, 180, 220, 0.24);
+  position: relative;
+  background-color: var(--paper-1);
+  background-image:
+    var(--grain),
+    var(--fiber),
+    linear-gradient(162deg, var(--paper-0), var(--paper-2));
+  background-size: 160px 160px, 300px 300px, auto;
+  background-blend-mode: multiply, multiply, normal;
+  border: 1px solid var(--ink-5);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 14px 16px;
+  box-shadow: var(--lift-lg);
+  padding: 15px 17px 16px;
+  animation: ink-settle 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.d-box::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--rule-soft);
+  pointer-events: none;
 }
 
 .d-head {
   display: flex;
   align-items: baseline;
-  gap: 10px;
-  margin-bottom: 8px;
-  padding-bottom: 7px;
-  border-bottom: 1px solid var(--line);
+  gap: 11px;
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--rule);
 }
 
 .d-name {
-  font-family: var(--serif);
-  font-size: 19px;
-  letter-spacing: 0.12em;
-  color: var(--gold);
+  font-family: var(--kai);
+  font-size: 20px;
+  letter-spacing: 0.16em;
+  color: var(--ink-9);
+}
+
+/* 名字后面缀一枚小朱点，像名字旁边的钤脚 */
+.d-name::after {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 8px;
+  vertical-align: 0.24em;
+  background: var(--seal);
+  border-radius: 1px;
 }
 
 .d-title {
   font-size: 11.5px;
-  color: var(--fg-faint);
+  color: var(--ink-3);
+  letter-spacing: 0.1em;
 }
 
 .d-say {
-  font-family: var(--serif);
-  font-size: 15px;
-  line-height: 1.95;
-  color: #e4ecf6;
+  font-family: var(--kai);
+  font-size: 16px;
+  line-height: 2.05;
+  color: var(--ink-7);
+  letter-spacing: 0.03em;
 }
 
 .d-quest {
-  margin-top: 10px;
-  padding: 9px 11px;
-  border-radius: var(--radius-sm);
-  background: rgba(232, 191, 106, 0.08);
-  border-left: 2px solid var(--gold);
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: rgba(169, 123, 38, 0.1);
+  border-left: 3px solid var(--gamboge);
   font-size: 12.5px;
 }
 
 .d-quest b {
-  font-family: var(--serif);
-  font-size: 14px;
-  color: var(--gold);
+  font-family: var(--kai);
+  font-size: 15px;
+  color: var(--ink-9);
   font-weight: 400;
+  letter-spacing: 0.1em;
 }
 
 .d-brief {
-  font-family: var(--serif);
-  color: var(--fg-dim);
-  margin: 4px 0;
-  line-height: 1.8;
+  font-family: var(--kai);
+  color: var(--ink-5);
+  margin: 5px 0;
+  line-height: 1.9;
 }
 
 .d-goal,
 .d-reward {
-  color: var(--jade);
+  color: var(--stone-green);
   font-size: 12px;
 }
 
 .d-btns {
   display: flex;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 9px;
+  margin-top: 14px;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
 
 /* ══ 物品详情弹窗 ══════════════════════════════════════
    压在背包面板之上（z-index 高于 .panel 的 30）。
-   桌面居中，手机做成底部抽屉——拇指够得到，也不挡着上面的格子。 */
+   桌面居中，手机做成底部抽屉——拇指够得到，也不挡上面的格子 */
 .itempop {
   position: fixed;
   inset: 0;
@@ -1463,63 +2118,62 @@ body {
   display: grid;
   place-items: center;
   padding: 16px;
-  background: rgba(4, 6, 12, 0.6);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(20, 17, 13, 0.5);
+  backdrop-filter: blur(4px) saturate(0.7);
+  -webkit-backdrop-filter: blur(4px) saturate(0.7);
 }
 
 .ip-box {
-  width: min(420px, 100%);
+  position: relative;
+  width: min(440px, 100%);
   max-height: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: linear-gradient(170deg, rgba(24, 30, 45, 0.99), rgba(10, 13, 21, 0.99));
-  border: 1px solid rgba(150, 180, 220, 0.24);
+  background-color: var(--paper-1);
+  background-image: var(--grain), linear-gradient(162deg, var(--paper-0), var(--paper-2));
+  background-size: 160px 160px, auto;
+  background-blend-mode: multiply, normal;
+  border: 1px solid var(--ink-5);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--lift-lg);
   padding: 14px;
-  animation: ip-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes ip-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.97);
-  }
+  animation: ink-settle 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ip-btns {
   display: flex;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 9px;
+  margin-top: 13px;
   flex-wrap: wrap;
 }
 
-/* 卖出确认。用金色边把它和普通详情区分开，一眼看出"这一步不一样" */
+/* 卖出确认：整张纸改用朱砂框，一眼看出"这一步不一样" */
 .ip-confirm {
-  border-color: rgba(232, 191, 106, 0.45);
+  border-color: var(--seal);
+  box-shadow: 0 0 0 1px rgba(180, 55, 42, 0.35), var(--lift-lg);
 }
 
 .cf-q {
-  font-family: var(--serif);
-  font-size: 14px;
-  color: var(--fg);
-  margin: 10px 0 6px;
+  font-family: var(--kai);
+  font-size: 15px;
+  color: var(--ink-9);
+  margin: 12px 0 7px;
+  letter-spacing: 0.06em;
 }
 
 .cf-warn {
   font-size: 12.5px;
-  color: #ffc48a;
-  background: rgba(232, 140, 74, 0.1);
-  border-left: 2px solid rgba(232, 140, 74, 0.6);
-  padding: 5px 9px;
-  border-radius: 3px;
-  margin-bottom: 5px;
+  color: #93551a;
+  background: rgba(169, 123, 38, 0.14);
+  border-left: 3px solid var(--gamboge);
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  margin-bottom: 6px;
 }
 
 .ip-btns .btn {
   flex: 1 1 auto;
-  min-width: 78px;
+  min-width: 80px;
   text-align: center;
 }
 
@@ -1540,23 +2194,39 @@ body {
   }
 }
 
-/* ══ 居中大字提示 ══════════════════════════════════════ */
+/* ══ 居中大字提示 ══════════════════════════════════════
+   泼一团墨上去，字是留白出来的。
+   底下是暗画面，这是唯一能把大字撑住的做法 */
 .toast {
   position: fixed;
   z-index: 40;
   left: 50%;
-  top: 28%;
-  transform: translate(-50%, -50%) scale(0.94);
-  font-family: var(--serif);
-  font-size: clamp(24px, 6vw, 40px);
-  letter-spacing: 0.24em;
-  text-indent: 0.24em;
-  color: #eef4fc;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+  top: 27%;
+  transform: translate(-50%, -50%) scale(0.92);
+  font-family: var(--kai);
+  font-size: clamp(28px, 6.6vw, 46px);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: var(--paper-0);
+  text-shadow: 0 2px 18px rgba(22, 19, 15, 0.95), 0 0 48px rgba(22, 19, 15, 0.85);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.4s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+}
+
+/* 墨晕：湍流当蒙版，边缘就是不规则的，不会像一块椭圆贴图 */
+.toast::before {
+  content: "";
+  position: absolute;
+  inset: -90% -26%;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(22, 19, 15, 0.66) 0%, rgba(22, 19, 15, 0.34) 48%, transparent 72%);
+  -webkit-mask-image: var(--cloud);
+  mask-image: var(--cloud);
+  -webkit-mask-size: 600px 600px;
+  mask-size: 600px 600px;
+  pointer-events: none;
 }
 
 .toast.show {
@@ -1564,11 +2234,11 @@ body {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.toast.level { color: var(--gold); }
-.toast.quest { color: var(--jade); }
-.toast.boss { color: #ff8a9c; }
-.toast.death { color: var(--blood); }
-.toast.map { color: var(--cyan); }
+.toast.level { color: #f2dba0; }
+.toast.quest { color: #abd2b8; }
+.toast.boss { color: #f2aa9e; }
+.toast.death { color: #e2887a; }
+.toast.map { color: #abcadf; }
 
 /* ══ 移动端 ════════════════════════════════════════════ */
 @media (max-width: 760px), (pointer: coarse) {
@@ -1577,72 +2247,122 @@ body {
   }
 
   :root {
-    /* 技能格从 54 缩到 46，所以条矮了；
-       但上面多出一排 46px 的触屏圆钮（含 8px 间距），整体反而更高 */
-    --hud-bar-h: 69px;
-    --hud-bottom-h: calc(var(--hud-bar-h) + 54px);
+    /* 技能格从 56 缩到 48，所以条矮了；
+       但上面多出一排 48px 的触屏圆钮（含 9px 间距），整体反而更高 */
+    --hud-bar-h: 72px;
+    --hud-bottom-h: calc(var(--hud-bar-h) + 57px);
   }
 
   .log {
-    width: min(240px, 46vw);
-    max-height: 104px;
+    width: min(250px, 48vw);
+    max-height: 108px;
     font-size: 11px;
+    padding: 6px 20px 6px 9px;
   }
 
   .hud-right {
-    width: 132px;
+    width: 136px;
   }
 
   #minimap {
-    width: 128px;
-    height: 100px;
+    width: 134px;
+    height: 104px;
   }
 
   .hud-btns {
-    width: 138px;
+    width: 142px;
   }
 
   .hud-btns .btn {
-    padding: 9px 3px;
-    font-size: 13px;
+    padding: 8px 3px;
+    font-size: 13.5px;
+  }
+
+  #map-name {
+    font-size: 15px;
+  }
+
+  .hud-id {
+    padding: 7px 9px 7px 8px;
+  }
+
+  /* 左边这一坨（头像 46 + 缝 11 + 条 + 内边距）不收窄的话，
+     加上右边那 136px 正好比 390 的屏还宽一点，两栏会贴死 */
+  .vitals {
+    width: min(186px, 40vw);
+  }
+
+  .portrait {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
   }
 
   .slot {
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
   }
 
   .slot-name {
-    font-size: 10.5px;
-    inset: 4px 2px 10px;
+    font-size: 11px;
+    inset: 5px 3px 11px;
+  }
+
+  .btn.round {
+    width: 48px;
+    height: 48px;
+    font-size: 15px;
   }
 
   .hud-bottom {
     width: calc(100vw - 20px);
   }
 
-  .btn.round {
-    width: 46px;
-    height: 46px;
-    font-size: 14px;
-  }
-
   .panel-box {
     width: 100%;
   }
 
+  .panel-body {
+    padding: 13px 13px 16px;
+  }
+
   .bag-grid {
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
   }
 
   .cell-name {
-    font-size: 10px;
+    font-size: 10.5px;
+  }
+
+  .quest-card {
+    padding-right: 48px;
+  }
+
+  /* 门派帖在窄屏上竖排名字会把卡撑太高，收一点字号 */
+  .sc-name {
+    font-size: 20px;
+    min-height: 88px;
+  }
+
+  /* 窄屏上题头占满整个上半张纸，月亮挤在朱印旁边会打架，
+     所以把它挪到山头那一带去 */
+  .ink-moon {
+    top: 30%;
+    right: 6%;
+    width: clamp(64px, 20vw, 96px);
   }
 }
 
+/* 动效全是气氛，不是功能。关掉动画也得完整可玩 */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .ink-mist,
+  .ink-birds {
+    animation: none;
   }
 }
