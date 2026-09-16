@@ -23,7 +23,10 @@
   }
 
   Renderer.prototype.resize = function () {
-    var dpr = Math.min(global.devicePixelRatio || 1, 2);
+    // 像素量是二次方的：DPR 从 2 降到 1.5，每帧要填的像素少 44%。
+    // 这是手机发热最直接的一个旋钮
+    var cap = ZX.TOUCH ? CFG.MAX_DPR_TOUCH : CFG.MAX_DPR_DESKTOP;
+    var dpr = Math.min(global.devicePixelRatio || 1, cap);
     var w = this.canvas.clientWidth || global.innerWidth;
     var h = this.canvas.clientHeight || global.innerHeight;
     this.canvas.width = Math.floor(w * dpr);

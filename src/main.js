@@ -469,6 +469,10 @@
   // ── 主循环 ──────────────────────────────────────────────
   var last = 0;
   var crashes = 0;
+  /** 两帧之间至少隔这么久。桌面给 0，等于不限速，跟着 vsync 走 */
+  var frameMin = ZX.TOUCH ? 1000 / CFG.FPS_CAP_TOUCH : 0;
+  /** 被整屏浮层盖住时的降速计数器 */
+  var coverTick = 0;
 
   /**
    * 一帧。
@@ -479,20 +483,34 @@
    */
   function frame(now) {
     if (!game.running) return;
-    var dt = Math.min(CFG.MAX_DT, now - last || 16);
+    // 下一帧先排上再干活：这样即便下面抛出异常，循环也不会断
+    global.requestAnimationFrame(frame);
+
+    // 帧率上限。够不着这个间隔就整帧跳过——不 step 也不画。
+    // 逻辑是按 dt 算的，跳帧只让 dt 变大，数值和手感都不受影响
+    var since = now - last;
+    if (since < frameMin) return;
+
+    var dt = Math.min(CFG.MAX_DT, since || 16);
     last = now;
     game.t += dt;
 
     try {
       step(dt);
-      game.renderer.draw(game, game.t);
-      drawOverlay();
+      // 整屏浮层盖着时把重画降到六分之一速率。
+      // 翻背包、看属性是停留最久的场景，满帧画底下的世界纯属白烧；
+      // 但完全不画就要自己维护「什么时候必须强制重画一次」——换图、复活、
+      // 首帧都得记得，漏一个就是画面卡在旧内容上。降速既省掉绝大部分开销，
+      // 又不用去趟那摊状态。NPC 对话只占下方一条，不算盖住，照常满帧
+      coverTick = (coverTick + 1) % 6;
+      if (!game.ui.isCovered() || coverTick === 0) {
+        game.renderer.draw(game, game.t);
+        drawOverlay();
+      }
       crashes = 0;
     } catch (e) {
       onFrameError(e);
     }
-
-    global.requestAnimationFrame(frame);
   }
 
   /**
@@ -687,7 +705,8 @@
     }
 
     game.running = true;
-    last = performance.now();
+    // 往前退一个间隔，第一帧就直接画，不然开局会白等一帧
+    last = performance.now() - frameMin;
     global.requestAnimationFrame(frame);
   }
 

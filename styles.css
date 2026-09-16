@@ -282,11 +282,14 @@ body {
   filter: blur(5px);
 }
 
-/* 水气：拿 --cloud 当蒙版刷一层墨雾，极慢地横向漂 */
+/* 水气：拿 --cloud 当蒙版刷一层墨雾，极慢地横向漂。
+   漂的是 transform 不是 mask-position——后者不能交给合成器，
+   每一帧都要把这块又大又带模糊的元素整个重绘一遍。
+   左右各多铺出一个蒙版周期（900px），这样平移一整周期也不会露边 */
 .ink-mist {
   position: absolute;
-  left: -20%;
-  right: -20%;
+  left: -900px;
+  right: -900px;
   bottom: 4%;
   height: 46%;
   background: linear-gradient(180deg, transparent, rgba(190, 202, 210, 0.09) 45%, transparent);
@@ -298,10 +301,8 @@ body {
 }
 
 @keyframes mist-drift {
-  to {
-    -webkit-mask-position: 900px 0;
-    mask-position: 900px 0;
-  }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(900px, 0, 0); }
 }
 
 /* 三只飞鸟，两笔一只。慢慢横掠过去，整张画就活了 */
@@ -589,10 +590,10 @@ body {
    一张小纸片：外框墨线，内嵌一道更细的框，按下去像把纸按进桌面 */
 .btn {
   position: relative;
+  /* 按钮上不铺噪声：一屏里按钮最多十来个，每个带混合模式的噪声层
+     都是一次独立合成，而这个尺寸根本看不出纹理。纸感靠双线框和受光边就够了 */
   background-color: var(--paper-0);
-  background-image: var(--grain), linear-gradient(176deg, var(--paper-0), var(--paper-2));
-  background-size: 160px 160px, auto;
-  background-blend-mode: screen, normal;
+  background-image: linear-gradient(176deg, var(--paper-0), var(--paper-2));
   border: 1px solid var(--ink-3);
   border-radius: var(--radius);
   color: var(--ink-7);
@@ -1075,6 +1076,11 @@ body {
 /* 技能格是一枚木牌／玉简：纸面、墨框，底下一道门派色的墨痕 */
 .slot {
   --si: color-mix(in srgb, var(--slot-color, #6fa3c4) 74%, #9fa8ad);
+  /* 技能格从上面那条共用「纸笺」规则里继承了噪声层，这里摘掉：
+     56px 见方看不出纹理，而它是少数几个每帧都在变（冷却遮罩）的元素 */
+  background-image: linear-gradient(160deg, rgba(35, 42, 49, 0.96), rgba(20, 25, 32, 0.96));
+  background-size: auto;
+  background-blend-mode: normal;
   position: relative;
   width: 56px;
   height: 56px;
@@ -1187,9 +1193,10 @@ body {
   position: fixed;
   inset: 0;
   z-index: 30;
-  background: rgba(2, 4, 7, 0.52);
-  backdrop-filter: blur(4px) saturate(0.7);
-  -webkit-backdrop-filter: blur(4px) saturate(0.7);
+  /* 原来这里挂着 backdrop-filter: blur()。它是手机 GPU 上最贵的效果之一——
+     每帧都要把身后整屏取样再模糊一遍，而面板自己几乎不透明，那层模糊根本看不出来。
+     换成把遮罩压深一档，观感一样，成本归零 */
+  background: rgba(2, 4, 7, 0.74);
   display: grid;
   place-items: center;
   padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
@@ -1357,12 +1364,11 @@ body {
   transition: border-color 0.14s, box-shadow 0.14s, transform 0.12s;
 }
 
-/* 有东西的格子才「浮」起来：纸是新的，还压着一道品质色的墨 */
+/* 有东西的格子才「浮」起来，还压着一道品质色的墨。
+   这里同样不铺噪声——背包一屏 40 格，40 次合成换一点看不见的纹理，不划算 */
 .cell:not(.empty) {
   background-color: var(--paper-0);
-  background-image: var(--grain), linear-gradient(160deg, var(--paper-0), var(--paper-2));
-  background-size: 160px 160px, auto;
-  background-blend-mode: screen, normal;
+  background-image: linear-gradient(160deg, var(--paper-0), var(--paper-2));
   border-color: color-mix(in srgb, var(--qi) 45%, var(--ink-1));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 3px rgba(0, 0, 0, 0.4);
 }
@@ -2126,9 +2132,7 @@ body {
   display: grid;
   place-items: center;
   padding: 16px;
-  background: rgba(2, 4, 7, 0.5);
-  backdrop-filter: blur(4px) saturate(0.7);
-  -webkit-backdrop-filter: blur(4px) saturate(0.7);
+  background: rgba(2, 4, 7, 0.72);
 }
 
 .ip-box {
@@ -2359,6 +2363,20 @@ body {
     left: 6%;
     right: auto;
     width: clamp(56px, 16vw, 84px);
+  }
+
+  /* 雾和飞鸟是纯气氛。手机上让它们一直动，等于标题页停着不玩也在耗电，
+     还各占一层合成缓冲。静止的雾和鸟一样好看 */
+  .ink-mist,
+  .ink-birds {
+    animation: none;
+  }
+
+  /* 左右各多铺 900px 是为了给平移留余量，不动了就不需要，
+     省掉一块比屏幕宽好几倍的绘制区 */
+  .ink-mist {
+    left: -20%;
+    right: -20%;
   }
 }
 
