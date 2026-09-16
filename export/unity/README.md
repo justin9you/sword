@@ -5,7 +5,7 @@
 
 ## 装进工程
 
-1. `Runtime/` 两个 .cs 拖到 `Assets/` 下任意位置（脚本放哪都行）
+1. `Runtime/` 下的三个 .cs 拖到 `Assets/` 下任意位置（脚本放哪都行）
 2. `Resources/ZhuxianData/` 整个拖到 `Assets/Resources/` 下
    （路径必须是 `Assets/Resources/ZhuxianData/`，`ZxDatabase` 按这个路径 Load）
 
@@ -26,6 +26,14 @@ foreach (var npc in db.NpcsOnMap("caomiao")) Debug.Log(npc.name);
 int expNeeded = db.ExpToNext(12);       // 12 级升 13 级要多少经验
 float tile    = db.config.TILE;         // 地图坐标单位是「格」，乘它变像素
 ```
+
+## 先验一下通没通
+
+把 `ZxSmokeTest` 挂到场景里任意一个 GameObject 上，按 Play。Console 会打出各表条数、
+几个抽样查询、以及几个已知坑的验证结果——全绿就说明数据管道通了。不想按 Play 的话，
+在 Inspector 里右键这个组件 →「跑一遍数据包冒烟测试」也行。
+
+出错时它会把话说明白，比如目录没放对会直接告诉你该放哪儿。
 
 ## 内容
 

@@ -12,6 +12,36 @@ namespace UnityEngine
     {
     }
 
+    public class Component : Object
+    {
+    }
+
+    public class Behaviour : Component
+    {
+    }
+
+    public class MonoBehaviour : Behaviour
+    {
+    }
+
+    /// <summary>字段上的说明文字，Unity 里显示在 Inspector 的悬浮提示上</summary>
+    [System.AttributeUsage(System.AttributeTargets.Field)]
+    public class TooltipAttribute : System.Attribute
+    {
+        public TooltipAttribute(string tooltip)
+        {
+        }
+    }
+
+    /// <summary>Unity 里给方法加个右键菜单项</summary>
+    [System.AttributeUsage(System.AttributeTargets.Method)]
+    public class ContextMenu : System.Attribute
+    {
+        public ContextMenu(string name)
+        {
+        }
+    }
+
     public class TextAsset : Object
     {
         public string text;
