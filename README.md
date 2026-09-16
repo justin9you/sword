@@ -254,11 +254,20 @@ csharp/
 └── Zhuxian.Tests/    对照测试（net7.0 控制台程序，手写断言，零 NuGet 依赖）
 ```
 
-已经搬完的：属性换算与等级曲线（[stats.js](src/stats.js)）、伤害公式与增益减益（[combat.js](src/combat.js)）、
-背包与装备（[inventory.js](src/inventory.js)）、玩家状态机（[player.js](src/player.js)）、
-任务推进（[quest.js](src/quest.js)）、场景与怪物 AI（[world.js](src/world.js)）。
+逻辑层已经整个搬完了：
 
-还没搬：技能释放与弹道（[skills.js](src/skills.js)）、存档（[save.js](src/save.js)）。
+| JS | C# | 内容 |
+|---|---|---|
+| [stats.js](src/stats.js) | `Stats.cs` | 属性换算、等级曲线 |
+| [combat.js](src/combat.js) | `Combat.cs` | 伤害公式、增益减益、持续伤害、护盾 |
+| [inventory.js](src/inventory.js) | `Inventory.cs` | 背包堆叠、穿脱装备 |
+| [player.js](src/player.js) | `Player.cs` | 建号、重算属性、升级、加点、吃药、死亡复活 |
+| [quest.js](src/quest.js) | `Quest.cs` | 任务链推进、交任务发奖 |
+| [world.js](src/world.js) | `World.cs` | 碰撞、刷怪、怪物 AI、掉落、首领重生 |
+| [skills.js](src/skills.js) | `Skills.cs` | 技能释放、弹道、命中结算、法宝主动 |
+| [save.js](src/save.js) | `Save.cs` | 存档校验（存储由宿主实现 `ISaveStorage`） |
+
+剩下的是渲染、输入、界面、音效——那几块在 Unity 里要重写，没有"搬"的意义。
 
 **不需要 Unity**。Core 不引用 UnityEngine，用 `dotnet` 就能编译和测试；
 Unity 要到做画面那一步才真正用得上。
@@ -273,7 +282,7 @@ Unity 要到做画面那一步才真正用得上。
 3. 连**随机数消耗了几个**都要对得上——暴击没触发时该不该多摇一次，
    两边不一样的话，单看一条结果可能碰巧相同，连着打就全歪了
 
-现在是 5596 项断言全过。这套办法真的抓到过东西：数据里的小数原本按 Unity 惯例生成成
+现在是 9086 项断言全过。这套办法真的抓到过东西：数据里的小数原本按 Unity 惯例生成成
 `float`，结果 `9.4f` 在写入那一刻就不是 9.4 了，等级一乘、取整一落，气血比网页版少 1。
 肉眼绝对看不出来，对照测试一跑就红。
 

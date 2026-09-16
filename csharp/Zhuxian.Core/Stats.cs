@@ -48,6 +48,18 @@ namespace Zhuxian.Core
             }
         }
 
+        public void Set(string key, int value)
+        {
+            switch (key)
+            {
+                case "con": con = value; break;
+                case "spi": spi = value; break;
+                case "agi": agi = value; break;
+                case "wit": wit = value; break;
+                default: throw new ArgumentException("不是基础属性：" + key, nameof(key));
+            }
+        }
+
         public void Add(string key, int delta)
         {
             switch (key)

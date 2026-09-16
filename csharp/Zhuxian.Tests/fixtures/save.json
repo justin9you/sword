@@ -1,0 +1,4031 @@
+{
+  "roundTrip": [
+    {
+      "step": "正常往返",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "before": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281.4,
+        "mp": 75.89999999999999,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234567.89,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    }
+  ],
+  "hostile": [
+    {
+      "step": "缺 hp/mp 字段",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 469,
+        "mp": 253,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "hp 超过上限",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 999999,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 469,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "hp 是 0",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 0,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 1,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "等级超出范围",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 9999,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 65,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 827,
+          "mp": 459,
+          "atk": 115,
+          "mag": 112,
+          "def": 81,
+          "mdef": 73,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "等级是 0",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 0,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 1,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 225,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 225,
+          "mp": 113,
+          "atk": 22,
+          "mag": 19,
+          "def": 13,
+          "mdef": 9,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "经验/金钱是负数",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": -500,
+        "gold": -100,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 0,
+        "gold": 0,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "加点超范围",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 99999,
+          "spi": -3,
+          "agi": 10,
+          "wit": 10
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 9999,
+          "spi": 0,
+          "agi": 10,
+          "wit": 10
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 110392,
+          "mp": 205,
+          "atk": 6060,
+          "mag": 47,
+          "def": 8035,
+          "mdef": 31,
+          "crit": 0.075,
+          "dodge": 0.05,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.06
+        }
+      }
+    },
+    {
+      "step": "背包有不存在的物品",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "w_bu_cun_zai",
+            "n": 3
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          null,
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "背包数量超堆叠上限",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_xiaohuan",
+            "n": 99999
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_xiaohuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "装备槽位对不上",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "w_qingyunjian",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": null,
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 0,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "装备等级不够",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_zhuxian",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": null,
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 459,
+          "mp": 253,
+          "atk": 55,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "装备是不存在的 id",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_bu_cun_zai",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": null,
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 459,
+          "mp": 253,
+          "atk": 55,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "任务指向不存在的 key",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q999",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q1",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "任务全做完了(current=null)",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": null,
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": null,
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "任务进度是负数",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": -5,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 0,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "地图不存在",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "bu_cun_zai",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "张小凡",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "caomiao",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "名字超长",
+      "saved": {
+        "v": 1,
+        "name": "一二三四五六七八九十甲乙丙丁",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": {
+        "name": "一二三四五六七八九十甲乙",
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "hp": 281,
+        "mp": 76,
+        "map": "dazhu",
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "questCurrent": "q5",
+        "questProgress": 3,
+        "questDone": [
+          "q1",
+          "q2"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "stats": {
+          "hp": 469,
+          "mp": 253,
+          "atk": 60,
+          "mag": 57,
+          "def": 41,
+          "mdef": 35,
+          "crit": 0.0525,
+          "dodge": 0.035,
+          "speed": 4,
+          "lifesteal": 0,
+          "expBonus": 0.03
+        }
+      }
+    },
+    {
+      "step": "缺门派",
+      "saved": {
+        "v": 1,
+        "name": "张小凡",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": null
+    },
+    {
+      "step": "缺名字",
+      "saved": {
+        "v": 1,
+        "sect": "qingyun",
+        "level": 27,
+        "exp": 1020,
+        "gold": 8888,
+        "points": 78,
+        "base": {
+          "con": 6,
+          "spi": 6,
+          "agi": 5,
+          "wit": 5
+        },
+        "bag": [
+          {
+            "id": "c_xiaohuan",
+            "n": 5
+          },
+          {
+            "id": "c_juling",
+            "n": 3
+          },
+          {
+            "id": "c_dahuan",
+            "n": 99
+          },
+          {
+            "id": "c_dahuan",
+            "n": 21
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "equip": {
+          "weapon": "w_shaohuo",
+          "talisman": null,
+          "robe": "a_bu",
+          "bracer": null,
+          "boots": "s_caoxie",
+          "pendant": null
+        },
+        "map": "dazhu",
+        "hp": 281,
+        "mp": 76,
+        "quest": {
+          "current": "q5",
+          "progress": 3,
+          "done": [
+            "q1",
+            "q2"
+          ]
+        },
+        "visited": [
+          "caomiao",
+          "dazhu",
+          "longshou"
+        ],
+        "kills": 314,
+        "deaths": 2,
+        "playMs": 1234568,
+        "at": 0
+      },
+      "after": null
+    }
+  ],
+  "summaries": [
+    {
+      "step": "正常摘要",
+      "name": "张小凡",
+      "sect": "青云门",
+      "level": 27,
+      "map": "大竹峰"
+    },
+    {
+      "step": "地图不存在时回落",
+      "name": "张小凡",
+      "sect": "青云门",
+      "level": 27,
+      "map": "草庙村"
+    }
+  ]
+}

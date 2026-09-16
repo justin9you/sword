@@ -34,6 +34,8 @@ namespace Zhuxian.Tests
             PlayerTests.Run(data);
             QuestTests.Run(data);
             WorldTests.Run(data);
+            SkillsTests.Run(data);
+            SaveTests.Run(data);
 
             return Check.Report();
         }

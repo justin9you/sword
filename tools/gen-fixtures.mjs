@@ -12,14 +12,18 @@
  * 该不该消耗一个随机数）——这些只有逐条对数才抓得到。实测抓到过两个：
  * 数据存成 float 导致气血差 1、C# 的 Math.Round 是银行家舍入。
  *
- * 这个文件只管「把 JS 跑起来 + 落盘」，具体有哪些样本在 fixture-cases.mjs。
+ * 这个文件只管「把 JS 跑起来 + 落盘」，具体有哪些样本在 tools/fixtures/ 下。
  * 样本跟着仓库走，所以跑 C# 测试不需要装 Node，只有重新生成时才需要。
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import * as cases from './fixture-cases.mjs';
+import * as combat from './fixtures/combat.mjs';
+import * as player from './fixtures/player.mjs';
+import * as world from './fixtures/world.mjs';
+import * as skills from './fixtures/skills.mjs';
+import * as save from './fixtures/save.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'csharp', 'Zhuxian.Tests', 'fixtures');
@@ -42,8 +46,11 @@ const MODULES = [
   'src/data/sects.js', 'src/data/items.js', 'src/data/monsters.js',
   'src/data/maps.js', 'src/data/npcs.js', 'src/data/quests.js',
   'src/inventory.js', 'src/player.js', 'src/combat.js',
-  'src/world.js', 'src/quest.js',
+  'src/world.js', 'src/quest.js', 'src/skills.js', 'src/save.js',
 ];
+
+/** save.js 的内存存储。样本构造器通过 ctx.saveStore 往里塞存档 */
+const saveStore = new Map();
 
 /** 当前生效的随机源。默认真随机，withRandom 期间换成种子随机 */
 let currentRandom = Math.random;
@@ -53,7 +60,16 @@ function loadGame() {
   const patchedMath = Object.create(Math);
   patchedMath.random = () => currentRandom();
 
-  const sandbox = { console, Math: patchedMath, Date, JSON, isFinite, parseInt, parseFloat };
+  // save.js 要 localStorage。给个内存版的，顺手交给样本构造器，
+  // 这样读档样本能把原始存档塞进去、走真实的读档链路
+  const sandbox = {
+    console, Math: patchedMath, Date, JSON, isFinite, parseInt, parseFloat,
+    localStorage: {
+      getItem: (k) => (saveStore.has(k) ? saveStore.get(k) : null),
+      setItem: (k, v) => saveStore.set(k, String(v)),
+      removeItem: (k) => saveStore.delete(k),
+    },
+  };
   sandbox.window = sandbox;
   sandbox.global = sandbox;
   vm.createContext(sandbox);
@@ -92,19 +108,21 @@ function withRandom(seed, fn) {
 
 // ── 生成 ──────────────────────────────────────────────────────
 
-const ctx = { ZX: loadGame(), mulberry32: mulberry32, withRandom: withRandom };
+const ctx = { ZX: loadGame(), mulberry32: mulberry32, withRandom: withRandom, saveStore: saveStore };
 
 const FILES = {
-  'rng.json': cases.buildRng(ctx),
-  'exp.json': cases.buildExp(ctx),
-  'derive.json': cases.buildDerive(ctx),
-  'damage.json': cases.buildDamage(ctx),
-  'buffs.json': cases.buildBuffs(ctx),
-  'misc.json': cases.buildMisc(ctx),
-  'inventory.json': cases.buildInventory(ctx),
-  'player.json': cases.buildPlayer(ctx),
-  'quest.json': cases.buildQuest(ctx),
-  'world.json': cases.buildWorld(ctx),
+  'rng.json': combat.buildRng(ctx),
+  'exp.json': combat.buildExp(ctx),
+  'derive.json': combat.buildDerive(ctx),
+  'damage.json': combat.buildDamage(ctx),
+  'buffs.json': combat.buildBuffs(ctx),
+  'misc.json': combat.buildMisc(ctx),
+  'inventory.json': player.buildInventory(ctx),
+  'player.json': player.buildPlayer(ctx),
+  'quest.json': world.buildQuest(ctx),
+  'world.json': world.buildWorld(ctx),
+  'skills.json': skills.buildSkills(ctx),
+  'save.json': save.buildSave(ctx),
 };
 
 fs.mkdirSync(OUT, { recursive: true });
