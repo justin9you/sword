@@ -28,6 +28,11 @@ namespace Zhuxian.Core
         public double vy;
 
         public List<Buff> buffs = new List<Buff>();
+        /// <summary>
+        /// 挨一下打闪白多久（毫秒）。渲染层要拿它把 flash 归一成 0~1，
+        /// 所以给个名字——两头各写一个 140，改了一头另一头会悄悄跑偏。
+        /// </summary>
+        public const double FlashMs = 140;
         /// <summary>受击闪白剩余时长</summary>
         public double flash;
         /// <summary>抬手特效剩余时长</summary>

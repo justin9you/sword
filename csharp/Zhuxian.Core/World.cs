@@ -497,7 +497,7 @@ namespace Zhuxian.Core
         {
             var real = Combat.Absorb(m.buffs, amount);
             m.hp -= real;
-            m.flash = 140;
+            m.flash = MonsterInstance.FlashMs;
             if (m.state == "idle") m.state = "chase";
             if (m.hp <= 0) Kill(m, hooks);
             return real;
