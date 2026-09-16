@@ -13,7 +13,9 @@
     "test:browser": "node tools/test-browser.mjs",
     "export:unity": "node tools/export-unity.mjs",
     "verify:unity": "dotnet build tools/unity/verify/ZxVerify.csproj --nologo -v q",
-    "test:unity": "node tools/test-unity-codegen.mjs && node tools/export-unity.mjs --check"
+    "test:unity": "node tools/test-unity-codegen.mjs && node tools/export-unity.mjs --check",
+    "gen:fixtures": "node tools/gen-fixtures.mjs",
+    "test:core": "dotnet run --project csharp/Zhuxian.Tests --nologo -v q"
   },
   "engines": {
     "node": ">=18"

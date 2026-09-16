@@ -161,6 +161,8 @@ npm run pack     # 打部署包 zip
 npm run export:unity  # 导出 Unity 数据包（JSON + C# 数据类）
 npm run test:unity    # 代码生成器自测 + 检查数据包有没有过期
 npm run verify:unity  # 编译一遍生成的 C#（需要 .NET SDK）
+npm run gen:fixtures  # 重新生成 C# 对照测试的样本
+npm run test:core     # 跑 C# 逻辑层的对照测试（需要 .NET SDK）
 ```
 
 **不能直接双击 index.html**：Service Worker 只在 http(s) 下注册，`file://` 打开装不了主屏幕、也没法离线。
@@ -239,6 +241,41 @@ C# 类是**生成**的不是手写的：数据表还在长，手写的类一旦�
 不该让网页版跟着上不了线。改完 `src/data/` 只想发网页版，那就不用管它。
 
 搬过去的只有数据。战斗公式、技能行为、任务状态机这些还在 JS 里，属于下一步的事。
+
+---
+
+## 逻辑层移植到 C#
+
+[csharp/](csharp/) 下是正在往 C# 搬的逻辑层。两个工程：
+
+```
+csharp/
+├── Zhuxian.Core/     移植过来的逻辑（netstandard2.1，不引用 UnityEngine）
+└── Zhuxian.Tests/    对照测试（net7.0 控制台程序，手写断言，零 NuGet 依赖）
+```
+
+已经搬完的：属性换算与等级曲线（[stats.js](src/stats.js)）、伤害公式与增益减益（[combat.js](src/combat.js)）、
+背包与装备（[inventory.js](src/inventory.js)）、玩家状态机（[player.js](src/player.js)）、
+任务推进（[quest.js](src/quest.js)）、场景与怪物 AI（[world.js](src/world.js)）。
+
+还没搬：技能释放与弹道（[skills.js](src/skills.js)）、存档（[save.js](src/save.js)）。
+
+**不需要 Unity**。Core 不引用 UnityEngine，用 `dotnet` 就能编译和测试；
+Unity 要到做画面那一步才真正用得上。
+
+### 怎么保证搬过去的数值没变
+
+不是"看着公式一样"，是**拿同一串随机数喂两边，逐条对数**：
+
+1. `npm run gen:fixtures` 把 JS 逻辑跑一遍，但把 `Math.random` 换成确定性的 mulberry32，
+   把输入、用掉的随机数、输出全记下来，写进 `csharp/Zhuxian.Tests/fixtures/`
+2. C# 侧实现同一个 mulberry32，用同样的种子重放，结果必须一字不差
+3. 连**随机数消耗了几个**都要对得上——暴击没触发时该不该多摇一次，
+   两边不一样的话，单看一条结果可能碰巧相同，连着打就全歪了
+
+现在是 5596 项断言全过。这套办法真的抓到过东西：数据里的小数原本按 Unity 惯例生成成
+`float`，结果 `9.4f` 在写入那一刻就不是 9.4 了，等级一乘、取整一落，气血比网页版少 1。
+肉眼绝对看不出来，对照测试一跑就红。
 
 ---
 

@@ -24,3 +24,6 @@ npm-debug.log*
 tools/unity/verify/bin/
 tools/unity/verify/obj/
 
+# C# 工程的编译产物（dotnet build 随时重建）
+csharp/**/bin/
+csharp/**/obj/

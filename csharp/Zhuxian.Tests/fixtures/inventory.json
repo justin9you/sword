@@ -1,0 +1,669 @@
+{
+  "cases": [
+    {
+      "name": "堆叠超过上限要开新格",
+      "bag": [
+        {
+          "id": "c_xiaohuan",
+          "n": 99
+        },
+        {
+          "id": "c_xiaohuan",
+          "n": 99
+        },
+        {
+          "id": "c_xiaohuan",
+          "n": 52
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "added": 250
+    },
+    {
+      "name": "往已有的半堆里加",
+      "bag": [
+        {
+          "id": "c_xiaohuan",
+          "n": 99
+        },
+        {
+          "id": "c_xiaohuan",
+          "n": 11
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "added": 60,
+      "count": 110
+    },
+    {
+      "name": "多个半堆按顺序填满",
+      "bag": [
+        {
+          "id": "c_xiaohuan",
+          "n": 99
+        },
+        {
+          "id": "c_xiaohuan",
+          "n": 99
+        },
+        {
+          "id": "c_xiaohuan",
+          "n": 92
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "added": 100,
+      "count": 290
+    },
+    {
+      "name": "装备不堆叠，一格一件",
+      "bag": [
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "added": 3
+    },
+    {
+      "name": "背包满了 added 要小于请求数",
+      "bag": [
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        {
+          "id": "w_chaidao",
+          "n": 1
+        }
+      ],
+      "added": 40,
+      "full": true
+    },
+    {
+      "name": "跨格扣除",
+      "bag": [
+        null,
+        {
+          "id": "c_xiaohuan",
+          "n": 30
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "count": 30
+    },
+    {
+      "name": "不够扣时返回 null",
+      "bag": [
+        {
+          "id": "c_xiaohuan",
+          "n": 5
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "removeByIdWasNull": true
+    },
+    {
+      "name": "扣光后格子要变空",
+      "bag": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "firstEmpty": 0
+    },
+    {
+      "name": "换装备时旧的回到原格",
+      "bag": [
+        null,
+        {
+          "id": "w_chaidao",
+          "n": 1
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "equip": {
+        "weapon": "w_qingyunjian",
+        "talisman": null,
+        "robe": null,
+        "bracer": null,
+        "boots": null,
+        "pendant": null
+      },
+      "replacedId": "w_chaidao"
+    },
+    {
+      "name": "等级不够穿不上",
+      "bag": [
+        {
+          "id": "w_qingyunjian",
+          "n": 1
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "equipWasNull": true
+    },
+    {
+      "name": "背包满了脱不下装备",
+      "full": true,
+      "unequipWasNull": true
+    },
+    {
+      "name": "全身装备属性合计",
+      "equip": {
+        "weapon": "w_qingyunjian",
+        "talisman": null,
+        "robe": "a_qingyunpao",
+        "bracer": null,
+        "boots": "s_caoxie",
+        "pendant": null
+      },
+      "stats": {
+        "hp": 60,
+        "mp": 20,
+        "atk": 14,
+        "mag": 6,
+        "def": 12,
+        "mdef": 10,
+        "crit": 0.01,
+        "dodge": 0,
+        "speed": 4,
+        "lifesteal": 0,
+        "expBonus": 0
+      }
+    }
+  ]
+}

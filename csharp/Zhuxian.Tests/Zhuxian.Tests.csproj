@@ -1,0 +1,27 @@
+<!--
+  逻辑层的对照测试。断言是手写的，没有 xunit/nunit——
+  整个项目零第三方依赖，测试也不该是例外，何况这台机器不一定能连 NuGet。
+
+  跑：npm run test:core
+
+  这里目标 net7.0 而不是 netstandard2.1：测试要读 JSON，
+  System.Text.Json 在 .NET 里是内置的，不用装包。被测的 Core 仍然是
+  netstandard2.1，Unity 那边照样吃得下。
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <AssemblyName>Zhuxian.Tests</AssemblyName>
+    <RootNamespace>Zhuxian.Tests</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zhuxian.Core\Zhuxian.Core.csproj" />
+  </ItemGroup>
+
+</Project>

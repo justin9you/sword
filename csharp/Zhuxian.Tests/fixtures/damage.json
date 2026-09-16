@@ -1,0 +1,3004 @@
+{
+  "cases": [
+    {
+      "atk": 740,
+      "def": 284,
+      "kind": "magic",
+      "power": 2.855978792719543,
+      "critRate": 0,
+      "levelGap": 1,
+      "ignoreDef": 0.332801558310166,
+      "seed": 9000,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1905,
+        "crit": false
+      }
+    },
+    {
+      "atk": 334,
+      "def": 63,
+      "kind": "phys",
+      "power": 2.9066466737538574,
+      "critRate": 0.39391314005479217,
+      "levelGap": 12,
+      "ignoreDef": 0,
+      "seed": 9001,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1364,
+        "crit": false
+      }
+    },
+    {
+      "atk": 440,
+      "def": 34,
+      "kind": "phys",
+      "power": 2.1250722498632966,
+      "critRate": 0.5560631752945483,
+      "levelGap": -14,
+      "ignoreDef": 0,
+      "seed": 9002,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 438,
+        "crit": false
+      }
+    },
+    {
+      "atk": 13,
+      "def": 233,
+      "kind": "magic",
+      "power": 3.521639123279601,
+      "critRate": 0.17021698839962482,
+      "levelGap": 16,
+      "ignoreDef": 0,
+      "seed": 9003,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1,
+        "crit": false
+      }
+    },
+    {
+      "atk": 21,
+      "def": 140,
+      "kind": "phys",
+      "power": 2.3626705791801212,
+      "critRate": 0,
+      "levelGap": -5,
+      "ignoreDef": 0,
+      "seed": 9004,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1,
+        "crit": false
+      }
+    },
+    {
+      "atk": 673,
+      "def": 34,
+      "kind": "magic",
+      "power": 2.7950449822936205,
+      "critRate": 0.44438324882648883,
+      "levelGap": -7,
+      "ignoreDef": 0.07242037111427635,
+      "seed": 9005,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1243,
+        "crit": false
+      }
+    },
+    {
+      "atk": 259,
+      "def": 151,
+      "kind": "magic",
+      "power": 2.4574265311937777,
+      "critRate": 0.25801703017204997,
+      "levelGap": 9,
+      "ignoreDef": 0,
+      "seed": 9006,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1399,
+        "crit": true
+      }
+    },
+    {
+      "atk": 179,
+      "def": 184,
+      "kind": "phys",
+      "power": 3.254934851033613,
+      "critRate": 0.22079621599987148,
+      "levelGap": -3,
+      "ignoreDef": 0,
+      "seed": 9007,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 433,
+        "crit": false
+      }
+    },
+    {
+      "atk": 858,
+      "def": 46,
+      "kind": "magic",
+      "power": 1.148889047279954,
+      "critRate": 0,
+      "levelGap": -13,
+      "ignoreDef": 0,
+      "seed": 9008,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 506,
+        "crit": false
+      }
+    },
+    {
+      "atk": 507,
+      "def": 356,
+      "kind": "magic",
+      "power": 3.5521629894617943,
+      "critRate": 0.2269290005788207,
+      "levelGap": 7,
+      "ignoreDef": 0,
+      "seed": 9009,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1973,
+        "crit": false
+      }
+    },
+    {
+      "atk": 14,
+      "def": 191,
+      "kind": "magic",
+      "power": 1.7423211365938187,
+      "critRate": 0.22068935330025852,
+      "levelGap": -12,
+      "ignoreDef": 0.3392908511450514,
+      "seed": 9010,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1,
+        "crit": true
+      }
+    },
+    {
+      "atk": 304,
+      "def": 299,
+      "kind": "phys",
+      "power": 2.62455910788849,
+      "critRate": 0.48393154498189683,
+      "levelGap": -12,
+      "ignoreDef": 0,
+      "seed": 9011,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 355,
+        "crit": false
+      }
+    },
+    {
+      "atk": 183,
+      "def": 251,
+      "kind": "phys",
+      "power": 2.5844640896655617,
+      "critRate": 0,
+      "levelGap": 3,
+      "ignoreDef": 0,
+      "seed": 9012,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 348,
+        "crit": false
+      }
+    },
+    {
+      "atk": 839,
+      "def": 101,
+      "kind": "phys",
+      "power": 3.69338781661354,
+      "critRate": 0.09872137801721692,
+      "levelGap": 17,
+      "ignoreDef": 0,
+      "seed": 9013,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 4609,
+        "crit": false
+      }
+    },
+    {
+      "atk": 118,
+      "def": 299,
+      "kind": "magic",
+      "power": 1.7075618688948453,
+      "critRate": 0.052125171991065145,
+      "levelGap": 12,
+      "ignoreDef": 0,
+      "seed": 9014,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 107,
+        "crit": false
+      }
+    },
+    {
+      "atk": 394,
+      "def": 281,
+      "kind": "magic",
+      "power": 2.2761106909718363,
+      "critRate": 0.02191986101679504,
+      "levelGap": -11,
+      "ignoreDef": 0.2214284532237798,
+      "seed": 9015,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 417,
+        "crit": false
+      }
+    },
+    {
+      "atk": 760,
+      "def": 14,
+      "kind": "phys",
+      "power": 3.5010659375227986,
+      "critRate": 0,
+      "levelGap": 10,
+      "ignoreDef": 0,
+      "seed": 9016,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 3738,
+        "crit": false
+      }
+    },
+    {
+      "atk": 743,
+      "def": 245,
+      "kind": "magic",
+      "power": 1.8796681649517268,
+      "critRate": 0.35107419826090336,
+      "levelGap": -20,
+      "ignoreDef": 0,
+      "seed": 9017,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 543,
+        "crit": false
+      }
+    },
+    {
+      "atk": 242,
+      "def": 305,
+      "kind": "magic",
+      "power": 2.541190077504143,
+      "critRate": 0.11116054519079625,
+      "levelGap": 12,
+      "ignoreDef": 0,
+      "seed": 9018,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 691,
+        "crit": false
+      }
+    },
+    {
+      "atk": 136,
+      "def": 265,
+      "kind": "magic",
+      "power": 1.447425244562328,
+      "critRate": 0.23463973347097633,
+      "levelGap": 4,
+      "ignoreDef": 0,
+      "seed": 9019,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 92,
+        "crit": false
+      }
+    },
+    {
+      "atk": 201,
+      "def": 245,
+      "kind": "magic",
+      "power": 2.5407854474149643,
+      "critRate": 0,
+      "levelGap": -19,
+      "ignoreDef": 0.006332438089884818,
+      "seed": 9020,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 155,
+        "crit": false
+      }
+    },
+    {
+      "atk": 285,
+      "def": 117,
+      "kind": "magic",
+      "power": 1.2090364521835,
+      "critRate": 0.16278631640598176,
+      "levelGap": 3,
+      "ignoreDef": 0,
+      "seed": 9021,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 342,
+        "crit": false
+      }
+    },
+    {
+      "atk": 322,
+      "def": 179,
+      "kind": "phys",
+      "power": 1.1301035286858678,
+      "critRate": 0.44605610221624375,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9022,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 746,
+        "crit": true
+      }
+    },
+    {
+      "atk": 180,
+      "def": 89,
+      "kind": "magic",
+      "power": 1.5103317505680025,
+      "critRate": 0.2395715529564768,
+      "levelGap": 15,
+      "ignoreDef": 0,
+      "seed": 9023,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 342,
+        "crit": false
+      }
+    },
+    {
+      "atk": 366,
+      "def": 167,
+      "kind": "phys",
+      "power": 3.305509728565812,
+      "critRate": 0,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9024,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 456,
+        "crit": false
+      }
+    },
+    {
+      "atk": 442,
+      "def": 118,
+      "kind": "phys",
+      "power": 3.752134107472375,
+      "critRate": 0.24757856125943362,
+      "levelGap": -13,
+      "ignoreDef": 0.22464743175078183,
+      "seed": 9025,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 780,
+        "crit": false
+      }
+    },
+    {
+      "atk": 210,
+      "def": 218,
+      "kind": "magic",
+      "power": 1.8895952384453267,
+      "critRate": 0.164589675469324,
+      "levelGap": 14,
+      "ignoreDef": 0,
+      "seed": 9026,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 420,
+        "crit": false
+      }
+    },
+    {
+      "atk": 622,
+      "def": 196,
+      "kind": "magic",
+      "power": 2.56968673360534,
+      "critRate": 0.5820149966049939,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9027,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 992,
+        "crit": true
+      }
+    },
+    {
+      "atk": 124,
+      "def": 151,
+      "kind": "magic",
+      "power": 2.754651880543679,
+      "critRate": 0,
+      "levelGap": -3,
+      "ignoreDef": 0,
+      "seed": 9028,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 223,
+        "crit": false
+      }
+    },
+    {
+      "atk": 502,
+      "def": 357,
+      "kind": "phys",
+      "power": 1.7020054263528437,
+      "critRate": 0.5662930196151137,
+      "levelGap": 20,
+      "ignoreDef": 0,
+      "seed": 9029,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1893,
+        "crit": true
+      }
+    },
+    {
+      "atk": 363,
+      "def": 350,
+      "kind": "phys",
+      "power": 0.9192117631435395,
+      "critRate": 0.06290655308403074,
+      "levelGap": -13,
+      "ignoreDef": 0.37315287825185806,
+      "seed": 9030,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 110,
+        "crit": false
+      }
+    },
+    {
+      "atk": 634,
+      "def": 398,
+      "kind": "magic",
+      "power": 0.9154867936857045,
+      "critRate": 0.16209868658334017,
+      "levelGap": 9,
+      "ignoreDef": 0,
+      "seed": 9031,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 599,
+        "crit": false
+      }
+    },
+    {
+      "atk": 600,
+      "def": 389,
+      "kind": "phys",
+      "power": 1.2956466527655721,
+      "critRate": 0,
+      "levelGap": 8,
+      "ignoreDef": 0,
+      "seed": 9032,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 785,
+        "crit": false
+      }
+    },
+    {
+      "atk": 713,
+      "def": 172,
+      "kind": "magic",
+      "power": 2.5859843210317193,
+      "critRate": 0.3225661359261721,
+      "levelGap": -6,
+      "ignoreDef": 0,
+      "seed": 9033,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1470,
+        "crit": false
+      }
+    },
+    {
+      "atk": 516,
+      "def": 13,
+      "kind": "magic",
+      "power": 1.9588060497306288,
+      "critRate": 0.19289052723906933,
+      "levelGap": -10,
+      "ignoreDef": 0,
+      "seed": 9034,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 657,
+        "crit": false
+      }
+    },
+    {
+      "atk": 78,
+      "def": 265,
+      "kind": "phys",
+      "power": 0.8267858419101686,
+      "critRate": 0.32907516276463866,
+      "levelGap": 15,
+      "ignoreDef": 0.49282052111811936,
+      "seed": 9035,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1,
+        "crit": false
+      }
+    },
+    {
+      "atk": 559,
+      "def": 198,
+      "kind": "phys",
+      "power": 2.2418447841890154,
+      "critRate": 0,
+      "levelGap": 6,
+      "ignoreDef": 0,
+      "seed": 9036,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1537,
+        "crit": false
+      }
+    },
+    {
+      "atk": 748,
+      "def": 256,
+      "kind": "magic",
+      "power": 0.9006207633763552,
+      "critRate": 0.5598727057222277,
+      "levelGap": 14,
+      "ignoreDef": 0,
+      "seed": 9037,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 927,
+        "crit": false
+      }
+    },
+    {
+      "atk": 681,
+      "def": 148,
+      "kind": "phys",
+      "power": 2.859853671118617,
+      "critRate": 0.152443234808743,
+      "levelGap": 14,
+      "ignoreDef": 0,
+      "seed": 9038,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2843,
+        "crit": false
+      }
+    },
+    {
+      "atk": 255,
+      "def": 201,
+      "kind": "phys",
+      "power": 3.7277676376514135,
+      "critRate": 0.18500383389182387,
+      "levelGap": 1,
+      "ignoreDef": 0,
+      "seed": 9039,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 836,
+        "crit": false
+      }
+    },
+    {
+      "atk": 257,
+      "def": 59,
+      "kind": "magic",
+      "power": 2.5785482415929435,
+      "critRate": 0,
+      "levelGap": 15,
+      "ignoreDef": 0.4314292521448806,
+      "seed": 9040,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1093,
+        "crit": false
+      }
+    },
+    {
+      "atk": 569,
+      "def": 71,
+      "kind": "phys",
+      "power": 2.709348513232544,
+      "critRate": 0.43839761610142886,
+      "levelGap": 6,
+      "ignoreDef": 0,
+      "seed": 9041,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3171,
+        "crit": true
+      }
+    },
+    {
+      "atk": 815,
+      "def": 111,
+      "kind": "magic",
+      "power": 2.140244393562898,
+      "critRate": 0.580726286675781,
+      "levelGap": 8,
+      "ignoreDef": 0,
+      "seed": 9042,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3998,
+        "crit": true
+      }
+    },
+    {
+      "atk": 609,
+      "def": 51,
+      "kind": "magic",
+      "power": 2.1643492823466657,
+      "critRate": 0.5650545469019562,
+      "levelGap": 17,
+      "ignoreDef": 0,
+      "seed": 9043,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3390,
+        "crit": true
+      }
+    },
+    {
+      "atk": 520,
+      "def": 159,
+      "kind": "magic",
+      "power": 2.357064939755946,
+      "critRate": 0,
+      "levelGap": -15,
+      "ignoreDef": 0,
+      "seed": 9044,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 494,
+        "crit": false
+      }
+    },
+    {
+      "atk": 509,
+      "def": 248,
+      "kind": "magic",
+      "power": 1.6725489508360625,
+      "critRate": 0.4474257190246135,
+      "levelGap": -18,
+      "ignoreDef": 0.24878064228687435,
+      "seed": 9045,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 332,
+        "crit": false
+      }
+    },
+    {
+      "atk": 186,
+      "def": 68,
+      "kind": "magic",
+      "power": 3.2763365557882933,
+      "critRate": 0.3393513637594879,
+      "levelGap": -14,
+      "ignoreDef": 0,
+      "seed": 9046,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 482,
+        "crit": true
+      }
+    },
+    {
+      "atk": 711,
+      "def": 276,
+      "kind": "magic",
+      "power": 3.45176927507855,
+      "critRate": 0.15269914953969418,
+      "levelGap": 2,
+      "ignoreDef": 0,
+      "seed": 9047,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2548,
+        "crit": false
+      }
+    },
+    {
+      "atk": 70,
+      "def": 281,
+      "kind": "phys",
+      "power": 3.61688744504936,
+      "critRate": 0,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9048,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 84,
+        "crit": false
+      }
+    },
+    {
+      "atk": 648,
+      "def": 152,
+      "kind": "magic",
+      "power": 1.8539668777491898,
+      "critRate": 0.5210631451103837,
+      "levelGap": 2,
+      "ignoreDef": 0,
+      "seed": 9049,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2158,
+        "crit": true
+      }
+    },
+    {
+      "atk": 255,
+      "def": 54,
+      "kind": "phys",
+      "power": 2.6696021737996487,
+      "critRate": 0.2802839186042547,
+      "levelGap": 15,
+      "ignoreDef": 0.3868016292108223,
+      "seed": 9050,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1946,
+        "crit": true
+      }
+    },
+    {
+      "atk": 95,
+      "def": 223,
+      "kind": "phys",
+      "power": 0.9660038800910116,
+      "critRate": 0.03400603272020817,
+      "levelGap": 19,
+      "ignoreDef": 0,
+      "seed": 9051,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1,
+        "crit": false
+      }
+    },
+    {
+      "atk": 254,
+      "def": 307,
+      "kind": "magic",
+      "power": 3.2728128630667923,
+      "critRate": 0,
+      "levelGap": 10,
+      "ignoreDef": 0,
+      "seed": 9052,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 890,
+        "crit": false
+      }
+    },
+    {
+      "atk": 407,
+      "def": 121,
+      "kind": "magic",
+      "power": 1.2792367778718472,
+      "critRate": 0.2533085527829826,
+      "levelGap": -8,
+      "ignoreDef": 0,
+      "seed": 9053,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 541,
+        "crit": true
+      }
+    },
+    {
+      "atk": 860,
+      "def": 5,
+      "kind": "phys",
+      "power": 1.8990914835128934,
+      "critRate": 0.3163023487664759,
+      "levelGap": -3,
+      "ignoreDef": 0,
+      "seed": 9054,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1381,
+        "crit": false
+      }
+    },
+    {
+      "atk": 291,
+      "def": 182,
+      "kind": "phys",
+      "power": 1.5221173581201584,
+      "critRate": 0.11361551801674068,
+      "levelGap": 3,
+      "ignoreDef": 0.1691417342517525,
+      "seed": 9055,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 410,
+        "crit": false
+      }
+    },
+    {
+      "atk": 696,
+      "def": 321,
+      "kind": "magic",
+      "power": 1.5628246603999287,
+      "critRate": 0,
+      "levelGap": 6,
+      "ignoreDef": 0,
+      "seed": 9056,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1140,
+        "crit": false
+      }
+    },
+    {
+      "atk": 620,
+      "def": 119,
+      "kind": "phys",
+      "power": 0.8922151736449451,
+      "critRate": 0.20841227467171847,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9057,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 188,
+        "crit": false
+      }
+    },
+    {
+      "atk": 682,
+      "def": 57,
+      "kind": "magic",
+      "power": 2.5026301091536878,
+      "critRate": 0.3575213304720819,
+      "levelGap": -4,
+      "ignoreDef": 0,
+      "seed": 9058,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1522,
+        "crit": false
+      }
+    },
+    {
+      "atk": 711,
+      "def": 136,
+      "kind": "magic",
+      "power": 3.093853515293449,
+      "critRate": 0.2729432521853596,
+      "levelGap": -5,
+      "ignoreDef": 0,
+      "seed": 9059,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1752,
+        "crit": false
+      }
+    },
+    {
+      "atk": 286,
+      "def": 105,
+      "kind": "magic",
+      "power": 2.5560703989583997,
+      "critRate": 0,
+      "levelGap": -7,
+      "ignoreDef": 0.4604695769958198,
+      "seed": 9060,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 503,
+        "crit": false
+      }
+    },
+    {
+      "atk": 693,
+      "def": 384,
+      "kind": "phys",
+      "power": 3.6945222198963164,
+      "critRate": 0.09682968123815953,
+      "levelGap": 16,
+      "ignoreDef": 0,
+      "seed": 9061,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3570,
+        "crit": false
+      }
+    },
+    {
+      "atk": 903,
+      "def": 326,
+      "kind": "magic",
+      "power": 3.7940379508771,
+      "critRate": 0.43099108622409404,
+      "levelGap": 16,
+      "ignoreDef": 0,
+      "seed": 9062,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 5080,
+        "crit": false
+      }
+    },
+    {
+      "atk": 315,
+      "def": 64,
+      "kind": "phys",
+      "power": 3.25723481872119,
+      "critRate": 0.4827947576064616,
+      "levelGap": -17,
+      "ignoreDef": 0,
+      "seed": 9063,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 664,
+        "crit": true
+      }
+    },
+    {
+      "atk": 88,
+      "def": 297,
+      "kind": "magic",
+      "power": 2.0865246958099304,
+      "critRate": 0,
+      "levelGap": -10,
+      "ignoreDef": 0,
+      "seed": 9064,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 33,
+        "crit": false
+      }
+    },
+    {
+      "atk": 219,
+      "def": 388,
+      "kind": "magic",
+      "power": 3.5345117107033728,
+      "critRate": 0.27563732606358826,
+      "levelGap": 15,
+      "ignoreDef": 0.4239883725531399,
+      "seed": 9065,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1892,
+        "crit": true
+      }
+    },
+    {
+      "atk": 414,
+      "def": 231,
+      "kind": "magic",
+      "power": 1.2855164459440858,
+      "critRate": 0.1015239542350173,
+      "levelGap": -15,
+      "ignoreDef": 0,
+      "seed": 9066,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 154,
+        "crit": false
+      }
+    },
+    {
+      "atk": 686,
+      "def": 101,
+      "kind": "phys",
+      "power": 3.143483735574409,
+      "critRate": 0.4134011319838464,
+      "levelGap": 1,
+      "ignoreDef": 0,
+      "seed": 9067,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3670,
+        "crit": true
+      }
+    },
+    {
+      "atk": 745,
+      "def": 182,
+      "kind": "magic",
+      "power": 1.479831198649481,
+      "critRate": 0,
+      "levelGap": -5,
+      "ignoreDef": 0,
+      "seed": 9068,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 767,
+        "crit": false
+      }
+    },
+    {
+      "atk": 763,
+      "def": 55,
+      "kind": "phys",
+      "power": 0.8562047623097897,
+      "critRate": 0.1147704966366291,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9069,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 251,
+        "crit": false
+      }
+    },
+    {
+      "atk": 830,
+      "def": 381,
+      "kind": "phys",
+      "power": 2.792470260709524,
+      "critRate": 0.5614827845245599,
+      "levelGap": 14,
+      "ignoreDef": 0.15084601379930973,
+      "seed": 9070,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 6325,
+        "crit": true
+      }
+    },
+    {
+      "atk": 472,
+      "def": 387,
+      "kind": "phys",
+      "power": 0.9850584556814284,
+      "critRate": 0.40600852207280697,
+      "levelGap": 6,
+      "ignoreDef": 0,
+      "seed": 9071,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 513,
+        "crit": true
+      }
+    },
+    {
+      "atk": 658,
+      "def": 181,
+      "kind": "magic",
+      "power": 2.6302753870375453,
+      "critRate": 0,
+      "levelGap": -9,
+      "ignoreDef": 0,
+      "seed": 9072,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1082,
+        "crit": false
+      }
+    },
+    {
+      "atk": 402,
+      "def": 19,
+      "kind": "phys",
+      "power": 3.4322870184667407,
+      "critRate": 0.2049364888574928,
+      "levelGap": 18,
+      "ignoreDef": 0,
+      "seed": 9073,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2051,
+        "crit": false
+      }
+    },
+    {
+      "atk": 679,
+      "def": 303,
+      "kind": "phys",
+      "power": 3.0167344174813477,
+      "critRate": 0.5621150659862906,
+      "levelGap": 2,
+      "ignoreDef": 0,
+      "seed": 9074,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3581,
+        "crit": true
+      }
+    },
+    {
+      "atk": 505,
+      "def": 312,
+      "kind": "magic",
+      "power": 2.235705432668328,
+      "critRate": 0.17730918545275925,
+      "levelGap": 6,
+      "ignoreDef": 0.3861253015929833,
+      "seed": 9075,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1329,
+        "crit": false
+      }
+    },
+    {
+      "atk": 576,
+      "def": 59,
+      "kind": "magic",
+      "power": 3.422269773855805,
+      "critRate": 0,
+      "levelGap": -6,
+      "ignoreDef": 0,
+      "seed": 9076,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1427,
+        "crit": false
+      }
+    },
+    {
+      "atk": 828,
+      "def": 253,
+      "kind": "magic",
+      "power": 1.5491708844900132,
+      "critRate": 0.40092424959875644,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9077,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1705,
+        "crit": false
+      }
+    },
+    {
+      "atk": 125,
+      "def": 72,
+      "kind": "magic",
+      "power": 3.6043578080832956,
+      "critRate": 0.3211274071130901,
+      "levelGap": -20,
+      "ignoreDef": 0,
+      "seed": 9078,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 288,
+        "crit": true
+      }
+    },
+    {
+      "atk": 290,
+      "def": 368,
+      "kind": "magic",
+      "power": 2.8205939430743454,
+      "critRate": 0.514628853276372,
+      "levelGap": 17,
+      "ignoreDef": 0,
+      "seed": 9079,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1033,
+        "crit": false
+      }
+    },
+    {
+      "atk": 643,
+      "def": 24,
+      "kind": "phys",
+      "power": 2.3370444399304686,
+      "critRate": 0,
+      "levelGap": -13,
+      "ignoreDef": 0.34252644528169185,
+      "seed": 9080,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 664,
+        "crit": false
+      }
+    },
+    {
+      "atk": 245,
+      "def": 199,
+      "kind": "phys",
+      "power": 1.0421553493477405,
+      "critRate": 0.0032925751525908708,
+      "levelGap": 3,
+      "ignoreDef": 0,
+      "seed": 9081,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 152,
+        "crit": false
+      }
+    },
+    {
+      "atk": 456,
+      "def": 76,
+      "kind": "phys",
+      "power": 2.8664390565361826,
+      "critRate": 0.15823345631361008,
+      "levelGap": -12,
+      "ignoreDef": 0,
+      "seed": 9082,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 664,
+        "crit": false
+      }
+    },
+    {
+      "atk": 136,
+      "def": 380,
+      "kind": "magic",
+      "power": 1.751668558176607,
+      "critRate": 0.42191167976707217,
+      "levelGap": 17,
+      "ignoreDef": 0,
+      "seed": 9083,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 117,
+        "crit": false
+      }
+    },
+    {
+      "atk": 323,
+      "def": 271,
+      "kind": "magic",
+      "power": 2.7707575377542524,
+      "critRate": 0,
+      "levelGap": -1,
+      "ignoreDef": 0,
+      "seed": 9084,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 788,
+        "crit": false
+      }
+    },
+    {
+      "atk": 387,
+      "def": 281,
+      "kind": "magic",
+      "power": 1.3499058042187244,
+      "critRate": 0.345375432819128,
+      "levelGap": -2,
+      "ignoreDef": 0.342507136054337,
+      "seed": 9085,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 417,
+        "crit": false
+      }
+    },
+    {
+      "atk": 641,
+      "def": 344,
+      "kind": "phys",
+      "power": 1.088555117789656,
+      "critRate": 0.044841943122446534,
+      "levelGap": -20,
+      "ignoreDef": 0,
+      "seed": 9086,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 183,
+        "crit": false
+      }
+    },
+    {
+      "atk": 476,
+      "def": 91,
+      "kind": "magic",
+      "power": 1.988659543870017,
+      "critRate": 0.08561599790118635,
+      "levelGap": -17,
+      "ignoreDef": 0,
+      "seed": 9087,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 388,
+        "crit": false
+      }
+    },
+    {
+      "atk": 173,
+      "def": 55,
+      "kind": "magic",
+      "power": 1.4845953690353781,
+      "critRate": 0,
+      "levelGap": 2,
+      "ignoreDef": 0,
+      "seed": 9088,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 266,
+        "crit": false
+      }
+    },
+    {
+      "atk": 132,
+      "def": 114,
+      "kind": "magic",
+      "power": 2.6054729381110517,
+      "critRate": 0.46511450260877607,
+      "levelGap": -15,
+      "ignoreDef": 0,
+      "seed": 9089,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 115,
+        "crit": false
+      }
+    },
+    {
+      "atk": 816,
+      "def": 62,
+      "kind": "phys",
+      "power": 1.1642967615742237,
+      "critRate": 0.30162135385908184,
+      "levelGap": -5,
+      "ignoreDef": 0.10198228375520557,
+      "seed": 9090,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 801,
+        "crit": false
+      }
+    },
+    {
+      "atk": 548,
+      "def": 238,
+      "kind": "phys",
+      "power": 2.940748791163787,
+      "critRate": 0.23290284695103763,
+      "levelGap": -13,
+      "ignoreDef": 0,
+      "seed": 9091,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1213,
+        "crit": true
+      }
+    },
+    {
+      "atk": 696,
+      "def": 151,
+      "kind": "phys",
+      "power": 2.901026793476194,
+      "critRate": 0,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9092,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 3202,
+        "crit": false
+      }
+    },
+    {
+      "atk": 93,
+      "def": 165,
+      "kind": "phys",
+      "power": 3.237345321755856,
+      "critRate": 0.31479448238387703,
+      "levelGap": -17,
+      "ignoreDef": 0,
+      "seed": 9093,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 147,
+        "crit": true
+      }
+    },
+    {
+      "atk": 349,
+      "def": 237,
+      "kind": "magic",
+      "power": 2.0834272494073955,
+      "critRate": 0.02212527352385223,
+      "levelGap": 14,
+      "ignoreDef": 0,
+      "seed": 9094,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1020,
+        "crit": false
+      }
+    },
+    {
+      "atk": 443,
+      "def": 112,
+      "kind": "magic",
+      "power": 3.3716156021226196,
+      "critRate": 0.3040835727006197,
+      "levelGap": 11,
+      "ignoreDef": 0.49260582658462226,
+      "seed": 9095,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3976,
+        "crit": true
+      }
+    },
+    {
+      "atk": 250,
+      "def": 43,
+      "kind": "magic",
+      "power": 3.514104260317981,
+      "critRate": 0,
+      "levelGap": -13,
+      "ignoreDef": 0,
+      "seed": 9096,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 398,
+        "crit": false
+      }
+    },
+    {
+      "atk": 52,
+      "def": 362,
+      "kind": "magic",
+      "power": 3.1184553056489674,
+      "critRate": 0.1513635814189911,
+      "levelGap": -17,
+      "ignoreDef": 0,
+      "seed": 9097,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1,
+        "crit": true
+      }
+    },
+    {
+      "atk": 420,
+      "def": 165,
+      "kind": "phys",
+      "power": 2.1000269283074884,
+      "critRate": 0.04231038512662053,
+      "levelGap": 17,
+      "ignoreDef": 0,
+      "seed": 9098,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1250,
+        "crit": false
+      }
+    },
+    {
+      "atk": 882,
+      "def": 21,
+      "kind": "magic",
+      "power": 1.7665974779054523,
+      "critRate": 0.30405344855971633,
+      "levelGap": 0,
+      "ignoreDef": 0,
+      "seed": 9099,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1511,
+        "crit": false
+      }
+    },
+    {
+      "atk": 211,
+      "def": 253,
+      "kind": "magic",
+      "power": 3.799604464974254,
+      "critRate": 0,
+      "levelGap": 1,
+      "ignoreDef": 0.29453386028762907,
+      "seed": 9100,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 748,
+        "crit": false
+      }
+    },
+    {
+      "atk": 224,
+      "def": 153,
+      "kind": "magic",
+      "power": 3.5890945125836877,
+      "critRate": 0.2244472882244736,
+      "levelGap": -15,
+      "ignoreDef": 0,
+      "seed": 9101,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 294,
+        "crit": false
+      }
+    },
+    {
+      "atk": 529,
+      "def": 218,
+      "kind": "phys",
+      "power": 2.9080718256998805,
+      "critRate": 0.30253987507894636,
+      "levelGap": -4,
+      "ignoreDef": 0,
+      "seed": 9102,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2258,
+        "crit": true
+      }
+    },
+    {
+      "atk": 197,
+      "def": 299,
+      "kind": "phys",
+      "power": 1.4150280921719969,
+      "critRate": 0.34602343635633587,
+      "levelGap": 1,
+      "ignoreDef": 0,
+      "seed": 9103,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 108,
+        "crit": false
+      }
+    },
+    {
+      "atk": 621,
+      "def": 231,
+      "kind": "magic",
+      "power": 3.716924636578187,
+      "critRate": 0,
+      "levelGap": -9,
+      "ignoreDef": 0,
+      "seed": 9104,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1390,
+        "crit": false
+      }
+    },
+    {
+      "atk": 479,
+      "def": 290,
+      "kind": "phys",
+      "power": 3.5667444297112523,
+      "critRate": 0.5580804820172488,
+      "levelGap": -5,
+      "ignoreDef": 0.08303715707734227,
+      "seed": 9105,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2403,
+        "crit": true
+      }
+    },
+    {
+      "atk": 842,
+      "def": 208,
+      "kind": "magic",
+      "power": 1.7735577083192766,
+      "critRate": 0.5327147798147053,
+      "levelGap": -15,
+      "ignoreDef": 0,
+      "seed": 9106,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 533,
+        "crit": false
+      }
+    },
+    {
+      "atk": 239,
+      "def": 149,
+      "kind": "phys",
+      "power": 3.4386369611136613,
+      "critRate": 0.500765418028459,
+      "levelGap": 5,
+      "ignoreDef": 0,
+      "seed": 9107,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1612,
+        "crit": true
+      }
+    },
+    {
+      "atk": 473,
+      "def": 359,
+      "kind": "magic",
+      "power": 2.0268666906747965,
+      "critRate": 0,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9108,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1145,
+        "crit": false
+      }
+    },
+    {
+      "atk": 33,
+      "def": 246,
+      "kind": "magic",
+      "power": 1.2107067077420652,
+      "critRate": 0.5557866599410772,
+      "levelGap": -11,
+      "ignoreDef": 0,
+      "seed": 9109,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1,
+        "crit": false
+      }
+    },
+    {
+      "atk": 854,
+      "def": 334,
+      "kind": "phys",
+      "power": 3.344320236193016,
+      "critRate": 0.17404297809116542,
+      "levelGap": -10,
+      "ignoreDef": 0.01771051192190498,
+      "seed": 9110,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1617,
+        "crit": false
+      }
+    },
+    {
+      "atk": 175,
+      "def": 377,
+      "kind": "magic",
+      "power": 2.8260480747092513,
+      "critRate": 0.41628031013533473,
+      "levelGap": 18,
+      "ignoreDef": 0,
+      "seed": 9111,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 908,
+        "crit": true
+      }
+    },
+    {
+      "atk": 460,
+      "def": 33,
+      "kind": "phys",
+      "power": 1.7623235461767763,
+      "critRate": 0,
+      "levelGap": 5,
+      "ignoreDef": 0,
+      "seed": 9112,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 867,
+        "crit": false
+      }
+    },
+    {
+      "atk": 463,
+      "def": 324,
+      "kind": "magic",
+      "power": 1.0926294554490597,
+      "critRate": 0.4061915896832943,
+      "levelGap": 8,
+      "ignoreDef": 0,
+      "seed": 9113,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 818,
+        "crit": true
+      }
+    },
+    {
+      "atk": 483,
+      "def": 278,
+      "kind": "magic",
+      "power": 0.8164129587356002,
+      "critRate": 0.270012534968555,
+      "levelGap": 20,
+      "ignoreDef": 0,
+      "seed": 9114,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 418,
+        "crit": false
+      }
+    },
+    {
+      "atk": 289,
+      "def": 123,
+      "kind": "phys",
+      "power": 1.0143330837134272,
+      "critRate": 0.584428030019626,
+      "levelGap": 14,
+      "ignoreDef": 0.30713026807643473,
+      "seed": 9115,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 673,
+        "crit": true
+      }
+    },
+    {
+      "atk": 164,
+      "def": 331,
+      "kind": "phys",
+      "power": 3.476530670141801,
+      "critRate": 0,
+      "levelGap": -9,
+      "ignoreDef": 0,
+      "seed": 9116,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 246,
+        "crit": false
+      }
+    },
+    {
+      "atk": 208,
+      "def": 54,
+      "kind": "magic",
+      "power": 2.5299149027094243,
+      "critRate": 0.21431025825440883,
+      "levelGap": -7,
+      "ignoreDef": 0,
+      "seed": 9117,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 376,
+        "crit": false
+      }
+    },
+    {
+      "atk": 796,
+      "def": 82,
+      "kind": "phys",
+      "power": 2.1144466117955742,
+      "critRate": 0.24532742178998887,
+      "levelGap": -8,
+      "ignoreDef": 0,
+      "seed": 9118,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1839,
+        "crit": true
+      }
+    },
+    {
+      "atk": 617,
+      "def": 26,
+      "kind": "phys",
+      "power": 3.1902495612856,
+      "critRate": 0.38202672069892285,
+      "levelGap": 15,
+      "ignoreDef": 0,
+      "seed": 9119,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3184,
+        "crit": false
+      }
+    },
+    {
+      "atk": 511,
+      "def": 31,
+      "kind": "phys",
+      "power": 1.469740568380803,
+      "critRate": 0,
+      "levelGap": 7,
+      "ignoreDef": 0.035264125559479,
+      "seed": 9120,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 934,
+        "crit": false
+      }
+    },
+    {
+      "atk": 253,
+      "def": 145,
+      "kind": "phys",
+      "power": 1.6356439417693764,
+      "critRate": 0.5642052131239325,
+      "levelGap": -3,
+      "ignoreDef": 0,
+      "seed": 9121,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 265,
+        "crit": false
+      }
+    },
+    {
+      "atk": 518,
+      "def": 31,
+      "kind": "magic",
+      "power": 3.243926797714084,
+      "critRate": 0.4881914500147104,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9122,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2294,
+        "crit": false
+      }
+    },
+    {
+      "atk": 32,
+      "def": 311,
+      "kind": "magic",
+      "power": 1.242677413346246,
+      "critRate": 0.5839465074241161,
+      "levelGap": -4,
+      "ignoreDef": 0,
+      "seed": 9123,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1,
+        "crit": false
+      }
+    },
+    {
+      "atk": 788,
+      "def": 88,
+      "kind": "phys",
+      "power": 0.9248330774251372,
+      "critRate": 0,
+      "levelGap": 2,
+      "ignoreDef": 0,
+      "seed": 9124,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 737,
+        "crit": false
+      }
+    },
+    {
+      "atk": 684,
+      "def": 318,
+      "kind": "phys",
+      "power": 2.6107786185573785,
+      "critRate": 0.4451204117853194,
+      "levelGap": -20,
+      "ignoreDef": 0.31878619105555117,
+      "seed": 9125,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1233,
+        "crit": true
+      }
+    },
+    {
+      "atk": 414,
+      "def": 336,
+      "kind": "phys",
+      "power": 2.107826345786452,
+      "critRate": 0.3401241034269333,
+      "levelGap": 10,
+      "ignoreDef": 0,
+      "seed": 9126,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1582,
+        "crit": true
+      }
+    },
+    {
+      "atk": 132,
+      "def": 231,
+      "kind": "magic",
+      "power": 3.4575995669700204,
+      "critRate": 0.49381031244993207,
+      "levelGap": -14,
+      "ignoreDef": 0,
+      "seed": 9127,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 162,
+        "crit": false
+      }
+    },
+    {
+      "atk": 198,
+      "def": 210,
+      "kind": "phys",
+      "power": 2.886621345253661,
+      "critRate": 0,
+      "levelGap": 11,
+      "ignoreDef": 0,
+      "seed": 9128,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 699,
+        "crit": false
+      }
+    },
+    {
+      "atk": 335,
+      "def": 364,
+      "kind": "phys",
+      "power": 3.585471383249387,
+      "critRate": 0.18712996300309895,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9129,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 393,
+        "crit": false
+      }
+    },
+    {
+      "atk": 340,
+      "def": 322,
+      "kind": "magic",
+      "power": 0.9866197751369328,
+      "critRate": 0.45438974769786,
+      "levelGap": -1,
+      "ignoreDef": 0.07620114169549197,
+      "seed": 9130,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 309,
+        "crit": true
+      }
+    },
+    {
+      "atk": 669,
+      "def": 48,
+      "kind": "magic",
+      "power": 2.0008186469320206,
+      "critRate": 0.5457750659901649,
+      "levelGap": 0,
+      "ignoreDef": 0,
+      "seed": 9131,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1428,
+        "crit": false
+      }
+    },
+    {
+      "atk": 69,
+      "def": 324,
+      "kind": "phys",
+      "power": 0.844585736701265,
+      "critRate": 0,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9132,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1,
+        "crit": false
+      }
+    },
+    {
+      "atk": 206,
+      "def": 179,
+      "kind": "magic",
+      "power": 3.665697913104668,
+      "critRate": 0.27055330337025224,
+      "levelGap": 0,
+      "ignoreDef": 0,
+      "seed": 9133,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 610,
+        "crit": false
+      }
+    },
+    {
+      "atk": 54,
+      "def": 173,
+      "kind": "magic",
+      "power": 2.354810794536024,
+      "critRate": 0.09447762155905366,
+      "levelGap": -12,
+      "ignoreDef": 0,
+      "seed": 9134,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 24,
+        "crit": false
+      }
+    },
+    {
+      "atk": 114,
+      "def": 285,
+      "kind": "magic",
+      "power": 1.4201255703344942,
+      "critRate": 0.1396420662291348,
+      "levelGap": -9,
+      "ignoreDef": 0.19878599827643484,
+      "seed": 9135,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 42,
+        "crit": false
+      }
+    },
+    {
+      "atk": 223,
+      "def": 38,
+      "kind": "phys",
+      "power": 2.583770829439163,
+      "critRate": 0,
+      "levelGap": 19,
+      "ignoreDef": 0,
+      "seed": 9136,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 884,
+        "crit": false
+      }
+    },
+    {
+      "atk": 490,
+      "def": 215,
+      "kind": "phys",
+      "power": 2.7734183959662912,
+      "critRate": 0.49932829644531007,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9137,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1150,
+        "crit": false
+      }
+    },
+    {
+      "atk": 220,
+      "def": 61,
+      "kind": "magic",
+      "power": 3.7216083958745,
+      "critRate": 0.06297100014053285,
+      "levelGap": 15,
+      "ignoreDef": 0,
+      "seed": 9138,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1163,
+        "crit": false
+      }
+    },
+    {
+      "atk": 836,
+      "def": 90,
+      "kind": "magic",
+      "power": 2.2616491203196345,
+      "critRate": 0.4391679698601365,
+      "levelGap": -13,
+      "ignoreDef": 0,
+      "seed": 9139,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 817,
+        "crit": false
+      }
+    },
+    {
+      "atk": 321,
+      "def": 271,
+      "kind": "magic",
+      "power": 2.1716924309264867,
+      "critRate": 0,
+      "levelGap": -8,
+      "ignoreDef": 0.3325899699702859,
+      "seed": 9140,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 460,
+        "crit": false
+      }
+    },
+    {
+      "atk": 886,
+      "def": 244,
+      "kind": "magic",
+      "power": 3.432582718739286,
+      "critRate": 0.2053075752686709,
+      "levelGap": 1,
+      "ignoreDef": 0,
+      "seed": 9141,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2860,
+        "crit": false
+      }
+    },
+    {
+      "atk": 802,
+      "def": 362,
+      "kind": "phys",
+      "power": 2.9137265034485607,
+      "critRate": 0.5911674206145108,
+      "levelGap": 14,
+      "ignoreDef": 0,
+      "seed": 9142,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3119,
+        "crit": false
+      }
+    },
+    {
+      "atk": 309,
+      "def": 145,
+      "kind": "phys",
+      "power": 1.6189344662241638,
+      "critRate": 0.538593749050051,
+      "levelGap": -17,
+      "ignoreDef": 0,
+      "seed": 9143,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 270,
+        "crit": true
+      }
+    },
+    {
+      "atk": 35,
+      "def": 70,
+      "kind": "phys",
+      "power": 3.1271805036347358,
+      "critRate": 0,
+      "levelGap": -15,
+      "ignoreDef": 0,
+      "seed": 9144,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 28,
+        "crit": false
+      }
+    },
+    {
+      "atk": 735,
+      "def": 237,
+      "kind": "phys",
+      "power": 1.7491210505366326,
+      "critRate": 0.012489792332053185,
+      "levelGap": -18,
+      "ignoreDef": 0.4510326029267162,
+      "seed": 9145,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 455,
+        "crit": false
+      }
+    },
+    {
+      "atk": 617,
+      "def": 141,
+      "kind": "magic",
+      "power": 2.061685581644997,
+      "critRate": 0.07996689160354435,
+      "levelGap": 4,
+      "ignoreDef": 0,
+      "seed": 9146,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1373,
+        "crit": false
+      }
+    },
+    {
+      "atk": 683,
+      "def": 212,
+      "kind": "phys",
+      "power": 3.0815362233668564,
+      "critRate": 0.1621458525303751,
+      "levelGap": -3,
+      "ignoreDef": 0,
+      "seed": 9147,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2780,
+        "crit": true
+      }
+    },
+    {
+      "atk": 286,
+      "def": 117,
+      "kind": "phys",
+      "power": 3.7840899030677972,
+      "critRate": 0,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9148,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 431,
+        "crit": false
+      }
+    },
+    {
+      "atk": 715,
+      "def": 350,
+      "kind": "phys",
+      "power": 1.8913838227279485,
+      "critRate": 0.04530987474136054,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9149,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1636,
+        "crit": false
+      }
+    },
+    {
+      "atk": 210,
+      "def": 128,
+      "kind": "magic",
+      "power": 2.3284781761001794,
+      "critRate": 0.3556740614119917,
+      "levelGap": 9,
+      "ignoreDef": 0.07083055842667818,
+      "seed": 9150,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 614,
+        "crit": false
+      }
+    },
+    {
+      "atk": 650,
+      "def": 247,
+      "kind": "phys",
+      "power": 1.3707034831866622,
+      "critRate": 0.11251392974518239,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9151,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 707,
+        "crit": false
+      }
+    },
+    {
+      "atk": 317,
+      "def": 126,
+      "kind": "phys",
+      "power": 1.8903407430741936,
+      "critRate": 0,
+      "levelGap": 8,
+      "ignoreDef": 0,
+      "seed": 9152,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 703,
+        "crit": false
+      }
+    },
+    {
+      "atk": 835,
+      "def": 324,
+      "kind": "phys",
+      "power": 1.7399115594569594,
+      "critRate": 0.16129546877928078,
+      "levelGap": 3,
+      "ignoreDef": 0,
+      "seed": 9153,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1329,
+        "crit": false
+      }
+    },
+    {
+      "atk": 557,
+      "def": 132,
+      "kind": "magic",
+      "power": 1.9439262018539012,
+      "critRate": 0.47773305857554077,
+      "levelGap": -14,
+      "ignoreDef": 0,
+      "seed": 9154,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 857,
+        "crit": true
+      }
+    },
+    {
+      "atk": 520,
+      "def": 202,
+      "kind": "magic",
+      "power": 3.212775025004521,
+      "critRate": 0.5179881564807146,
+      "levelGap": -12,
+      "ignoreDef": 0.12283468688838184,
+      "seed": 9155,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1493,
+        "crit": true
+      }
+    },
+    {
+      "atk": 650,
+      "def": 336,
+      "kind": "phys",
+      "power": 2.481992599274963,
+      "critRate": 0,
+      "levelGap": -12,
+      "ignoreDef": 0,
+      "seed": 9156,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 755,
+        "crit": false
+      }
+    },
+    {
+      "atk": 773,
+      "def": 363,
+      "kind": "magic",
+      "power": 2.5457564573269336,
+      "critRate": 0.27522195666097105,
+      "levelGap": 16,
+      "ignoreDef": 0,
+      "seed": 9157,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2890,
+        "crit": false
+      }
+    },
+    {
+      "atk": 130,
+      "def": 64,
+      "kind": "magic",
+      "power": 1.0340192692354322,
+      "critRate": 0.3748089803382754,
+      "levelGap": 12,
+      "ignoreDef": 0,
+      "seed": 9158,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 277,
+        "crit": true
+      }
+    },
+    {
+      "atk": 189,
+      "def": 350,
+      "kind": "phys",
+      "power": 2.103776427404955,
+      "critRate": 0.589575756713748,
+      "levelGap": 12,
+      "ignoreDef": 0,
+      "seed": 9159,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 319,
+        "crit": false
+      }
+    },
+    {
+      "atk": 255,
+      "def": 324,
+      "kind": "magic",
+      "power": 2.6077610391192136,
+      "critRate": 0,
+      "levelGap": 16,
+      "ignoreDef": 0.09446193708572537,
+      "seed": 9160,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 837,
+        "crit": false
+      }
+    },
+    {
+      "atk": 176,
+      "def": 275,
+      "kind": "phys",
+      "power": 3.5932115448638795,
+      "critRate": 0.45482252785004673,
+      "levelGap": -15,
+      "ignoreDef": 0,
+      "seed": 9161,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 210,
+        "crit": false
+      }
+    },
+    {
+      "atk": 246,
+      "def": 391,
+      "kind": "phys",
+      "power": 2.583414646750316,
+      "critRate": 0.29116657599806783,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9162,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 719,
+        "crit": true
+      }
+    },
+    {
+      "atk": 885,
+      "def": 179,
+      "kind": "magic",
+      "power": 2.8167886302806435,
+      "critRate": 0.4623082038480788,
+      "levelGap": 4,
+      "ignoreDef": 0,
+      "seed": 9163,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 5098,
+        "crit": true
+      }
+    },
+    {
+      "atk": 149,
+      "def": 47,
+      "kind": "phys",
+      "power": 1.2887674578931183,
+      "critRate": 0,
+      "levelGap": -19,
+      "ignoreDef": 0,
+      "seed": 9164,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 65,
+        "crit": false
+      }
+    },
+    {
+      "atk": 506,
+      "def": 384,
+      "kind": "magic",
+      "power": 1.3270857794675976,
+      "critRate": 0.5171196694951504,
+      "levelGap": 14,
+      "ignoreDef": 0.48624454683158547,
+      "seed": 9165,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1540,
+        "crit": true
+      }
+    },
+    {
+      "atk": 172,
+      "def": 73,
+      "kind": "phys",
+      "power": 1.1838372598402203,
+      "critRate": 0.5307937426026911,
+      "levelGap": -5,
+      "ignoreDef": 0,
+      "seed": 9166,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 232,
+        "crit": true
+      }
+    },
+    {
+      "atk": 181,
+      "def": 107,
+      "kind": "phys",
+      "power": 2.016680688317865,
+      "critRate": 0.41859991229139265,
+      "levelGap": -4,
+      "ignoreDef": 0,
+      "seed": 9167,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 410,
+        "crit": true
+      }
+    },
+    {
+      "atk": 890,
+      "def": 393,
+      "kind": "magic",
+      "power": 1.3336743821389974,
+      "critRate": 0,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9168,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 940,
+        "crit": false
+      }
+    },
+    {
+      "atk": 249,
+      "def": 5,
+      "kind": "phys",
+      "power": 2.9711817570030687,
+      "critRate": 0.007295338343828916,
+      "levelGap": 19,
+      "ignoreDef": 0,
+      "seed": 9169,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1167,
+        "crit": false
+      }
+    },
+    {
+      "atk": 408,
+      "def": 111,
+      "kind": "magic",
+      "power": 3.114156542532146,
+      "critRate": 0.003192486427724361,
+      "levelGap": 20,
+      "ignoreDef": 0.4512298289919272,
+      "seed": 9170,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 2164,
+        "crit": false
+      }
+    },
+    {
+      "atk": 142,
+      "def": 237,
+      "kind": "phys",
+      "power": 0.9784784779883922,
+      "critRate": 0.5041445811744779,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9171,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 23,
+        "crit": true
+      }
+    },
+    {
+      "atk": 159,
+      "def": 124,
+      "kind": "phys",
+      "power": 3.3228545796126125,
+      "critRate": 0,
+      "levelGap": 13,
+      "ignoreDef": 0,
+      "seed": 9172,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 649,
+        "crit": false
+      }
+    },
+    {
+      "atk": 740,
+      "def": 361,
+      "kind": "magic",
+      "power": 1.5523494474589825,
+      "critRate": 0.2514386137481779,
+      "levelGap": 6,
+      "ignoreDef": 0,
+      "seed": 9173,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1193,
+        "crit": false
+      }
+    },
+    {
+      "atk": 883,
+      "def": 187,
+      "kind": "phys",
+      "power": 2.2590424853377042,
+      "critRate": 0.0054227154236286875,
+      "levelGap": -3,
+      "ignoreDef": 0,
+      "seed": 9174,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1778,
+        "crit": false
+      }
+    },
+    {
+      "atk": 153,
+      "def": 96,
+      "kind": "magic",
+      "power": 2.733905091602355,
+      "critRate": 0.011544953193515539,
+      "levelGap": -6,
+      "ignoreDef": 0.013174041640013456,
+      "seed": 9175,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 304,
+        "crit": false
+      }
+    },
+    {
+      "atk": 313,
+      "def": 2,
+      "kind": "phys",
+      "power": 1.8018063138704747,
+      "critRate": 0,
+      "levelGap": -13,
+      "ignoreDef": 0,
+      "seed": 9176,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 280,
+        "crit": false
+      }
+    },
+    {
+      "atk": 295,
+      "def": 195,
+      "kind": "phys",
+      "power": 2.290629809675738,
+      "critRate": 0.07422928526066243,
+      "levelGap": 18,
+      "ignoreDef": 0,
+      "seed": 9177,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 987,
+        "crit": false
+      }
+    },
+    {
+      "atk": 656,
+      "def": 246,
+      "kind": "phys",
+      "power": 2.3263710969593374,
+      "critRate": 0.009100086148828268,
+      "levelGap": -5,
+      "ignoreDef": 0,
+      "seed": 9178,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1021,
+        "crit": false
+      }
+    },
+    {
+      "atk": 442,
+      "def": 275,
+      "kind": "magic",
+      "power": 1.6625705004669726,
+      "critRate": 0.526958754658699,
+      "levelGap": -16,
+      "ignoreDef": 0,
+      "seed": 9179,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 411,
+        "crit": true
+      }
+    },
+    {
+      "atk": 554,
+      "def": 165,
+      "kind": "phys",
+      "power": 1.2134303526952863,
+      "critRate": 0,
+      "levelGap": -17,
+      "ignoreDef": 0.299207438249141,
+      "seed": 9180,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 231,
+        "crit": false
+      }
+    },
+    {
+      "atk": 637,
+      "def": 69,
+      "kind": "magic",
+      "power": 3.211546027753502,
+      "critRate": 0.5806360698770732,
+      "levelGap": 2,
+      "ignoreDef": 0,
+      "seed": 9181,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3482,
+        "crit": true
+      }
+    },
+    {
+      "atk": 368,
+      "def": 311,
+      "kind": "phys",
+      "power": 2.9241484598722307,
+      "critRate": 0.10886102467775345,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9182,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 906,
+        "crit": false
+      }
+    },
+    {
+      "atk": 877,
+      "def": 13,
+      "kind": "phys",
+      "power": 3.591026365943253,
+      "critRate": 0.1645371547434479,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9183,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3013,
+        "crit": false
+      }
+    },
+    {
+      "atk": 124,
+      "def": 353,
+      "kind": "magic",
+      "power": 3.140037837391719,
+      "critRate": 0,
+      "levelGap": -2,
+      "ignoreDef": 0,
+      "seed": 9184,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 211,
+        "crit": false
+      }
+    },
+    {
+      "atk": 824,
+      "def": 380,
+      "kind": "phys",
+      "power": 0.9039475232828409,
+      "critRate": 0.07727003521285951,
+      "levelGap": 5,
+      "ignoreDef": 0.056076809647493064,
+      "seed": 9185,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 702,
+        "crit": false
+      }
+    },
+    {
+      "atk": 151,
+      "def": 399,
+      "kind": "magic",
+      "power": 1.529806081391871,
+      "critRate": 0.32871972494758667,
+      "levelGap": -4,
+      "ignoreDef": 0,
+      "seed": 9186,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 40,
+        "crit": false
+      }
+    },
+    {
+      "atk": 873,
+      "def": 95,
+      "kind": "magic",
+      "power": 1.1803543793037534,
+      "critRate": 0.018007407244294883,
+      "levelGap": -10,
+      "ignoreDef": 0,
+      "seed": 9187,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 623,
+        "crit": false
+      }
+    },
+    {
+      "atk": 487,
+      "def": 315,
+      "kind": "magic",
+      "power": 2.837340987008065,
+      "critRate": 0,
+      "levelGap": -16,
+      "ignoreDef": 0,
+      "seed": 9188,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 538,
+        "crit": false
+      }
+    },
+    {
+      "atk": 355,
+      "def": 161,
+      "kind": "magic",
+      "power": 2.575002672104165,
+      "critRate": 0.38276302576996385,
+      "levelGap": 11,
+      "ignoreDef": 0,
+      "seed": 9189,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1158,
+        "crit": false
+      }
+    },
+    {
+      "atk": 287,
+      "def": 158,
+      "kind": "phys",
+      "power": 2.6576912470161913,
+      "critRate": 0.4587611300870776,
+      "levelGap": 11,
+      "ignoreDef": 0.46960366563871503,
+      "seed": 9190,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1730,
+        "crit": true
+      }
+    },
+    {
+      "atk": 15,
+      "def": 31,
+      "kind": "phys",
+      "power": 1.2863144087139518,
+      "critRate": 0.5852663850411772,
+      "levelGap": -3,
+      "ignoreDef": 0,
+      "seed": 9191,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3,
+        "crit": true
+      }
+    },
+    {
+      "atk": 378,
+      "def": 362,
+      "kind": "magic",
+      "power": 1.4687113314401359,
+      "critRate": 0,
+      "levelGap": 6,
+      "ignoreDef": 0,
+      "seed": 9192,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 501,
+        "crit": false
+      }
+    },
+    {
+      "atk": 221,
+      "def": 5,
+      "kind": "phys",
+      "power": 1.9316193705424667,
+      "critRate": 0.5326477572787552,
+      "levelGap": -17,
+      "ignoreDef": 0,
+      "seed": 9193,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 156,
+        "crit": false
+      }
+    },
+    {
+      "atk": 781,
+      "def": 10,
+      "kind": "magic",
+      "power": 2.224034307943657,
+      "critRate": 0.3976296154316515,
+      "levelGap": 2,
+      "ignoreDef": 0,
+      "seed": 9194,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 3116,
+        "crit": true
+      }
+    },
+    {
+      "atk": 814,
+      "def": 38,
+      "kind": "phys",
+      "power": 0.9225322093814612,
+      "critRate": 0.23806510702706873,
+      "levelGap": -12,
+      "ignoreDef": 0.002649184549227357,
+      "seed": 9195,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 362,
+        "crit": false
+      }
+    },
+    {
+      "atk": 796,
+      "def": 213,
+      "kind": "magic",
+      "power": 3.3056342787574975,
+      "critRate": 0,
+      "levelGap": -20,
+      "ignoreDef": 0,
+      "seed": 9196,
+      "randomsUsed": 1,
+      "expect": {
+        "amount": 1093,
+        "crit": false
+      }
+    },
+    {
+      "atk": 110,
+      "def": 231,
+      "kind": "phys",
+      "power": 2.180633891094476,
+      "critRate": 0.5241441614460199,
+      "levelGap": 8,
+      "ignoreDef": 0,
+      "seed": 9197,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 262,
+        "crit": true
+      }
+    },
+    {
+      "atk": 691,
+      "def": 262,
+      "kind": "phys",
+      "power": 3.48744191667065,
+      "critRate": 0.09932291815057397,
+      "levelGap": -6,
+      "ignoreDef": 0,
+      "seed": 9198,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 1853,
+        "crit": false
+      }
+    },
+    {
+      "atk": 186,
+      "def": 221,
+      "kind": "phys",
+      "power": 1.3748251457698644,
+      "critRate": 0.15584019985981284,
+      "levelGap": 9,
+      "ignoreDef": 0,
+      "seed": 9199,
+      "randomsUsed": 2,
+      "expect": {
+        "amount": 196,
+        "crit": false
+      }
+    }
+  ]
+}

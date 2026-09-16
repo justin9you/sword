@@ -1,0 +1,163 @@
+{
+  "cases": [
+    {
+      "name": "同名刷新取更强",
+      "buffs": [
+        {
+          "kind": "atkUp",
+          "ms": 3000,
+          "frac": 0,
+          "amount": 0.35,
+          "value": null,
+          "dps": null
+        },
+        {
+          "kind": "shield",
+          "ms": 5000,
+          "frac": 0,
+          "amount": null,
+          "value": 120,
+          "dps": null
+        }
+      ]
+    },
+    {
+      "name": "灼烧攒够1点才结算",
+      "ticks": [
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        },
+        {
+          "dot": 1,
+          "expired": 0
+        }
+      ],
+      "buffs": [
+        {
+          "kind": "burn",
+          "ms": 3000,
+          "frac": 1.7763568394002505e-15,
+          "amount": null,
+          "value": null,
+          "dps": 6
+        }
+      ]
+    },
+    {
+      "name": "护盾吸收",
+      "through": [
+        0,
+        0,
+        20,
+        20,
+        10
+      ],
+      "buffs": [
+        {
+          "kind": "shield",
+          "ms": 9000,
+          "frac": 0,
+          "amount": null,
+          "value": 0,
+          "dps": null
+        }
+      ]
+    },
+    {
+      "name": "部分过期也要报 expired",
+      "ticks": [
+        {
+          "dot": 0,
+          "expired": 0
+        },
+        {
+          "dot": 0,
+          "expired": 1
+        }
+      ],
+      "buffs": [
+        {
+          "kind": "shield",
+          "ms": 4700,
+          "frac": 0,
+          "amount": null,
+          "value": 80,
+          "dps": null
+        }
+      ]
+    }
+  ]
+}

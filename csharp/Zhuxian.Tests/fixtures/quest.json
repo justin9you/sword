@@ -1,0 +1,179 @@
+{
+  "steps": [
+    {
+      "step": "刚建号",
+      "current": "q1",
+      "progress": 0,
+      "level": 1,
+      "goalMet": false,
+      "levelShort": false,
+      "complete": false,
+      "giver": "linjingyu",
+      "turnInNpc": "linjingyu",
+      "isGiverAtGiver": true,
+      "waitingAtTurnIn": false,
+      "canTurnInAtTurnIn": false,
+      "targetMonsterId": "yegou",
+      "targetMaps": [
+        {
+          "map": "caomiao",
+          "hint": "hunt"
+        }
+      ],
+      "doneCount": 0
+    },
+    {
+      "step": "杀了3只",
+      "current": "q1",
+      "progress": 3,
+      "level": 1,
+      "goalMet": false,
+      "levelShort": false,
+      "complete": false,
+      "giver": "linjingyu",
+      "turnInNpc": "linjingyu",
+      "isGiverAtGiver": true,
+      "waitingAtTurnIn": false,
+      "canTurnInAtTurnIn": false,
+      "targetMonsterId": "yegou",
+      "targetMaps": [
+        {
+          "map": "caomiao",
+          "hint": "hunt"
+        }
+      ],
+      "doneCount": 0
+    },
+    {
+      "step": "杀了只野猪(不该算)",
+      "current": "q1",
+      "progress": 3,
+      "level": 1,
+      "goalMet": false,
+      "levelShort": false,
+      "complete": false,
+      "giver": "linjingyu",
+      "turnInNpc": "linjingyu",
+      "isGiverAtGiver": true,
+      "waitingAtTurnIn": false,
+      "canTurnInAtTurnIn": false,
+      "targetMonsterId": "yegou",
+      "targetMaps": [
+        {
+          "map": "caomiao",
+          "hint": "hunt"
+        }
+      ],
+      "doneCount": 0
+    },
+    {
+      "step": "杀满6只",
+      "current": "q1",
+      "progress": 6,
+      "level": 1,
+      "goalMet": true,
+      "levelShort": false,
+      "complete": true,
+      "giver": "linjingyu",
+      "turnInNpc": "linjingyu",
+      "isGiverAtGiver": false,
+      "waitingAtTurnIn": false,
+      "canTurnInAtTurnIn": true,
+      "targetMonsterId": null,
+      "targetMaps": [
+        {
+          "map": "caomiao",
+          "hint": "turnin"
+        }
+      ],
+      "doneCount": 0
+    },
+    {
+      "step": "超杀一只",
+      "current": "q1",
+      "progress": 6,
+      "level": 1,
+      "goalMet": true,
+      "levelShort": false,
+      "complete": true,
+      "giver": "linjingyu",
+      "turnInNpc": "linjingyu",
+      "isGiverAtGiver": false,
+      "waitingAtTurnIn": false,
+      "canTurnInAtTurnIn": true,
+      "targetMonsterId": null,
+      "targetMaps": [
+        {
+          "map": "caomiao",
+          "hint": "turnin"
+        }
+      ],
+      "doneCount": 0
+    },
+    {
+      "step": "交完 q1",
+      "current": "q2",
+      "progress": 0,
+      "level": 1,
+      "goalMet": false,
+      "levelShort": true,
+      "complete": false,
+      "giver": "puzhi",
+      "turnInNpc": "puzhi",
+      "isGiverAtGiver": true,
+      "waitingAtTurnIn": false,
+      "canTurnInAtTurnIn": false,
+      "targetMonsterId": "shanzei",
+      "targetMaps": [
+        {
+          "map": "caomiao",
+          "hint": "hunt"
+        }
+      ],
+      "doneCount": 1
+    },
+    {
+      "step": "q2 目标打完",
+      "current": "q2",
+      "progress": 5,
+      "level": 1,
+      "goalMet": true,
+      "levelShort": true,
+      "complete": false,
+      "giver": "puzhi",
+      "turnInNpc": "puzhi",
+      "isGiverAtGiver": false,
+      "waitingAtTurnIn": true,
+      "canTurnInAtTurnIn": false,
+      "targetMonsterId": null,
+      "targetMaps": [
+        {
+          "map": "caomiao",
+          "hint": "turnin"
+        }
+      ],
+      "doneCount": 1
+    }
+  ],
+  "turnIns": [
+    {
+      "step": "交 q1",
+      "exp": 60,
+      "gold": 40,
+      "items": [
+        "c_xiaohuan",
+        "c_xiaohuan",
+        "w_chaidao"
+      ],
+      "levels": 0,
+      "overflow": [],
+      "nextKey": "q2",
+      "playerGold": 140,
+      "playerLevel": 1
+    },
+    {
+      "step": "找错人交任务",
+      "wasNull": true
+    }
+  ]
+}
