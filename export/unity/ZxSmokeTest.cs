@@ -3,9 +3,10 @@
 // 只依赖这个数据包本身，不需要逻辑层。回答的是最基本的那个问题——
 // JSON 读进来了吗、字段对得上吗、几个已知的坑是不是像文档说的那样。
 //
-// 想连逻辑层一起验，用 csharp/UnitySmoke/ZxCoreSmokeTest.cs。
+// 想连游戏逻辑一起验，把 csharp/Zhuxian.Core 也拖进工程——那边有完整的战斗、
+// 背包、任务、技能、存档，Godot 适配器里的 ZxSmoke.cs 就是这么干的。
 //
-// 由 tools/export-unity.mjs 原样拷进 export/unity/Runtime/。
+// 由 tools/export-gamedata.mjs 原样拷进 export/unity/。
 
 using System.Text;
 using UnityEngine;

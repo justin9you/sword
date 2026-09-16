@@ -1,13 +1,13 @@
 /**
  * C# 代码生成器的自测。
  *
- *   node tools/test-unity-codegen.mjs
+ *   node tools/test-codegen.mjs
  *
- * 这里测的全是「出错时该不该响」，而不是正常路径——正常路径每次 npm run export:unity
+ * 这里测的全是「出错时该不该响」，而不是正常路径——正常路径每次 npm run export:data
  * 都在跑，坏了立刻就知道。真正会悄悄坏掉的是那几条保护：类型打架、类名撞车。
  * 它们平时不响，等哪天数据里真出现了才该响，所以得专门拿假数据喂一遍确认它们还活着。
  */
-import { inferSchema, emitDataFile } from './unity-codegen.mjs';
+import { inferSchema, emitDataFile } from './csharp-codegen.mjs';
 
 let passed = 0;
 const failures = [];

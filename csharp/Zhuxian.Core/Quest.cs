@@ -132,7 +132,7 @@ namespace Zhuxian.Core
         {
             throw new NotSupportedException(
                 "数据里出现了 talk 类任务，但 C# 移植版还没支持 —— " +
-                "需要在 quests.js 的 goal 上补 npc 字段、重跑 npm run export:unity，" +
+                "需要在 quests.js 的 goal 上补 npc 字段、重跑 npm run export:data，" +
                 "再把 Quest.OnTalk / TargetMaps 里的 talk 分支补全");
         }
 

@@ -4,7 +4,7 @@
   也能被普通的 dotnet 测试工程跑，不用装 Unity 就能验对错。
 
   数据类不在这里重复定义，直接编译 export/ 下生成的那份，保证只有一个真相。
-  ZxDatabase.cs 不编进来：它依赖 UnityEngine，读数据是 Unity（或测试工程）的事。
+  各引擎的加载器不编进来：它们依赖各自的引擎 API，读数据是宿主的事。
 -->
 <Project Sdk="Microsoft.NET.Sdk">
 
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\export\unity\Runtime\ZxData.cs" Link="Generated\ZxData.cs" />
+    <Compile Include="..\..\export\data\ZxData.cs" Link="Generated\ZxData.cs" />
   </ItemGroup>
 
 </Project>

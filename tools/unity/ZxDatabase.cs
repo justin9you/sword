@@ -1,10 +1,9 @@
 // 数据库入口：把 Resources/ZhuxianData/ 下的 JSON 读进来，建好索引。
 //
 // 这个文件是手写的，不随数据变化——所以它只做「加载 + 查表」，不碰任何游戏规则。
-// 战斗公式、掉落、技能行为还在 JS 侧（src/combat.js、src/skills.js 等），
-// 移植时另起文件，别往这里塞。
+// 战斗公式、掉落、技能行为在 csharp/Zhuxian.Core 里，别往这里塞。
 //
-// 由 tools/export-unity.mjs 原样拷进 export/unity/Runtime/。
+// 由 tools/export-gamedata.mjs 原样拷进 export/unity/。
 
 using System;
 using System.Collections.Generic;
@@ -106,7 +105,7 @@ namespace Zhuxian.Data
             {
                 throw new InvalidOperationException(
                     "数据表 " + what + " 是空的 —— 对应的 JSON 没读进来或格式不对，" +
-                    "重跑一次 npm run export:unity");
+                    "重跑一次 npm run export:data");
             }
             return rows;
         }

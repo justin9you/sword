@@ -28,8 +28,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- 待检对象：导出的那两个 .cs -->
-    <Compile Include="..\..\..\export\unity\Runtime\*.cs" />
+    <!-- 待检对象：引擎无关的数据类 + Unity 适配器 -->
+    <Compile Include="..\..\..\export\data\ZxData.cs" />
+    <Compile Include="..\..\..\export\unity\*.cs" />
   </ItemGroup>
 
 </Project>

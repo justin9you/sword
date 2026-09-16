@@ -158,11 +158,12 @@ npm run stamp    # 改完代码后更新 sw.js 的缓存版本号
 npm run icons    # 重新生成图标 PNG
 npm run pack     # 打部署包 zip
 
-npm run export:unity  # 导出 Unity 数据包（JSON + C# 数据类）
-npm run test:unity    # 代码生成器自测 + 检查数据包有没有过期
-npm run verify:unity  # 编译一遍生成的 C#（需要 .NET SDK）
+npm run export:data   # 导出游戏数据包（JSON + C# 数据类 + 两个引擎适配器）
+npm run test:data     # 代码生成器自测 + 检查数据包有没有过期
 npm run gen:fixtures  # 重新生成 C# 对照测试的样本
 npm run test:core     # 跑 C# 逻辑层的对照测试（需要 .NET SDK）
+npm run verify:unity  # 编译一遍 Unity 适配器（需要 .NET SDK）
+npm run verify:godot  # 编译一遍 Godot 适配器 + 逻辑层（需要 .NET SDK）
 ```
 
 **不能直接双击 index.html**：Service Worker 只在 http(s) 下注册，`file://` 打开装不了主屏幕、也没法离线。
@@ -221,26 +222,30 @@ src/
 
 ---
 
-## 导到 Unity
+## 导给游戏引擎
 
-`npm run export:unity` 把 `src/data/` 下的数据导成 Unity 直接能吃的东西，落在 [export/unity/](export/unity/)：
+`npm run export:data` 把 `src/data/` 下的数据导成引擎能直接吃的东西，落在 [export/](export/)：
 
 ```
-export/unity/
-├── Resources/ZhuxianData/*.json   7 份数据（物品 / 怪物 / 地图 / NPC / 任务 / 门派 / 数值常量）
-├── Runtime/ZxData.cs              C# 数据类，照着数据自动生成
-├── Runtime/ZxDatabase.cs          加载 + 查表
-└── README.md                      怎么装进工程、有哪些坑
+export/
+├── data/     引擎无关：7 份 JSON + ZxData.cs（纯数据类，只 using System）
+├── unity/    Unity 适配器：加载器 + 冒烟脚本
+└── godot/    Godot 适配器：加载器 + 冒烟脚本
 ```
 
-C# 类是**生成**的不是手写的：数据表还在长，手写的类一旦落后，JsonUtility 不会报错，
-只会把读不到的字段留成 0，然后你在游戏里追一个"为什么这把剑没有暴击"的鬼。
-所以有 `npm run test:unity` 盯着数据包有没有过期，CI 里也单独跑一遍。
+数据本身不挑引擎，适配器只解决"这个引擎怎么把文件读进来"。接第三个引擎的话，
+照着写一个加载器就行，`data/` 一个字都不用改。
 
-这道检查**不挂在 `npm test` 上，也不拦部署**：Unity 数据包过期是另一码事，
-不该让网页版跟着上不了线。改完 `src/data/` 只想发网页版，那就不用管它。
+C# 数据类是**生成**的不是手写的：数据表还在长，手写的类一旦落后，Unity 的 JsonUtility
+不会报错，只会把读不到的字段留成 0，然后你在游戏里追一个"为什么这把剑没有暴击"的鬼。
+所以有 `npm run test:data` 盯着数据包有没有过期，CI 里也单独跑一遍。
 
-搬过去的只有数据。战斗公式、技能行为、任务状态机这些还在 JS 里，属于下一步的事。
+这道检查**不挂在 `npm test` 上，也不拦部署**：数据包过期是另一码事，不该让网页版跟着
+上不了线。改完 `src/data/` 只想发网页版，那就不用管它。
+
+两个适配器都能在**没装引擎**的机器上验证编译：`verify:unity` 和 `verify:godot`
+各配一个最小的引擎 API 桩，保证"拖进去一定编得过"。要提醒的是，桩只能证明代码自洽，
+证明不了和真引擎的签名完全一致——所以碰引擎 API 的地方刻意压到了最少。
 
 ---
 

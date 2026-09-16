@@ -48,8 +48,8 @@ namespace Zhuxian.Tests
         public static T LoadGameData<T>(string jsonName)
         {
             return Read<T>(
-                Path.Combine(RepoRoot, "export", "unity", "Resources", "ZhuxianData", jsonName),
-                "游戏数据缺失，跑一下：npm run export:unity");
+                Path.Combine(RepoRoot, "export", "data", jsonName),
+                "游戏数据缺失，跑一下：npm run export:data");
         }
 
         static T Read<T>(string file, string hint)

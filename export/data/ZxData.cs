@@ -1,5 +1,5 @@
-// 本文件由 tools/export-unity.mjs 生成，不要手改。
-// 数据源：src/data/*.js —— 改完数据跑 `npm run export:unity` 重新生成。
+// 本文件由 tools/export-gamedata.mjs 生成，不要手改。
+// 数据源：src/data/*.js —— 改完数据跑 `npm run export:data` 重新生成。
 
 using System;
 
