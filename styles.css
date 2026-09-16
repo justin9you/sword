@@ -1,49 +1,58 @@
 /*
- * 视觉方向：宣纸水墨。
+ * 视觉方向：绢本夜色水墨。
  *
- * 整套界面当成一张摊开的生宣来做——
- * 底是泛黄的纸，字是墨，唯一的彩色是朱砂（印章、危、要紧处），
- * 其余一切靠墨的浓淡分层次：焦墨压标题，浓墨写正文，淡墨作界格，清墨留白。
+ * 水墨不只有白纸黑字那一半。绢本设色、夜山月影走的是反过来的路子：
+ * 底是泡透了墨的绢，痕是月白，唯一的彩色还是朱砂（印章、危、要紧处）。
+ * 选这一路不是为了"做个暗色主题"，是因为这游戏画面本身是暗的——
+ * 一大片亮纸浮在暗画面上，反差和气质都不对。
  *
  * 三条自己定的规矩，通篇不破：
- *   1. 不用纯黑纯白。墨最深到 #16130f，纸最亮到 #f2ebdb，眼睛才不累。
+ *   1. 不用纯黑纯白。地最深到 #090c11，痕最亮到 #eceae2，眼睛才不累。
  *   2. 不靠加粗撑层级。楷体 + 字距 + 竖排 + 朱印，这四样比 bold 有效得多。
  *   3. 一个外部文件都不引。纸纹、墨晕、飞白、印泥的斑驳，全是 SVG 湍流现算，
  *      写在 data URI 里跟着 CSS 一起走——这个项目的底线就是零外部资源。
  *
- * 游戏画面本身是暗的，纸色 HUD 浮在上面反差最大，也最像"在画上作注"。
+ * 变量名沿用 --paper-* / --ink-*：前者始终是"承墨的那个面"，后者始终是
+ * "落上去的痕"。这一版只是面成了墨色、痕成了月白，语义没变。
  */
 
 :root {
-  /* ── 纸 ───────────────────────────────────────────────
-     从受光面到背光面五阶。生宣本身偏暖，越暗越发赭，不是简单地掺灰 */
-  --paper-0: #f6efdd;
-  --paper-1: #eee4cd;
-  --paper-2: #e3d8be;
-  --paper-3: #d4c6a8;
-  --paper-4: #c1b090;
+  /* ── 地 ───────────────────────────────────────────────
+     绢本夜色。不是纯黑，是泡过墨的绢，偏冷一点点。
+     序号越小越"浮"：0 是按钮和格子的面，2 是凹槽，4 是最底 */
+  --paper-0: #232a31;
+  --paper-1: #1a2026;
+  --paper-2: #141920;
+  --paper-3: #0e1218;
+  --paper-4: #090c11;
 
-  /* ── 墨 ───────────────────────────────────────────────
-     焦、浓、重、淡、清，国画里本来就是五色 */
-  --ink-9: #16130f;
-  --ink-7: #2b2620;
-  --ink-5: #4d453a;
-  --ink-3: #7d7364;
-  --ink-1: #a99d88;
-  --ink-0: #c4b89f;
+  /* ── 痕 ───────────────────────────────────────────────
+     反过来之后"墨"是亮的。--ink-9 依旧是最重的那一笔，
+     只是这一版"重"等于"亮"：月白、清辉、微茫 */
+  --ink-9: #eceae2;
+  --ink-7: #cdd1d2;
+  --ink-5: #98a0a5;
+  --ink-3: #818b92;
+  --ink-1: #464e55;
+  --ink-0: #363d44;
 
   /* ── 彩 ───────────────────────────────────────────────
      矿物色，取自传统颜料，不用屏幕原色。饱和度一律压在 45% 以下 */
-  --cinnabar: #a8392c;   /* 朱砂：危、损、警 */
-  --seal: #b4372a;       /* 印泥：印章专用，比朱砂再艳一点 */
-  --stone-blue: #3c647f; /* 石青：灵力、水、寒 */
-  --stone-green: #4e7a5b;/* 石绿：生、治愈、达成 */
-  --gamboge: #a97b26;    /* 藤黄：贵重、经验、灵石 */
-  --dai: #5b4d6b;        /* 黛：异常、幻 */
+  --cinnabar: #d1503c;   /* 朱砂：危、损、警 */
+  --seal: #b8402f;       /* 印泥：印章专用。面积小，得比朱砂再沉一点才压得住 */
+  --stone-blue: #6fa3c4; /* 石青：灵力、水、寒 */
+  --stone-green: #7fae8c;/* 石绿：生、治愈、达成 */
+  --gamboge: #d2a24a;    /* 藤黄：贵重、经验、灵石 */
+  --dai: #9b86b8;        /* 黛：异常、幻 */
+
+  /* 盖在朱印和彩块上的字。它跟"地"不是一回事——地是暗的，这个必须亮 */
+  --on-accent: #f4f1e8;
+  /* 反过来：亮彩块（藤黄、石绿）上的字得是暗的 */
+  --on-bright: #10141a;
 
   /* 品质。原始色在 JS 里是给 canvas 用的亮色，进到纸面一律 color-mix 压成矿物色，
      见下面各处的 --qi。这里只留一个兜底 */
-  --q-fallback: #7d7364;
+  --q-fallback: #98a0a5;
 
   /* 底部两个高度，分开定义——它们避让的对象不一样：
      --hud-bar-h    经验条 + 技能栏。触屏圆钮要贴在它正上方
@@ -57,12 +66,13 @@
   --radius: 2px;
   --radius-sm: 1px;
 
-  /* 影子模拟"纸压在画面上"：一层贴地的实影 + 一层散开的墨气 */
-  --lift: 0 1px 2px rgba(22, 19, 15, 0.3), 0 10px 26px rgba(22, 19, 15, 0.34);
-  --lift-lg: 0 2px 4px rgba(22, 19, 15, 0.34), 0 22px 60px rgba(22, 19, 15, 0.48);
+  /* 暗底上光靠影子分不出层，所以每个浮起来的面顶上还要压一道极淡的受光边，
+     见各处的 inset 0 1px 0 rgba(255,255,255,.05) */
+  --lift: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 26px rgba(0, 0, 0, 0.46);
+  --lift-lg: 0 2px 4px rgba(0, 0, 0, 0.55), 0 22px 60px rgba(0, 0, 0, 0.6);
 
-  --rule: rgba(77, 69, 58, 0.26);
-  --rule-soft: rgba(77, 69, 58, 0.14);
+  --rule: rgba(190, 202, 210, 0.2);
+  --rule-soft: rgba(190, 202, 210, 0.1);
 
   /* ── 字 ───────────────────────────────────────────────
      楷书走情绪（门派、技能、人名、招式），宋体走叙述（描述、对白），
@@ -75,17 +85,20 @@
 
   /* ── 材质 ─────────────────────────────────────────────
      三张现算的噪声图，全篇的纸感都来自它们：
-       --grain 细颗粒，纸的"齿"
-       --fiber 横向拉长的絮状，宣纸的纤维
-       --cloud 大团块，用来做墨晕和远雾 */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.13 0 0 0 0.86 0.13 0 0 0 0.85 0.13 0 0 0 0.81 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='170' height='170' filter='url(%23g)'/%3E%3C/svg%3E");
-  --fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005 0.36' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.07 0 0 0 0.92 0.07 0 0 0 0.91 0.07 0 0 0 0.88 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23f)'/%3E%3C/svg%3E");
-  --cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.7 0 0 0 -0.36'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23c)'/%3E%3C/svg%3E");
+       --grain 细颗粒，绢的经纬
+       --fiber 横向拉长的絮状，织物的丝缕
+       --cloud 大团块，用来做墨晕和远雾
+
+     注意这两张噪声图现在输出的是「近黑」而不是「近白」：暗底上要靠 screen
+     往亮处提一点点才看得见质感，multiply 在这儿等于什么都没做 */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.1 0 0 0 0.012 0.1 0 0 0 0.015 0.1 0 0 0 0.021 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='170' height='170' filter='url(%23g)'/%3E%3C/svg%3E");
+  --fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005 0.36' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.055 0 0 0 0.006 0.055 0 0 0 0.009 0.055 0 0 0 0.015 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23f)'/%3E%3C/svg%3E");
+  --cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.7 0 0 0 -0.36'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23c)'/%3E%3C/svg%3E");
 
   /* 印泥的斑驳：拿湍流当 alpha 蒙版，盖上去就是"没印匀"的那种缺口 */
-  --seal-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.4 0 0 0 -0.16'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23s)'/%3E%3C/svg%3E");
+  --seal-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='s' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.4 0 0 0 -0.16'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23s)'/%3E%3C/svg%3E");
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 * {
@@ -138,7 +151,7 @@ body {
   width: 100%;
   height: 100%;
   display: block;
-  background: radial-gradient(ellipse at 50% 44%, #16171a 0%, #08080a 100%);
+  background: radial-gradient(ellipse at 50% 44%, #141a20 0%, #070a0e 100%);
 }
 
 /* ══ 纸与墨的基元 ══════════════════════════════════════
@@ -162,7 +175,7 @@ body {
   width: var(--seal-size);
   padding: calc(var(--seal-size) * 0.11) 0;
   background: var(--seal);
-  color: var(--paper-0);
+  color: var(--on-accent);
   font-family: var(--song);
   font-size: calc(var(--seal-size) * 0.4);
   line-height: 1.12;
@@ -189,7 +202,7 @@ body {
 .brush-rule {
   height: 9px;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='9' preserveAspectRatio='none'%3E%3Cpath d='M2 5.1C40 2.3 96 5.5 148 3.5 186 2 214 3.5 238 3.3 214 5.4 186 4.8 148 6 96 7.8 40 6.8 2 5.1Z' fill='%232b2620' opacity='0.55'/%3E%3Cpath d='M28 7.2C74 6.4 120 7.8 176 6.6' fill='none' stroke='%232b2620' stroke-width='0.7' stroke-linecap='round' opacity='0.2'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='9' preserveAspectRatio='none'%3E%3Cpath d='M2 5.1C40 2.3 96 5.5 148 3.5 186 2 214 3.5 238 3.3 214 5.4 186 4.8 148 6 96 7.8 40 6.8 2 5.1Z' fill='%23c3cbcf' opacity='0.55'/%3E%3Cpath d='M28 7.2C74 6.4 120 7.8 176 6.6' fill='none' stroke='%23c3cbcf' stroke-width='0.7' stroke-linecap='round' opacity='0.2'/%3E%3C/svg%3E")
     no-repeat center / 100% 100%;
 }
 
@@ -207,11 +220,11 @@ body {
   background-image:
     var(--grain),
     var(--fiber),
-    radial-gradient(ellipse 66% 48% at 24% 10%, rgba(196, 166, 108, 0.22), transparent 72%),
-    radial-gradient(ellipse 58% 42% at 84% 76%, rgba(168, 138, 88, 0.18), transparent 70%),
+    radial-gradient(ellipse 66% 48% at 24% 10%, rgba(116, 148, 180, 0.1), transparent 72%),
+    radial-gradient(ellipse 58% 42% at 84% 76%, rgba(96, 120, 150, 0.08), transparent 70%),
     linear-gradient(168deg, var(--paper-0) 0%, var(--paper-1) 52%, var(--paper-2) 100%);
   background-size: 170px 170px, 340px 340px, auto, auto, auto;
-  background-blend-mode: multiply, multiply, normal, normal, normal;
+  background-blend-mode: screen, screen, normal, normal, normal;
 }
 
 /* ── 远山与云气 ─────────────────────────────────────────
@@ -240,11 +253,11 @@ body {
 
 /* 三层山按远近给不同的虚实：远的糊、近的实。
    这是空气透视，不是随手调的透明度 */
-.mt-far { fill: var(--ink-5); opacity: 0.1; filter: blur(3px); }
-.mt-mid { fill: var(--ink-7); opacity: 0.14; filter: blur(1.6px); }
-.mt-near { fill: var(--ink-9); opacity: 0.22; }
-.mt-peak { fill: var(--ink-7); opacity: 0.13; filter: blur(2.4px); }
-.mt-peak2 { fill: var(--ink-5); opacity: 0.09; filter: blur(3.4px); }
+.mt-far { fill: var(--ink-5); opacity: 0.07; filter: blur(3px); }
+.mt-mid { fill: var(--ink-7); opacity: 0.09; filter: blur(1.6px); }
+.mt-near { fill: var(--ink-9); opacity: 0.13; }
+.mt-peak { fill: var(--ink-7); opacity: 0.08; filter: blur(2.4px); }
+.mt-peak2 { fill: var(--ink-5); opacity: 0.06; filter: blur(3.4px); }
 
 /* 山间留白的云。宣纸上的云本来就是「不画」出来的，所以它是纸色而不是白色 */
 .mt-mist { fill: var(--paper-1); opacity: 0.85; filter: blur(16px); }
@@ -261,10 +274,10 @@ body {
      不描边——一描边就成了贴上去的一个球 */
   background:
     radial-gradient(circle,
-      rgba(250, 245, 231, 0.9) 0%,
-      rgba(250, 245, 231, 0.78) 40%,
-      rgba(198, 184, 158, 0.3) 53%,
-      rgba(150, 138, 116, 0.14) 62%,
+      rgba(226, 233, 236, 0.72) 0%,
+      rgba(226, 233, 236, 0.52) 40%,
+      rgba(142, 156, 168, 0.3) 53%,
+      rgba(88, 100, 112, 0.14) 62%,
       transparent 78%);
   filter: blur(5px);
 }
@@ -276,7 +289,7 @@ body {
   right: -20%;
   bottom: 4%;
   height: 46%;
-  background: linear-gradient(180deg, transparent, rgba(77, 69, 58, 0.09) 45%, transparent);
+  background: linear-gradient(180deg, transparent, rgba(190, 202, 210, 0.09) 45%, transparent);
   -webkit-mask-image: var(--cloud);
   mask-image: var(--cloud);
   -webkit-mask-size: 900px 500px;
@@ -333,19 +346,22 @@ body {
   letter-spacing: 0.1em;
   text-indent: 0.1em;
   font-weight: 400;
-  /* 墨色渐变打底，上面叠一层横向拉丝的高光当飞白——
-     笔锋扫过去、纸面没吃满墨的那种断白。用 lighten 混合，
-     只有噪声里最亮的那几缕丝会把墨"扫开"，其余原样保留 */
+  /* 月白渐变打底，上面叠一层横向拉丝的暗丝当飞白——
+     笔锋扫过绢面、丝缕没吃满墨的那种断口。
+     噪声是"近白 + 稀疏黑丝"，用 darken 混合：
+     只有那几缕丝压得下去，其余原样保留。
+     （亮底暗字那一版是反的：近黑噪声 + lighten） */
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='140'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.016 0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='2.6 0 0 0 -1.52 2.6 0 0 0 -1.58 2.6 0 0 0 -1.68 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='320' height='140' filter='url(%23w)'/%3E%3C/svg%3E"),
-    linear-gradient(166deg, var(--ink-9) 0%, #332d25 50%, #564d40 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='140'%3E%3Cfilter id='w' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.016 0.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='-2.7 0 0 0 2.16 -2.7 0 0 0 2.2 -2.7 0 0 0 2.26 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='320' height='140' filter='url(%23w)'/%3E%3C/svg%3E"),
+    linear-gradient(166deg, var(--ink-9) 0%, #c7ccce 52%, #838d95 100%);
   background-size: 320px 140px, 100% 100%;
-  background-blend-mode: lighten;
+  background-blend-mode: darken;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   /* 墨落在纸上会洇开一圈 */
-  filter: drop-shadow(0 2px 14px rgba(22, 19, 15, 0.16));
+  /* 月白的字落在墨地上，洇的是光不是墨 */
+  filter: drop-shadow(0 0 22px rgba(196, 214, 228, 0.16));
 }
 
 .title-brand .seal {
@@ -371,7 +387,7 @@ body {
   margin: 22px 0 30px;
   padding-top: 20px;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='9' preserveAspectRatio='none'%3E%3Cpath d='M2 5.1C40 2.3 96 5.5 148 3.5 186 2 214 3.5 238 3.3 214 5.4 186 4.8 148 6 96 7.8 40 6.8 2 5.1Z' fill='%232b2620' opacity='0.55'/%3E%3Cpath d='M28 7.2C74 6.4 120 7.8 176 6.6' fill='none' stroke='%232b2620' stroke-width='0.7' stroke-linecap='round' opacity='0.2'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='9' preserveAspectRatio='none'%3E%3Cpath d='M2 5.1C40 2.3 96 5.5 148 3.5 186 2 214 3.5 238 3.3 214 5.4 186 4.8 148 6 96 7.8 40 6.8 2 5.1Z' fill='%23c3cbcf' opacity='0.55'/%3E%3Cpath d='M28 7.2C74 6.4 120 7.8 176 6.6' fill='none' stroke='%23c3cbcf' stroke-width='0.7' stroke-linecap='round' opacity='0.2'/%3E%3C/svg%3E")
     no-repeat top center / min(300px, 64%) 9px;
 }
 
@@ -393,7 +409,7 @@ body {
 
 /* 稿纸上的填空格：只留下面一条墨线，不画框 */
 #name-input {
-  background: linear-gradient(180deg, rgba(246, 239, 221, 0) 40%, rgba(212, 198, 168, 0.4));
+  background: linear-gradient(180deg, rgba(35, 42, 49, 0) 40%, rgba(14, 18, 24, 0.4));
   border: none;
   border-bottom: 2px solid var(--ink-5);
   border-radius: 0;
@@ -416,7 +432,7 @@ body {
 #name-input:focus {
   outline: none;
   border-bottom-color: var(--seal);
-  background: linear-gradient(180deg, transparent 62%, rgba(180, 55, 42, 0.07));
+  background: linear-gradient(180deg, transparent 62%, rgba(184, 64, 47, 0.07));
 }
 
 .pick-hint,
@@ -445,7 +461,7 @@ body {
 }
 
 .sect-card {
-  --ci: color-mix(in srgb, var(--c, #3c647f) 52%, #1c1812);
+  --ci: color-mix(in srgb, var(--c, #6fa3c4) 74%, #9fa8ad);
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -455,7 +471,7 @@ body {
   background-color: var(--paper-0);
   background-image: var(--grain), linear-gradient(158deg, var(--paper-0), var(--paper-2));
   background-size: 160px 160px, auto;
-  background-blend-mode: multiply, normal;
+  background-blend-mode: screen, normal;
   border: 1px solid var(--ink-1);
   border-radius: var(--radius);
   padding: 15px 15px 13px;
@@ -463,7 +479,7 @@ body {
   color: inherit;
   font: inherit;
   text-align: left;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 3px 12px rgba(22, 19, 15, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 3px 14px rgba(0, 0, 0, 0.4);
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s, border-color 0.22s;
 }
 
@@ -489,7 +505,7 @@ body {
 }
 
 .sect-card.on::before {
-  border-color: rgba(180, 55, 42, 0.34);
+  border-color: rgba(184, 64, 47, 0.34);
 }
 
 /* 选中的那张右上角盖一个「入」印。比描边更像"这事定下了" */
@@ -503,7 +519,7 @@ body {
   display: grid;
   place-items: center;
   background: var(--seal);
-  color: var(--paper-0);
+  color: var(--on-accent);
   font-family: var(--song);
   font-size: 13px;
   line-height: 1;
@@ -566,21 +582,8 @@ body {
   flex-wrap: wrap;
 }
 
-/* iOS 装到主屏后状态栏是白字浮在页面上，纸色底上一个字都看不见。
-   只在 standalone 下给顶端一道暮色墨染，浏览器里根本不会出现这层 */
-@media (display-mode: standalone) {
-  #title::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 96px;
-    background: linear-gradient(180deg, rgba(22, 19, 15, 0.62), transparent);
-    pointer-events: none;
-    z-index: 2;
-  }
-}
+/* 亮底那一版这里要给 iOS 状态栏的白字垫一道暗染，
+   现在整张底本来就是墨色的，白字自然读得出，这层删掉了 */
 
 /* ══ 按钮 ══════════════════════════════════════════════
    一张小纸片：外框墨线，内嵌一道更细的框，按下去像把纸按进桌面 */
@@ -589,7 +592,7 @@ body {
   background-color: var(--paper-0);
   background-image: var(--grain), linear-gradient(176deg, var(--paper-0), var(--paper-2));
   background-size: 160px 160px, auto;
-  background-blend-mode: multiply, normal;
+  background-blend-mode: screen, normal;
   border: 1px solid var(--ink-3);
   border-radius: var(--radius);
   color: var(--ink-7);
@@ -597,20 +600,20 @@ body {
   font-size: 14px;
   padding: 7px 15px;
   cursor: pointer;
-  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(169, 157, 136, 0.5);
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(150, 164, 174, 0.5);
   transition: color 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.12s;
 }
 
 .btn:hover:not(:disabled) {
   color: var(--ink-9);
   border-color: var(--ink-7);
-  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(77, 69, 58, 0.4),
-    0 2px 6px rgba(22, 19, 15, 0.14);
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(190, 202, 210, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.14);
 }
 
 .btn:active:not(:disabled) {
   transform: translateY(1px);
-  box-shadow: inset 0 1px 3px rgba(22, 19, 15, 0.22), inset 0 0 0 2px var(--paper-1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.22), inset 0 0 0 2px var(--paper-1);
 }
 
 .btn:disabled {
@@ -630,26 +633,26 @@ body {
   background-size: 160px 160px, auto;
   background-blend-mode: soft-light, normal;
   border-color: #7e2a1d;
-  color: var(--paper-0);
-  box-shadow: inset 0 0 0 2px rgba(246, 239, 221, 0.24), 0 2px 10px rgba(122, 40, 28, 0.3);
+  color: var(--on-accent);
+  box-shadow: inset 0 0 0 2px rgba(35, 42, 49, 0.24), 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .btn.primary:hover:not(:disabled) {
   color: #fff;
   border-color: #6a231a;
-  box-shadow: inset 0 0 0 2px rgba(246, 239, 221, 0.34), 0 4px 16px rgba(122, 40, 28, 0.42);
+  box-shadow: inset 0 0 0 2px rgba(35, 42, 49, 0.34), 0 4px 16px rgba(0, 0, 0, 0.42);
 }
 
 .btn.danger {
-  border-color: rgba(168, 57, 44, 0.6);
+  border-color: rgba(209, 80, 60, 0.6);
   color: var(--cinnabar);
-  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(168, 57, 44, 0.24);
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(209, 80, 60, 0.24);
 }
 
 .btn.danger:hover:not(:disabled) {
   border-color: var(--cinnabar);
-  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(168, 57, 44, 0.45),
-    0 2px 6px rgba(122, 40, 28, 0.2);
+  box-shadow: inset 0 0 0 2px var(--paper-0), inset 0 0 0 3px rgba(209, 80, 60, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .btn.big {
@@ -674,8 +677,8 @@ body {
   font-family: var(--kai);
   font-size: 17px;
   padding: 0;
-  box-shadow: inset 0 0 0 3px var(--paper-0), inset 0 0 0 4px rgba(77, 69, 58, 0.3),
-    0 3px 10px rgba(22, 19, 15, 0.3);
+  box-shadow: inset 0 0 0 3px var(--paper-0), inset 0 0 0 4px rgba(190, 202, 210, 0.3),
+    0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* ══ HUD ══════════════════════════════════════════════
@@ -703,11 +706,11 @@ body {
 .gold-row,
 .bossbar,
 .slot {
-  background-color: rgba(238, 228, 205, 0.93);
-  background-image: var(--grain), linear-gradient(160deg, rgba(246, 239, 221, 0.96), rgba(227, 216, 190, 0.96));
+  background-color: rgba(26, 32, 38, 0.93);
+  background-image: var(--grain), linear-gradient(160deg, rgba(35, 42, 49, 0.96), rgba(20, 25, 32, 0.96));
   background-size: 160px 160px, auto;
-  background-blend-mode: multiply, normal;
-  border: 1px solid rgba(77, 69, 58, 0.42);
+  background-blend-mode: screen, normal;
+  border: 1px solid rgba(190, 202, 210, 0.42);
   border-radius: var(--radius);
   box-shadow: var(--lift);
 }
@@ -741,9 +744,12 @@ body {
   place-items: center;
   font-family: var(--kai);
   font-size: 21px;
-  color: var(--paper-0);
-  background: radial-gradient(circle at 36% 28%, #3d362c, #16130f 74%);
-  box-shadow: 0 0 0 1.5px var(--paper-0), 0 0 0 3px var(--seal), 0 2px 7px rgba(22, 19, 15, 0.4);
+  color: var(--on-accent);
+  /* 亮底那一版这里是全篇最深的一块，靠"深"抓眼。暗底上反过来，
+     得靠"浮"——一枚打了光的墨玉牌，外面照旧一道朱砂圈 */
+  background: radial-gradient(circle at 36% 28%, #46515c, #1b222a 76%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 0 1.5px var(--paper-4), 0 0 0 3px var(--seal), 0 2px 8px rgba(0, 0, 0, 0.55);
   flex: none;
 }
 
@@ -782,12 +788,12 @@ body {
   background-color: var(--paper-2);
   background-image: var(--grain);
   background-size: 160px 160px;
-  background-blend-mode: multiply;
-  border: 1px solid rgba(77, 69, 58, 0.5);
+  background-blend-mode: screen;
+  border: 1px solid rgba(190, 202, 210, 0.5);
   border-radius: 1px;
   overflow: hidden;
   margin-bottom: 4px;
-  box-shadow: inset 0 1px 2px rgba(22, 19, 15, 0.14);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.14);
 }
 
 .bar .fill {
@@ -813,16 +819,16 @@ body {
   letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
   color: var(--ink-9);
-  text-shadow: 0 1px 0 rgba(246, 239, 221, 0.6);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
 /* 三色都往笔尖方向渐深，模仿一笔拖过去墨在末端积住 */
 .bar.hp .fill {
-  background: linear-gradient(90deg, rgba(168, 57, 44, 0.46), rgba(168, 57, 44, 0.66) 88%, rgba(120, 34, 25, 0.84));
+  background: linear-gradient(90deg, rgba(150, 56, 44, 0.9), rgba(184, 76, 58, 0.96) 88%, rgba(206, 98, 78, 1));
 }
 
 .bar.mp .fill {
-  background: linear-gradient(90deg, rgba(60, 100, 127, 0.46), rgba(60, 100, 127, 0.66) 88%, rgba(36, 66, 88, 0.84));
+  background: linear-gradient(90deg, rgba(58, 98, 126, 0.9), rgba(94, 140, 170, 0.96) 88%, rgba(124, 170, 198, 1));
 }
 
 /* 经验条里要塞得下一行 10px 的字，所以比血蓝条高一点 */
@@ -831,7 +837,7 @@ body {
 }
 
 .bar.exp .fill {
-  background: linear-gradient(90deg, rgba(169, 123, 38, 0.42), rgba(169, 123, 38, 0.6) 88%, rgba(126, 89, 22, 0.78));
+  background: linear-gradient(90deg, rgba(158, 118, 46, 0.86), rgba(200, 154, 68, 0.95) 88%, rgba(226, 184, 100, 1));
 }
 
 .bar.boss {
@@ -839,7 +845,7 @@ body {
 }
 
 .bar.boss .fill {
-  background: linear-gradient(90deg, rgba(168, 57, 44, 0.42), rgba(168, 57, 44, 0.62) 90%, rgba(110, 30, 22, 0.78));
+  background: linear-gradient(90deg, rgba(168, 48, 34, 0.9), rgba(200, 68, 50, 0.96) 88%, rgba(224, 96, 74, 1));
 }
 
 /* 跟在血蓝条下面自然排。以前用 top 算好的偏移定位，
@@ -859,7 +865,7 @@ body {
   line-height: 1.5;
   padding: 1px 6px;
   border-radius: 1px;
-  background: rgba(246, 239, 221, 0.7);
+  background: rgba(35, 42, 49, 0.7);
   border: 1px solid var(--ink-1);
   color: var(--ink-5);
   white-space: nowrap;
@@ -873,15 +879,15 @@ body {
   margin-left: 3px;
 }
 
-.buff.b-shield { border-color: rgba(60, 100, 127, 0.7); color: #2f5a75; }
-.buff.b-atkUp { border-color: rgba(168, 57, 44, 0.7); color: var(--cinnabar); }
-.buff.b-defUp { border-color: rgba(169, 123, 38, 0.7); color: #8a6318; }
-.buff.b-lifesteal { border-color: rgba(140, 40, 56, 0.7); color: #8c2838; }
-.buff.b-reflect { border-color: rgba(64, 118, 118, 0.7); color: #2f6363; }
+.buff.b-shield { border-color: rgba(111, 163, 196, 0.7); color: #2f5a75; }
+.buff.b-atkUp { border-color: rgba(209, 80, 60, 0.7); color: var(--cinnabar); }
+.buff.b-defUp { border-color: rgba(210, 162, 74, 0.7); color: #8a6318; }
+.buff.b-lifesteal { border-color: rgba(198, 92, 112, 0.7); color: #8c2838; }
+.buff.b-reflect { border-color: rgba(118, 176, 176, 0.7); color: #2f6363; }
 .buff.b-slow,
-.buff.b-stun { border-color: rgba(91, 77, 107, 0.7); color: var(--dai); }
-.buff.b-burn { border-color: rgba(176, 94, 36, 0.7); color: #a1521f; }
-.buff.b-poison { border-color: rgba(106, 126, 54, 0.7); color: #5d6f2c; }
+.buff.b-stun { border-color: rgba(155, 134, 184, 0.7); color: var(--dai); }
+.buff.b-burn { border-color: rgba(224, 146, 78, 0.7); color: #a1521f; }
+.buff.b-poison { border-color: rgba(164, 188, 96, 0.7); color: #5d6f2c; }
 
 /* 地图名 → 小地图 → 按钮 → 灵石 → 任务追踪，一列从上往下。
    用 flex + gap，谁的高度变了下面的自己让位 */
@@ -926,7 +932,7 @@ body {
 #minimap {
   width: 188px;
   height: 142px;
-  border: 1px solid rgba(77, 69, 58, 0.42);
+  border: 1px solid rgba(190, 202, 210, 0.42);
   border-radius: var(--radius);
   background: var(--paper-1);
   box-shadow: var(--lift), inset 0 0 0 2px var(--paper-0);
@@ -1033,8 +1039,8 @@ body {
   padding: 8px 26px 8px 11px;
   font-size: 12px;
   line-height: 1.8;
-  border-left: 2px solid rgba(77, 69, 58, 0.45);
-  background: linear-gradient(95deg, rgba(238, 228, 205, 0.9) 0%, rgba(238, 228, 205, 0.76) 52%, rgba(238, 228, 205, 0) 100%);
+  border-left: 2px solid rgba(190, 202, 210, 0.45);
+  background: linear-gradient(95deg, rgba(26, 32, 38, 0.9) 0%, rgba(26, 32, 38, 0.76) 52%, rgba(26, 32, 38, 0) 100%);
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 26%);
   mask-image: linear-gradient(180deg, transparent, #000 26%);
 }
@@ -1068,7 +1074,7 @@ body {
 
 /* 技能格是一枚木牌／玉简：纸面、墨框，底下一道门派色的墨痕 */
 .slot {
-  --si: color-mix(in srgb, var(--slot-color, #3c647f) 55%, #1c1812);
+  --si: color-mix(in srgb, var(--slot-color, #6fa3c4) 74%, #9fa8ad);
   position: relative;
   width: 56px;
   height: 56px;
@@ -1077,7 +1083,7 @@ body {
   cursor: pointer;
   overflow: hidden;
   padding: 0;
-  box-shadow: inset 0 0 0 2px var(--paper-0), 0 2px 7px rgba(22, 19, 15, 0.32);
+  box-shadow: inset 0 0 0 2px var(--paper-0), 0 2px 7px rgba(0, 0, 0, 0.32);
   transition: border-color 0.16s, transform 0.1s, box-shadow 0.16s;
 }
 
@@ -1093,7 +1099,7 @@ body {
 
 .slot:hover {
   border-color: var(--si);
-  box-shadow: inset 0 0 0 2px var(--paper-0), 0 0 0 1px var(--si), 0 4px 12px rgba(22, 19, 15, 0.36);
+  box-shadow: inset 0 0 0 2px var(--paper-0), 0 0 0 1px var(--si), 0 4px 12px rgba(0, 0, 0, 0.36);
 }
 
 .slot:active {
@@ -1139,7 +1145,7 @@ body {
   position: absolute;
   inset: auto 0 0 0;
   height: 0;
-  background: linear-gradient(180deg, rgba(22, 19, 15, 0.5), rgba(22, 19, 15, 0.74));
+  background: linear-gradient(180deg, rgba(2, 4, 7, 0.72), rgba(2, 4, 7, 0.9));
   pointer-events: none;
 }
 
@@ -1151,15 +1157,15 @@ body {
   font-family: var(--hei);
   font-size: 17px;
   font-weight: 600;
-  color: var(--paper-0);
+  color: var(--on-accent);
   pointer-events: none;
 }
 
 /* 冷却快走完时墨已经退到底下了，数字会落在纸上；
    给它自带一小团墨晕，哪种底色都读得出 */
 .cd-text:not(:empty) {
-  background: radial-gradient(circle closest-side, rgba(22, 19, 15, 0.78), rgba(22, 19, 15, 0.5) 62%, transparent 80%);
-  text-shadow: 0 1px 3px rgba(22, 19, 15, 0.9);
+  background: radial-gradient(circle closest-side, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.5) 62%, transparent 80%);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 /* 单手握持时拇指够得到的地方，所以直接钉在屏幕右下角，
@@ -1181,7 +1187,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 30;
-  background: rgba(20, 17, 13, 0.52);
+  background: rgba(2, 4, 7, 0.52);
   backdrop-filter: blur(4px) saturate(0.7);
   -webkit-backdrop-filter: blur(4px) saturate(0.7);
   display: grid;
@@ -1199,10 +1205,10 @@ body {
   background-image:
     var(--grain),
     var(--fiber),
-    radial-gradient(ellipse 60% 50% at 18% 6%, rgba(176, 152, 104, 0.14), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 18% 6%, rgba(110, 140, 172, 0.07), transparent 70%),
     linear-gradient(162deg, var(--paper-0) 0%, var(--paper-1) 55%, var(--paper-2) 100%);
   background-size: 160px 160px, 300px 300px, auto, auto;
-  background-blend-mode: multiply, multiply, normal, normal;
+  background-blend-mode: screen, screen, normal, normal;
   border: 1px solid var(--ink-5);
   border-radius: var(--radius);
   box-shadow: var(--lift-lg);
@@ -1246,7 +1252,7 @@ body {
   place-items: center;
   writing-mode: vertical-rl;
   background: var(--seal);
-  color: var(--paper-0);
+  color: var(--on-accent);
   font-family: var(--song);
   font-size: 11px;
   line-height: 1.1;
@@ -1288,7 +1294,7 @@ body {
   margin: 20px 0 10px;
   padding-bottom: 8px;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.3C38 2.1 92 4.6 144 2.9 182 1.7 212 3 239 2.9 212 4.5 182 4.1 144 5.1 92 6.6 38 5.9 1 4.3Z' fill='%232b2620' opacity='0.42'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.3C38 2.1 92 4.6 144 2.9 182 1.7 212 3 239 2.9 212 4.5 182 4.1 144 5.1 92 6.6 38 5.9 1 4.3Z' fill='%23c3cbcf' opacity='0.42'/%3E%3C/svg%3E")
     no-repeat bottom left / 100% 7px;
 }
 
@@ -1336,13 +1342,13 @@ body {
 }
 
 .cell {
-  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  --qi: color-mix(in srgb, var(--q, #98a0a5) 74%, #9fa8ad);
   position: relative;
   aspect-ratio: 1;
   border: 1px solid var(--ink-0);
   border-radius: var(--radius);
   background: var(--paper-2);
-  box-shadow: inset 0 1px 3px rgba(22, 19, 15, 0.14);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.14);
   cursor: pointer;
   padding: 3px;
   overflow: hidden;
@@ -1356,9 +1362,9 @@ body {
   background-color: var(--paper-0);
   background-image: var(--grain), linear-gradient(160deg, var(--paper-0), var(--paper-2));
   background-size: 160px 160px, auto;
-  background-blend-mode: multiply, normal;
+  background-blend-mode: screen, normal;
   border-color: color-mix(in srgb, var(--qi) 45%, var(--ink-1));
-  box-shadow: inset 0 0 0 1px rgba(246, 239, 221, 0.7), 0 1px 3px rgba(22, 19, 15, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .cell:not(.empty)::after {
@@ -1373,12 +1379,12 @@ body {
 .cell:not(.empty):hover {
   border-color: var(--qi);
   transform: translateY(-2px);
-  box-shadow: inset 0 0 0 1px rgba(246, 239, 221, 0.7), 0 4px 10px rgba(22, 19, 15, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .cell.sel {
   border-color: var(--seal);
-  box-shadow: 0 0 0 1.5px var(--seal), inset 0 0 0 1px rgba(246, 239, 221, 0.7);
+  box-shadow: 0 0 0 1.5px var(--seal), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .cell-name {
@@ -1399,12 +1405,13 @@ body {
   min-width: 15px;
   padding: 0 3px;
   border-radius: 1px;
-  background: var(--ink-7);
+  background: rgba(6, 9, 13, 0.9);
+  border: 1px solid var(--ink-1);
   font-family: var(--hei);
   font-size: 9.5px;
   line-height: 14px;
   text-align: center;
-  color: var(--paper-0);
+  color: var(--ink-9);
 }
 
 .bag-foot {
@@ -1423,7 +1430,7 @@ body {
 /* ── 物品卡 ─────────────────────────────────────────────
    左边一道品质色的粗笔，像装裱的包边 */
 .item-card {
-  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  --qi: color-mix(in srgb, var(--q, #98a0a5) 74%, #9fa8ad);
   position: relative;
   border: 1px solid var(--ink-0);
   border-left: 4px solid var(--qi);
@@ -1431,7 +1438,7 @@ body {
   background-color: var(--paper-0);
   background-image: var(--grain), linear-gradient(160deg, var(--paper-0), var(--paper-2));
   background-size: 160px 160px, auto;
-  background-blend-mode: multiply, normal;
+  background-blend-mode: screen, normal;
   padding: 13px 15px;
 }
 
@@ -1442,7 +1449,7 @@ body {
 }
 
 .ic-name {
-  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  --qi: color-mix(in srgb, var(--q, #98a0a5) 74%, #9fa8ad);
   font-family: var(--kai);
   font-size: 20px;
   letter-spacing: 0.1em;
@@ -1517,7 +1524,7 @@ body {
   text-align: center;
   padding-bottom: 16px;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.3C38 2.1 92 4.6 144 2.9 182 1.7 212 3 239 2.9 212 4.5 182 4.1 144 5.1 92 6.6 38 5.9 1 4.3Z' fill='%232b2620' opacity='0.42'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='7' preserveAspectRatio='none'%3E%3Cpath d='M1 4.3C38 2.1 92 4.6 144 2.9 182 1.7 212 3 239 2.9 212 4.5 182 4.1 144 5.1 92 6.6 38 5.9 1 4.3Z' fill='%23c3cbcf' opacity='0.42'/%3E%3C/svg%3E")
     no-repeat bottom center / min(300px, 70%) 7px;
 }
 
@@ -1530,7 +1537,7 @@ body {
 }
 
 .ct-sect {
-  --ci: color-mix(in srgb, var(--c, #3c647f) 52%, #1c1812);
+  --ci: color-mix(in srgb, var(--c, #6fa3c4) 74%, #9fa8ad);
   font-family: var(--song);
   font-size: 13px;
   letter-spacing: 0.14em;
@@ -1553,12 +1560,12 @@ body {
 }
 
 .eq-cell {
-  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  --qi: color-mix(in srgb, var(--q, #98a0a5) 74%, #9fa8ad);
   border: 1px solid var(--ink-0);
   border-left: 3px solid var(--qi);
   border-radius: var(--radius);
   padding: 7px 11px;
-  background: rgba(246, 239, 221, 0.55);
+  background: rgba(35, 42, 49, 0.55);
   cursor: pointer;
   transition: background 0.14s, border-color 0.14s;
 }
@@ -1567,7 +1574,7 @@ body {
   --qi: var(--ink-0);
   cursor: default;
   background: var(--paper-2);
-  box-shadow: inset 0 1px 3px rgba(22, 19, 15, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .eq-cell.empty .eq-item {
@@ -1652,12 +1659,12 @@ body {
 }
 
 .skill-row {
-  --ci: color-mix(in srgb, var(--c, #3c647f) 52%, #1c1812);
+  --ci: color-mix(in srgb, var(--c, #6fa3c4) 74%, #9fa8ad);
   border: 1px solid var(--ink-0);
   border-left: 3px solid var(--ci);
   border-radius: var(--radius);
   padding: 10px 13px;
-  background: rgba(246, 239, 221, 0.55);
+  background: rgba(35, 42, 49, 0.55);
 }
 
 .skill-row.locked {
@@ -1711,7 +1718,7 @@ body {
   background-color: var(--paper-0);
   background-image: var(--grain), linear-gradient(160deg, var(--paper-0), var(--paper-2));
   background-size: 160px 160px, auto;
-  background-blend-mode: multiply, normal;
+  background-blend-mode: screen, normal;
 }
 
 .quest-card::after {
@@ -1724,7 +1731,7 @@ body {
   display: grid;
   place-items: center;
   background: var(--seal);
-  color: var(--paper-0);
+  color: var(--on-accent);
   font-family: var(--song);
   font-size: 15px;
   line-height: 1;
@@ -1824,7 +1831,7 @@ body {
 }
 
 .map-row:not(.locked):not(.here):hover {
-  background: rgba(246, 239, 221, 0.85);
+  background: rgba(35, 42, 49, 0.85);
   border-color: var(--ink-1);
   padding-left: 17px;
 }
@@ -1837,14 +1844,14 @@ body {
 /* 当前所在：左边一道朱笔，跟"能去的地方"分开 */
 .map-row.here {
   border-left: 3px solid var(--seal);
-  background: rgba(180, 55, 42, 0.07);
+  background: rgba(184, 64, 47, 0.16);
   cursor: default;
 }
 
 /* 任务该去的地方：藤黄底，扫一眼就找得到 */
 .map-row.quest {
   border-left: 3px solid var(--gamboge);
-  background: linear-gradient(90deg, rgba(169, 123, 38, 0.14), rgba(169, 123, 38, 0.02));
+  background: linear-gradient(90deg, rgba(210, 162, 74, 0.18), rgba(210, 162, 74, 0.03));
 }
 
 .map-row.quest.locked {
@@ -1862,7 +1869,8 @@ body {
   border-radius: 1px;
   letter-spacing: 0.08em;
   white-space: nowrap;
-  color: var(--paper-0);
+  /* 藤黄和石绿在暗底上本来就亮，压暗字才读得出 */
+  color: var(--on-bright);
 }
 
 .mk-hunt {
@@ -1922,14 +1930,14 @@ body {
 }
 
 .shop-row {
-  --qi: color-mix(in srgb, var(--q, #7d7364) 56%, #1c1812);
+  --qi: color-mix(in srgb, var(--q, #98a0a5) 74%, #9fa8ad);
   display: flex;
   align-items: baseline;
   gap: 10px;
   padding: 8px 11px;
   border-left: 3px solid var(--qi);
   border-bottom: 1px solid var(--rule-soft);
-  background: rgba(246, 239, 221, 0.45);
+  background: rgba(35, 42, 49, 0.45);
 }
 
 .s-name {
@@ -1975,7 +1983,7 @@ body {
   color: var(--ink-3);
   padding: 0 11px 8px 14px;
   margin-top: -1px;
-  background: rgba(246, 239, 221, 0.45);
+  background: rgba(35, 42, 49, 0.45);
 }
 
 /* ── 菜单 ───────────────────────────────────────────────*/
@@ -2074,7 +2082,7 @@ body {
   margin-top: 12px;
   padding: 10px 12px;
   border-radius: var(--radius);
-  background: rgba(169, 123, 38, 0.1);
+  background: rgba(210, 162, 74, 0.13);
   border-left: 3px solid var(--gamboge);
   font-size: 12.5px;
 }
@@ -2118,7 +2126,7 @@ body {
   display: grid;
   place-items: center;
   padding: 16px;
-  background: rgba(20, 17, 13, 0.5);
+  background: rgba(2, 4, 7, 0.5);
   backdrop-filter: blur(4px) saturate(0.7);
   -webkit-backdrop-filter: blur(4px) saturate(0.7);
 }
@@ -2132,7 +2140,7 @@ body {
   background-color: var(--paper-1);
   background-image: var(--grain), linear-gradient(162deg, var(--paper-0), var(--paper-2));
   background-size: 160px 160px, auto;
-  background-blend-mode: multiply, normal;
+  background-blend-mode: screen, normal;
   border: 1px solid var(--ink-5);
   border-radius: var(--radius);
   box-shadow: var(--lift-lg);
@@ -2150,7 +2158,7 @@ body {
 /* 卖出确认：整张纸改用朱砂框，一眼看出"这一步不一样" */
 .ip-confirm {
   border-color: var(--seal);
-  box-shadow: 0 0 0 1px rgba(180, 55, 42, 0.35), var(--lift-lg);
+  box-shadow: 0 0 0 1px rgba(184, 64, 47, 0.35), var(--lift-lg);
 }
 
 .cf-q {
@@ -2163,8 +2171,8 @@ body {
 
 .cf-warn {
   font-size: 12.5px;
-  color: #93551a;
-  background: rgba(169, 123, 38, 0.14);
+  color: #e2ac5c;
+  background: rgba(210, 162, 74, 0.13);
   border-left: 3px solid var(--gamboge);
   padding: 6px 10px;
   border-radius: var(--radius);
@@ -2207,8 +2215,8 @@ body {
   font-size: clamp(28px, 6.6vw, 46px);
   letter-spacing: 0.3em;
   text-indent: 0.3em;
-  color: var(--paper-0);
-  text-shadow: 0 2px 18px rgba(22, 19, 15, 0.95), 0 0 48px rgba(22, 19, 15, 0.85);
+  color: var(--on-accent);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95), 0 0 48px rgba(0, 0, 0, 0.85);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2221,7 +2229,7 @@ body {
   position: absolute;
   inset: -90% -26%;
   z-index: -1;
-  background: radial-gradient(ellipse at center, rgba(22, 19, 15, 0.66) 0%, rgba(22, 19, 15, 0.34) 48%, transparent 72%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0.34) 48%, transparent 72%);
   -webkit-mask-image: var(--cloud);
   mask-image: var(--cloud);
   -webkit-mask-size: 600px 600px;
@@ -2344,12 +2352,13 @@ body {
     min-height: 88px;
   }
 
-  /* 窄屏上题头占满整个上半张纸，月亮挤在朱印旁边会打架，
-     所以把它挪到山头那一带去 */
+  /* 窄屏上题头占满上半幅，右边全是题字和朱印，月亮放哪儿都打架；
+     左上角那块是空的，挪过去，顺便收小 */
   .ink-moon {
-    top: 30%;
-    right: 6%;
-    width: clamp(64px, 20vw, 96px);
+    top: 4%;
+    left: 6%;
+    right: auto;
+    width: clamp(56px, 16vw, 84px);
   }
 }
 
