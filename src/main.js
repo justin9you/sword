@@ -546,6 +546,7 @@
     // 自身状态
     if (p.hurtIframe > 0) p.hurtIframe -= dt;
     if (p.attackCd > 0) p.attackCd -= dt;
+    if (p.swingMs > 0) p.swingMs -= dt;
     if (game.inCombat > 0) game.inCombat -= dt;
 
     var tick = C.tickBuffs(p, dt, function (amount) {

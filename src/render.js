@@ -272,6 +272,24 @@
         ctx.beginPath();
         ctx.arc(0, -8, v.r * (0.4 + k * 0.8), 0, Math.PI * 2);
         ctx.stroke();
+      } else if (v.kind === 'impact') {
+        // 命中的一瞬：一圈迅速扩开的白环 + 四射的短线
+        ctx.globalAlpha = (1 - k) * 0.9;
+        ctx.strokeStyle = v.color || '#ffffff';
+        ctx.lineWidth = 3 * (1 - k) + 0.8;
+        ctx.beginPath();
+        ctx.arc(0, 0, v.r * (0.3 + k * 0.9), 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        for (var n = 0; n < 5; n++) {
+          var na = (n / 5) * Math.PI * 2 + v.r;      // 用半径当相位，每次角度不同
+          var r0 = v.r * (0.4 + k * 0.7);
+          var r1 = r0 + v.r * 0.45 * (1 - k);
+          ctx.moveTo(Math.cos(na) * r0, Math.sin(na) * r0);
+          ctx.lineTo(Math.cos(na) * r1, Math.sin(na) * r1);
+        }
+        ctx.stroke();
       } else if (v.kind === 'spark') {
         ctx.globalAlpha = 1 - k;
         ctx.fillStyle = v.color || '#ffffff';

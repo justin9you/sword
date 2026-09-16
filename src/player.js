@@ -54,6 +54,7 @@
       // 运行时的战斗状态，不入存档
       attackCd: 0,
       hurtIframe: 0,
+      swingMs: 0,      // 挥砍动作剩余时长，由 art-actors 画成出手姿势
       idleMs: 0,
       dead: false,
     };

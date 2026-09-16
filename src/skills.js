@@ -43,6 +43,14 @@
     var real = W.hurtMonster(game.world, m, res.amount, game.hooks);
     game.hooks.floater(m.x, m.y - m.def.radius - 8, real, res.crit ? 'crit' : 'hit');
 
+    // 命中点炸一下。伤害数字说的是"扣了多少"，火花说的是"这一下打上了"——
+    // 两者缺一个，打击感就差一截
+    visual(game, {
+      kind: 'impact', x: m.x, y: m.y, r: res.crit ? 26 : 17,
+      ms: res.crit ? 260 : 180,
+      color: res.crit ? '#ffd24a' : '#ffffff',
+    });
+
     // 吸血：技能自带的 + 装备/增益的，取和
     var steal = (opt.lifesteal || 0) + s.lifesteal;
     if (steal > 0 && !p.dead) {
@@ -99,6 +107,9 @@
       return U.dist2(p.x, p.y, a.x, a.y) - U.dist2(p.x, p.y, b.x, b.y);
     });
     hits = hits.slice(0, 3);
+
+    // 让人物做出挥砍动作。多段技能（幽姬双刃）也只播一次，不然会抽搐
+    p.swingMs = ZX.CONFIG.SWING_MS;
 
     var times = opt.hits || 1;
     for (var t = 0; t < times; t++) {

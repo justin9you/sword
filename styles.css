@@ -361,11 +361,19 @@ body {
   pointer-events: auto;
 }
 
+/* 左上角一整列：身份行（头像+血蓝）在上，功能按钮在下 */
 .hud-left {
   position: absolute;
   top: calc(max(10px, env(safe-area-inset-top)) + var(--boss-offset, 0px));
   left: max(10px, env(safe-area-inset-left));
   transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.hud-id {
   display: flex;
   gap: 10px;
   align-items: flex-start;
@@ -545,11 +553,24 @@ body {
   margin-left: auto;
 }
 
+/* 两列网格。原先是右边小地图下面挤着一排 tiny 按钮，
+   点击区才 20px 高，手指根本点不准——这里按 44px 的最小触摸尺寸来 */
 .hud-btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  width: 152px;
+}
+
+.hud-btns .btn {
+  padding: 10px 4px;
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  background: rgba(16, 22, 34, 0.82);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 .gold-row {
@@ -1577,9 +1598,13 @@ body {
     height: 100px;
   }
 
+  .hud-btns {
+    width: 138px;
+  }
+
   .hud-btns .btn {
-    padding: 3px 6px;
-    font-size: 10.5px;
+    padding: 9px 3px;
+    font-size: 13px;
   }
 
   .slot {

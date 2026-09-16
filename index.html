@@ -49,14 +49,27 @@
 
   <!-- 左上：身份与血蓝 -->
   <div class="hud-left">
-    <div class="portrait">
-      <span id="lvl">1</span>
+    <div class="hud-id">
+      <div class="portrait">
+        <span id="lvl">1</span>
+      </div>
+      <div class="vitals">
+        <div class="who"><b id="pname">无名</b><i id="psect">青云门</i></div>
+        <div class="bar hp"><span id="hp-fill" class="fill"></span><em id="hp-text"></em></div>
+        <div class="bar mp"><span id="mp-fill" class="fill"></span><em id="mp-text"></em></div>
+        <div id="buffs" class="buffs"></div>
+      </div>
     </div>
-    <div class="vitals">
-      <div class="who"><b id="pname">无名</b><i id="psect">青云门</i></div>
-      <div class="bar hp"><span id="hp-fill" class="fill"></span><em id="hp-text"></em></div>
-      <div class="bar mp"><span id="mp-fill" class="fill"></span><em id="mp-text"></em></div>
-      <div id="buffs" class="buffs"></div>
+
+    <!-- 按钮挪到左边并放大：右边原先挤在小地图下面，一排两三个 tiny 按钮，
+         手指根本点不准。左边这块除了血条本来就是空的 -->
+    <div class="hud-btns">
+      <button class="btn" data-action="bag">背包</button>
+      <button class="btn" data-action="char">角色</button>
+      <button class="btn" data-action="skills">技能</button>
+      <button class="btn" data-action="quest">任务</button>
+      <button class="btn" data-action="map">山河</button>
+      <button class="btn" data-action="menu">菜单</button>
     </div>
   </div>
 
@@ -67,14 +80,6 @@
       <div id="map-sub"></div>
     </div>
     <canvas id="minimap" width="180" height="140"></canvas>
-    <div class="hud-btns">
-      <button class="btn tiny" data-action="bag">背包 B</button>
-      <button class="btn tiny" data-action="char">角色 C</button>
-      <button class="btn tiny" data-action="skills">技能 K</button>
-      <button class="btn tiny" data-action="quest">任务 L</button>
-      <button class="btn tiny" data-action="map">山河 M</button>
-      <button class="btn tiny" data-action="menu">菜单</button>
-    </div>
     <div class="gold-row">灵石 <b id="gold">0</b></div>
 
     <!-- 任务追踪跟在小地图这一列里，让它随上面的内容自然下移，

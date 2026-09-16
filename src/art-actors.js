@@ -13,6 +13,19 @@
 
   var INK = '#12141a';
 
+  var SWING_MS = ZX.CONFIG.SWING_MS;
+
+  /**
+   * 挥砍的时间曲线：0→1。
+   * 前 30% 慢（抬手蓄势），中间猛地抡过去，末尾稍微回一点。
+   * 匀速转过去会像在搅拌，没有"砍"的感觉。
+   */
+  function swingLean(k) {
+    if (k < 0.3) return (k / 0.3) * 0.18;                 // 抬手
+    if (k < 0.55) return 0.18 + ((k - 0.3) / 0.25) * 0.92; // 劈下
+    return 1.1 - ((k - 0.55) / 0.45) * 0.28;              // 收势
+  }
+
   function ink(ctx, w) {
     ctx.strokeStyle = INK;
     ctx.lineWidth = w || 2;
@@ -41,11 +54,22 @@
     var bob = moving ? Math.sin(t / 110) * 2 : Math.sin(t / 520) * 0.8;
     var flip = p.facing.x < -0.2 ? -1 : 1;
 
+    // 出手进度 0→1。前三成是抬手蓄势，后面是抡下去，收尾回位。
+    // 只画一道剑气弧线、人却站着不动的话，打击感是空的
+    var k = p.swingMs > 0 ? 1 - p.swingMs / SWING_MS : -1;
+
     ctx.save();
     ctx.translate(p.x, p.y);
     A.shadow(ctx, 0, 6, 13, 5);
     ctx.scale(flip, 1);
     ctx.translate(0, bob);
+
+    // 挥砍时整个人朝出手方向前倾、并往前送一点
+    if (k >= 0) {
+      var lunge = Math.sin(Math.min(1, k * 1.6) * Math.PI) * 5;
+      ctx.translate(lunge, 0);
+      ctx.rotate(swingLean(k) * 0.16);
+    }
 
     // 腿
     var swing = moving ? Math.sin(t / 100) * 4 : 0;
@@ -89,17 +113,18 @@
 
     // 兵器：按装备的槽位类型换个形状，让换装看得出来
     var weapon = ZX.ITEMS.byId(p.equip.weapon);
-    drawWeapon(ctx, weapon, sect.color);
+    drawWeapon(ctx, weapon, sect.color, k);
 
     ctx.restore();
   }
 
-  function drawWeapon(ctx, weapon, color) {
+  function drawWeapon(ctx, weapon, color, k) {
     if (!weapon) return;
     var q = ZX.QUALITY[weapon.q].color;
     ctx.save();
     ctx.translate(10, -10);
-    ctx.rotate(-0.35);
+    // 静止时斜握；出手时从后举一路抡到身前
+    ctx.rotate(k >= 0 ? -1.15 + swingLean(k) * 2.2 : -0.35);
 
     var n = weapon.name;
     if (n.indexOf('棍') >= 0 || n.indexOf('杖') >= 0 || n.indexOf('杵') >= 0 || n.indexOf('棒') >= 0) {
