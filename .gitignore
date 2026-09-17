@@ -20,19 +20,5 @@ desktop.ini
 *.log
 npm-debug.log*
 
-# C# 校验工程的编译产物（npm run verify:unity 随时重建）
-tools/unity/verify/bin/
-tools/unity/verify/obj/
-
 # C# 工程的编译产物（dotnet build 随时重建）
-csharp/**/bin/
-csharp/**/obj/
-tools/godot/verify/bin/
-tools/godot/verify/obj/
 
-# Godot 工程的本地产物：导入缓存、编译输出、编辑器状态
-godot/.godot/
-godot/bin/
-godot/obj/
-godot/.mono/
-godot/*.sln

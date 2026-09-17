@@ -1,0 +1,10 @@
+F:\私人\legend\tools\unity\verify\bin\Debug\netstandard2.1\ZxVerify.deps.json
+F:\私人\legend\tools\unity\verify\bin\Debug\netstandard2.1\ZxVerify.dll
+F:\私人\legend\tools\unity\verify\bin\Debug\netstandard2.1\ZxVerify.pdb
+F:\私人\legend\tools\unity\verify\obj\Debug\netstandard2.1\ZxVerify.GeneratedMSBuildEditorConfig.editorconfig
+F:\私人\legend\tools\unity\verify\obj\Debug\netstandard2.1\ZxVerify.AssemblyInfoInputs.cache
+F:\私人\legend\tools\unity\verify\obj\Debug\netstandard2.1\ZxVerify.AssemblyInfo.cs
+F:\私人\legend\tools\unity\verify\obj\Debug\netstandard2.1\ZxVerify.csproj.CoreCompileInputs.cache
+F:\私人\legend\tools\unity\verify\obj\Debug\netstandard2.1\ZxVerify.dll
+F:\私人\legend\tools\unity\verify\obj\Debug\netstandard2.1\ZxVerify.pdb
+F:\私人\legend\tools\unity\verify\obj\Debug\netstandard2.1\ZxVerify.sourcelink.json

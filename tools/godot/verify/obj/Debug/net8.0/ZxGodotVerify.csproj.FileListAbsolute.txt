@@ -1,0 +1,12 @@
+F:\私人\legend\tools\godot\verify\bin\Debug\net8.0\ZxGodotVerify.deps.json
+F:\私人\legend\tools\godot\verify\bin\Debug\net8.0\ZxGodotVerify.dll
+F:\私人\legend\tools\godot\verify\bin\Debug\net8.0\ZxGodotVerify.pdb
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ZxGodotVerify.GeneratedMSBuildEditorConfig.editorconfig
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ZxGodotVerify.AssemblyInfoInputs.cache
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ZxGodotVerify.AssemblyInfo.cs
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ZxGodotVerify.csproj.CoreCompileInputs.cache
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ZxGodotVerify.sourcelink.json
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ZxGodotVerify.dll
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\refint\ZxGodotVerify.dll
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ZxGodotVerify.pdb
+F:\私人\legend\tools\godot\verify\obj\Debug\net8.0\ref\ZxGodotVerify.dll

@@ -10,16 +10,7 @@
     "test:browser": "node tools/test-browser.mjs",
     "stamp": "node tools/stamp-sw.mjs",
     "icons": "node tools/gen-icons.mjs",
-    "pack": "node tools/stamp-sw.mjs && node tools/pack.mjs",
-    "export:data": "node tools/export-gamedata.mjs",
-    "test:data": "node tools/test-codegen.mjs && node tools/export-gamedata.mjs --check",
-    "gen:fixtures": "node tools/gen-fixtures.mjs",
-    "test:core": "dotnet run --project csharp/Zhuxian.Tests --nologo -v q",
-    "verify:unity": "dotnet build tools/unity/verify/ZxVerify.csproj --nologo -v q",
-    "verify:godot": "dotnet build tools/godot/verify/ZxGodotVerify.csproj --nologo -v q",
-    "smoke:godot": "node tools/smoke-godot.mjs",
-    "check:godot3d": "node tools/check-godot3d.mjs",
-    "play:godot": "node tools/play-godot.mjs"
+    "pack": "node tools/stamp-sw.mjs && node tools/pack.mjs"
   },
   "engines": {
     "node": ">=18"
