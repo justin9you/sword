@@ -263,7 +263,8 @@ namespace Zhuxian.Core
         {
             var out_ = new List<ZxItem>();
             var def = m.def;
-            var luck = def.isBoss ? 4.0 : def.isElite ? 2.0 : 1.0;
+            // 和 world.js 保持一致：首领 7、精英 2.4
+            var luck = def.isBoss ? 7.0 : def.isElite ? 2.4 : 1.0;
             var cfg = data.Config;
 
             // 装备
@@ -425,8 +426,12 @@ namespace Zhuxian.Core
                 return;
             }
 
+            // 和平地图：野怪不会因为你走近就扑上来。
+            // 只关掉"因距离进入 chase"这一条——被打之后 HurtMonster 照样把它拨到 chase。
+            // 首领在哪张图都照常扑。和 world.js 的 peaceful 一致。
+            var peaceful = Def.passive && !def.isBoss;
             var aggro = def.isBoss ? cfg.AGGRO_RANGE * 1.6 : cfg.AGGRO_RANGE;
-            if (distToPlayer < aggro) m.state = "chase";
+            if (!peaceful && distToPlayer < aggro) m.state = "chase";
             else if (m.state == "chase" && distToPlayer > aggro * 1.6) m.state = "idle";
 
             if (m.state == "idle")

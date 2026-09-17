@@ -6,7 +6,7 @@
  * 不要手改。改完代码跑 npm run stamp（npm test 会校验它有没有过期）。
  */
 const PREFIX = 'zx-';
-const VERSION = PREFIX + 'vf908ce8b2a';
+const VERSION = PREFIX + 'veaf2ee0cf8';
 
 /** 少一个都跑不起来的：必须全部缓存成功，否则整次安装作废 */
 const CORE = [

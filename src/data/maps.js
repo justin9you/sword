@@ -7,15 +7,33 @@
  *         所以每次进同一张图，树和石头都长在同一个地方。
  * spawns  刷怪表：怪物 id + 权重 + 这张图同时存活多少只。
  * boss    首领只有一只，死后按 bossRespawnMs 重生。
+ * passive 这张图的野怪不主动扑人——你不打它，它就只在原地溜达。
+ *         打了照样还手、照样追，只是"不惹它就没事"。
+ *         只给开局那几张图用，让新人有地方慢慢摸操作。首领不受影响。
  */
 (function (global) {
   'use strict';
 
   var ZX = global.ZX;
 
+  /**
+   * 地图放大倍数（线性）。1.5 就是长宽各一倍半、面积两倍出头。
+   * 下面手写的坐标全是按原始小尺寸写的，注册时统一乘上去——
+   * 这样数据还是好读好改，想再放大也只动这一个数。
+   */
+  var SCALE = 1.5;
+
+  /**
+   * 刷怪密度倍数。面积涨了 2.25 倍，怪按 2.4 倍加，
+   * 所以单位面积上的怪比以前还密一点点，而不是"图大了反而更空"。
+   */
+  var DENSITY = 2.4;
+
   var MAPS = [
     {
       key: 'caomiao',
+      // 开局三张图：野怪不主动扑人，新人有地方慢慢摸操作（首领照常）
+      passive: true,
       name: '草庙村',
       sub: '一切开始的地方',
       lv: [1, 5],
@@ -38,6 +56,8 @@
     },
     {
       key: 'longshou',
+      // 开局三张图：野怪不主动扑人，新人有地方慢慢摸操作（首领照常）
+      passive: true,
       name: '青云山·龙首峰',
       sub: '七十二盘山道，云在脚下',
       lv: [5, 9],
@@ -60,6 +80,8 @@
     },
     {
       key: 'dazhu',
+      // 开局三张图：野怪不主动扑人，新人有地方慢慢摸操作（首领照常）
+      passive: true,
       name: '大竹峰',
       sub: '七脉之末，烧火十年',
       lv: [9, 14],
@@ -281,9 +303,43 @@
     },
   ];
 
+  /** 位置类坐标统一乘 SCALE，留一位小数够用了 */
+  function spread(v) {
+    return Math.round(v * SCALE * 10) / 10;
+  }
+
   var byKey = {};
   for (var i = 0; i < MAPS.length; i++) {
     var m = MAPS[i];
+    var j;
+
+    m.w = Math.round(m.w * SCALE);
+    m.h = Math.round(m.h * SCALE);
+    m.start = { x: spread(m.start.x), y: spread(m.start.y) };
+
+    // 障碍只挪位置、不放大尺寸：撑开的是空地，房子还是原来那么大
+    for (j = 0; j < m.blocks.length; j++) {
+      m.blocks[j].x = spread(m.blocks[j].x);
+      m.blocks[j].y = spread(m.blocks[j].y);
+    }
+    if (m.boss) {
+      m.boss.x = spread(m.boss.x);
+      m.boss.y = spread(m.boss.y);
+    }
+    for (j = 0; j < (m.portals || []).length; j++) {
+      m.portals[j].x = spread(m.portals[j].x);
+      m.portals[j].y = spread(m.portals[j].y);
+    }
+
+    // 装饰按面积补，不然地一大就显得荒
+    for (var k in m.decor) {
+      if (!Object.prototype.hasOwnProperty.call(m.decor, k)) continue;
+      m.decor[k] = Math.round(m.decor[k] * SCALE * SCALE);
+    }
+
+    // 河阳城是安全区，count 本来就是 0，乘多少还是 0——这里不用特判
+    m.count = Math.round(m.count * DENSITY);
+
     m.index = i;
     m.bossRespawnMs = 60000;
     byKey[m.key] = m;
@@ -291,6 +347,8 @@
 
   ZX.MAPS = {
     all: MAPS,
+    /** 给 npcs.js 用：NPC 坐标和地图是同一套格子，必须按同一个倍数铺开 */
+    SCALE: SCALE,
     byKey: function (k) {
       return ZX.U.own(byKey, k) || MAPS[0];
     },

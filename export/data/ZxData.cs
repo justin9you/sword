@@ -93,14 +93,17 @@ namespace Zhuxian.Data
     public bool isElite;
     public int atkMs;
     public int attackRange;
+    public string feat;
     public string title;
     public string say;
+    public int tails;
   }
 
   [Serializable]
   public class ZxMap
   {
     public string key;
+    public bool passive;
     public string name;
     public string sub;
     public int lvMin;
@@ -125,14 +128,14 @@ namespace Zhuxian.Data
   public class ZxMapStart
   {
     public int x;
-    public int y;
+    public double y;
   }
 
   [Serializable]
   public class ZxMapBlock
   {
-    public int x;
-    public int y;
+    public double x;
+    public double y;
     public int w;
     public int h;
   }
@@ -155,8 +158,8 @@ namespace Zhuxian.Data
   public class ZxMapBoss
   {
     public string id;
-    public int x;
-    public int y;
+    public double x;
+    public double y;
     public bool present;
   }
 
@@ -164,8 +167,8 @@ namespace Zhuxian.Data
   public class ZxMapPortal
   {
     public string to;
-    public int x;
-    public int y;
+    public double x;
+    public double y;
   }
 
   [Serializable]
@@ -175,8 +178,8 @@ namespace Zhuxian.Data
     public string name;
     public string title;
     public string map;
-    public int x;
-    public int y;
+    public double x;
+    public double y;
     public string color;
     public string[] lines;
     public string[] stock;
@@ -291,6 +294,9 @@ namespace Zhuxian.Data
   {
     public int TILE;
     public int MAX_DT;
+    public int FPS_CAP_TOUCH;
+    public double MAX_DPR_TOUCH;
+    public int MAX_DPR_DESKTOP;
     public int MAX_LEVEL;
     public int MOVE_SPEED;
     public int MELEE_RANGE;

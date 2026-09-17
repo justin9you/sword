@@ -129,6 +129,26 @@ namespace Zhuxian.Core
         }
 
         /// <summary>
+        /// luck 对各品质的作用力度。品质越高指数越大，凡品用负指数压下去。
+        ///
+        /// 原来除凡品外一律线性放大，等于好的坏的一起变多，
+        /// 掉落里各档的相对比例一点没动——首领打完还是一堆凡品。
+        /// 必须和 items.js 里的 LUCK_POW 一字不差，否则两边掉落会分叉。
+        /// </summary>
+        static double LuckPow(string q)
+        {
+            switch (q)
+            {
+                case "common": return -0.9;
+                case "fine": return 0.3;
+                case "rare": return 0.9;
+                case "epic": return 1.35;
+                case "legend": return 1.7;
+                default: return 0;
+            }
+        }
+
+        /// <summary>
         /// 掉落用：在 [level-7, level+2] 这个窗口里挑一件装备。
         /// 越靠近玩家等级越容易出；本门派专属的权重更高，免得刷一堆用不了的。
         /// luck 来自精英 / 首领，抬高好东西的权重。
@@ -144,13 +164,12 @@ namespace Zhuxian.Core
                 if (it.lv > level + 2 || it.lv < level - 7) continue;
                 if (!string.IsNullOrEmpty(it.sect) && it.sect != sectKey) continue;
 
-                var w = QualityWeight(it.q);
+                // luck 为 0 时取 1，和 JS 的 Math.pow(luck || 1, pow) 对齐
+                var w = QualityWeight(it.q) * Math.Pow(luck != 0 ? luck : 1.0, LuckPow(it.q));
                 var sectBonus = !string.IsNullOrEmpty(it.sect) ? 1.8 : 1.0;
-                // luck 为 0 时 JS 那边整个因子跳过（`luck ? ... : 1`），不是按 0 算
-                var luckFactor = luck != 0 ? Math.Pow(luck, it.q == "common" ? -0.5 : 1) : 1.0;
 
                 pool.Add(it);
-                weights.Add(w * sectBonus * luckFactor);
+                weights.Add(w * sectBonus);
             }
 
             if (pool.Count == 0) return null;

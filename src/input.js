@@ -91,8 +91,14 @@
         var t = e.changedTouches[i];
         var x = t.clientX - r.left;
         var y = t.clientY - r.top;
-        // 左半屏 = 摇杆；右半屏留给 UI 的技能按钮（那些是 DOM，不会走到这里）
-        if (x < r.width * 0.5 && !self.stick) {
+        // 整块画面都能出摇杆，不再只认左半屏。
+        //
+        // 原来限死 x < 半屏，结果是手指落在屏幕中线偏右就完全没反应，
+        // 而中间恰恰是拇指最自然的落点。右半屏本来也不需要留白：
+        // 技能格和 E／药 都是 DOM 按钮，浮在画布之上、自己吃掉触摸，
+        // 根本走不到这个监听器里来；HUD 其余部分是 pointer-events: none，
+        // 触摸会直接穿透过来——所以整屏可用是安全的。
+        if (!self.stick) {
           self.stick = { id: t.identifier, ox: x, oy: y, x: x, y: y };
           e.preventDefault();
         }

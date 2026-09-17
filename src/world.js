@@ -207,7 +207,9 @@
   function rollLoot(w, m, player) {
     var out = [];
     var def = m.def;
-    var luck = def.isBoss ? 4 : def.isElite ? 2 : 1;
+    // luck 进 rollGear 决定品质曲线，不只是"多掉几件"。
+    // Boss 给到 7，好东西的权重才真正压得过凡品（见 items.js 的 LUCK_POW）
+    var luck = def.isBoss ? 7 : def.isElite ? 2.4 : 1;
 
     // 装备
     var tries = def.isBoss ? CFG.BOSS_DROPS : 1;
@@ -346,8 +348,12 @@
       return;
     }
 
+    // 和平地图：野怪不会因为你走近就扑上来。
+    // 注意只关掉"因距离进入 chase"这一条——被打之后 hurtMonster 照样把它拨到 chase，
+    // 所以它不是木头人，只是不主动惹事。首领在哪张图都照常扑。
+    var peaceful = w.def.passive && !def.isBoss;
     var aggro = def.isBoss ? CFG.AGGRO_RANGE * 1.6 : CFG.AGGRO_RANGE;
-    if (distToPlayer < aggro) m.state = 'chase';
+    if (!peaceful && distToPlayer < aggro) m.state = 'chase';
     else if (m.state === 'chase' && distToPlayer > aggro * 1.6) m.state = 'idle';
 
     if (m.state === 'idle') {

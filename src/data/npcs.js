@@ -1,6 +1,9 @@
 /**
  * NPC。坐标单位是「格」，和 maps.js 一致。
  *
+ * 坐标和 maps.js 是同一套格子，所以也要跟着 ZX.MAPS.SCALE 一起铺开——
+ * 漏掉这一步的话，地图放大后所有 NPC 会缩在左上角一堆。
+ *
  * lines  是没有任务可交互时的闲聊，随机说一句。
  * shop   为真时对话框里多一个「买卖」页签，货单由 stock 决定（物品 id 列表）。
  * heal   为真时对话就回满气血灵力（城里的客栈作用）。
@@ -55,7 +58,12 @@
     {
       key: 'songdaren', name: '宋大仁', title: '大竹峰大弟子', map: 'dazhu', x: 39, y: 24, color: '#a8c48f',
       shop: true,
-      stock: ['c_xiaohuan', 'c_juling', 'c_bigu', 'w_jingtie', 'a_jiaxiao', 'b_tiehu', 's_buxue'],
+      // 大竹峰是 9-14 级的地界，货色到灵品为止
+      stock: [
+        'c_xiaohuan', 'c_juling', 'c_bigu',
+        'w_zhuyeqing', 'w_yujian', 'a_qingyunpao', 'b_lingwan', 's_buxue',
+        't_fulongding', 'p_yupei',
+      ],
       lines: [
         '七弟，缺什么跟大师兄说。',
         '这些都是山下捎上来的，不赚你钱。',
@@ -72,9 +80,11 @@
     {
       key: 'shangren', name: '万货商人', title: '河阳城货栈', map: 'heyang', x: 23, y: 19, color: '#e8c060',
       shop: true,
+      // 河阳城是全图唯一的安全区，也是中期唯一的补给点：宝器打底，压两件仙器
       stock: [
         'c_xiaohuan', 'c_dahuan', 'c_juling', 'c_dajuling', 'c_jiuzhuan',
-        't_jinling', 't_fulongding', 't_shehun', 'p_yupei', 'p_lingyu', 's_yunxue',
+        't_shehun', 't_hehuanling', 't_shixuezhu', 't_xuanhuojian',
+        'p_lingyu', 'p_xuebi', 's_yunxue', 's_youxue',
       ],
       lines: [
         '客官，什么都有，就看你出不出得起价。',
@@ -85,7 +95,12 @@
     {
       key: 'tiejiang', name: '铁匠老陈', title: '河阳城铁铺', map: 'heyang', x: 12, y: 20, color: '#b08050',
       shop: true,
-      stock: ['w_jingtie', 'w_xuantie', 'w_hanbing', 'a_jiaxiao', 'a_jiasha', 'b_tiehu', 'b_lingwan', 'b_xuanwan'],
+      // 铁铺只管兵器和甲，但管到仙器——凡品让它退场，那些打怪随手就掉
+      stock: [
+        'w_xuantie', 'w_hanbing', 'w_jianglongchu', 'w_shihun', 'w_tianya',
+        'a_jiasha', 'a_xuepao', 'a_huoyunpao',
+        'b_xuanwan', 'b_guiwan',
+      ],
       lines: [
         '玄铁我这只剩两块，卖完就没了。',
         '刀剑无眼，握紧了。',
@@ -103,7 +118,12 @@
     {
       key: 'jinpinger', name: '金瓶儿', title: '合欢派', map: 'guiwangzong', x: 38, y: 24, color: '#e8a0c8',
       shop: true,
-      stock: ['t_hehuanling', 't_shixuezhu', 't_qiweiwugong', 'c_dahuan', 'c_jiuzhuan', 'p_xuebi'],
+      // 鬼王宗是 55 级往上的地界，也是唯一能买到神器的地方，价格自然吓人
+      stock: [
+        't_qiweiwugong', 't_liuhejing', 't_tianya', 't_zhenmozhu',
+        'b_shenwan', 's_lingxu', 'p_wangyou', 'p_hunpo',
+        'c_dahuan', 'c_jiuzhuan',
+      ],
       lines: [
         '哟，是你呀。要点什么？姐姐这儿好东西多着呢。',
         '鬼王宗的门，进来容易出去难。',
@@ -123,7 +143,12 @@
   ];
 
   var byKey = {};
-  for (var i = 0; i < LIST.length; i++) byKey[LIST[i].key] = LIST[i];
+  for (var i = 0; i < LIST.length; i++) {
+    // 和地图同一套格子，按同一个倍数铺开；漏了这步 NPC 会全挤在左上角
+    LIST[i].x = Math.round(LIST[i].x * ZX.MAPS.SCALE * 10) / 10;
+    LIST[i].y = Math.round(LIST[i].y * ZX.MAPS.SCALE * 10) / 10;
+    byKey[LIST[i].key] = LIST[i];
+  }
 
   ZX.NPCS = {
     all: LIST,
